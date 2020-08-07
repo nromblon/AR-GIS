@@ -51,6 +51,7 @@ namespace Assets.Scripts.CityGML2GO {
 			get { return hasInstantiatedCity; }
 			private set {
 				hasInstantiatedCity = value;
+				Debug.Log("City Instantiated: " + value);
 			}
 		}
 
@@ -63,12 +64,10 @@ namespace Assets.Scripts.CityGML2GO {
 		/// Could be any other input etc.
 		/// </summary>
 		void Update() {
-			if (Input.GetKeyDown(KeyCode.K) || Input.GetMouseButtonDown(0)) {
-				InstantiateCity();
-			}
+
 		}
 
-		void InstantiateCity() {
+		public void InstantiateCity() {
 
 			if (hasInstantiatedCity) {
 				return;
@@ -155,7 +154,7 @@ namespace Assets.Scripts.CityGML2GO {
 				Textures = new List<TextureInformation>();
 				yield return Run(Path.Combine(directoryName, gml));
 			}
-			hasInstantiatedCity = true;
+			HasInstantiatedCity = true;
 		}
 
 		/// <summary>
@@ -216,7 +215,7 @@ namespace Assets.Scripts.CityGML2GO {
 			MaterialHandler.ApplyMaterials(this);
 
 			if (isSingle)
-				hasInstantiatedCity = true;
+				HasInstantiatedCity = true;
 
 			yield return null;
 		}

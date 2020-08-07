@@ -3,6 +3,9 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - ARExperimentController
     - AlertPin
+    - Assets.Scripts.CityGML2GO.CityGml2GO
+    - Assets.Scripts.CityGML2GO.SemanticSurfaceMaterial
+    - Framework.Events.EventInspectorStandIn
     - GoogleARCore.ARCoreBackgroundRenderer
     - GoogleARCore.ARCoreCameraConfigFilter
     - GoogleARCore.ARCoreSession
@@ -16,7 +19,6 @@ ScriptsOnlyBuild:
     - GoogleARCore.Examples.Common.PlaneDiscoveryGuide
     - GoogleARCore.Examples.Common.PointcloudVisualizer
     - GoogleARCore.Examples.Common.RawImageVideoPlayer
-    - TownController
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
@@ -26,10 +28,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -50,7 +50,7 @@ ScriptsOnlyBuild:
     com.unity.multiplayer-hlapi.Runtime.dll:
     - UnityEngine.Networking.NetworkCallbacks
   sceneClasses:
-    Assets/ARExperiment/_Scenes/ARExperiment.unity:
+    Assets/_Main/Scenes/ARScene.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -71,13 +71,9 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
-    - Class: 65
-      Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
     - Class: 84
-      Script: {instanceID: 0}
-    - Class: 89
       Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
@@ -88,59 +84,63 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9768}
+      Script: {instanceID: 9774}
     - Class: 114
-      Script: {instanceID: 10032}
+      Script: {instanceID: 10064}
     - Class: 114
-      Script: {instanceID: 10086}
+      Script: {instanceID: 10126}
     - Class: 114
-      Script: {instanceID: 10346}
+      Script: {instanceID: 10418}
     - Class: 114
-      Script: {instanceID: 10548}
+      Script: {instanceID: 10626}
     - Class: 114
-      Script: {instanceID: 10560}
-    - Class: 114
-      Script: {instanceID: 10580}
+      Script: {instanceID: 10640}
     - Class: 114
       Script: {instanceID: 10660}
     - Class: 114
-      Script: {instanceID: 10882}
+      Script: {instanceID: 10752}
     - Class: 114
-      Script: {instanceID: 11088}
+      Script: {instanceID: 10998}
     - Class: 114
-      Script: {instanceID: 11244}
+      Script: {instanceID: 11022}
     - Class: 114
-      Script: {instanceID: 11268}
+      Script: {instanceID: 11156}
     - Class: 114
-      Script: {instanceID: 11352}
+      Script: {instanceID: 11236}
     - Class: 114
-      Script: {instanceID: 11366}
+      Script: {instanceID: 11412}
     - Class: 114
-      Script: {instanceID: 11472}
+      Script: {instanceID: 11438}
     - Class: 114
-      Script: {instanceID: 11478}
+      Script: {instanceID: 11524}
     - Class: 114
-      Script: {instanceID: 11568}
+      Script: {instanceID: 11538}
     - Class: 114
-      Script: {instanceID: 11670}
+      Script: {instanceID: 11652}
     - Class: 114
-      Script: {instanceID: 11912}
+      Script: {instanceID: 11662}
     - Class: 114
-      Script: {instanceID: 11916}
+      Script: {instanceID: 11764}
     - Class: 114
-      Script: {instanceID: 12036}
+      Script: {instanceID: 11872}
     - Class: 114
-      Script: {instanceID: 12072}
+      Script: {instanceID: 12130}
     - Class: 114
-      Script: {instanceID: 12096}
+      Script: {instanceID: 12134}
     - Class: 114
-      Script: {instanceID: 12462}
+      Script: {instanceID: 12264}
     - Class: 114
-      Script: {instanceID: 12484}
+      Script: {instanceID: 12300}
     - Class: 114
-      Script: {instanceID: 12552}
+      Script: {instanceID: 12328}
     - Class: 114
-      Script: {instanceID: 519320}
+      Script: {instanceID: 12610}
+    - Class: 114
+      Script: {instanceID: 12686}
+    - Class: 114
+      Script: {instanceID: 12728}
+    - Class: 114
+      Script: {instanceID: 12754}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -155,8 +155,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
-    - Class: 258
-      Script: {instanceID: 0}
     - Class: 328
       Script: {instanceID: 0}
     - Class: 329
@@ -170,10 +168,28 @@ ScriptsOnlyBuild:
     className: CanvasScaler
   - hash:
       serializedVersion: 2
+      Hash: 56c5369bcab49b064d593b89f3ca7811
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventListenerTransform
+  - hash:
+      serializedVersion: 2
       Hash: 3c08375166df118bd1801438fc36b92f
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SelectionCaret
+  - hash:
+      serializedVersion: 2
+      Hash: 4f6934d275f19a8d77c2c013c79844d4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Variables
+    className: TransformVariable
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventTransform
   - hash:
       serializedVersion: 2
       Hash: 87ff43d2baf3385cba327d8f803a4ebb
@@ -190,6 +206,12 @@ ScriptsOnlyBuild:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventString
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
     namespaceName: GoogleARCore.CrossPlatform
     className: XPAnchor
   - hash:
@@ -198,6 +220,18 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: GoogleARCore
     className: Anchor
+  - hash:
+      serializedVersion: 2
+      Hash: 654f078a313b90ed8b825d670f78db69
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Variables
+    className: BoolVariable
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventVector3
   - hash:
       serializedVersion: 2
       Hash: 5bd9a19c7b5f76c563418e28f48a561b
@@ -326,6 +360,12 @@ ScriptsOnlyBuild:
     className: HelloARController
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventObject
+  - hash:
+      serializedVersion: 2
       Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -410,6 +450,12 @@ ScriptsOnlyBuild:
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 282d40b12a85ea5d7470bda82557975d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.CityGML2GO.Scripts
+    className: BuildingProperties
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: GoogleARCore.Examples.ObjectManipulation
@@ -426,6 +472,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.SpatialTracking.dll
     namespaceName: UnityEngine.SpatialTracking
     className: TrackedPoseDriver
+  - hash:
+      serializedVersion: 2
+      Hash: 002061e6dd1a1aa9689ac339bf2e7dfe
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Variables
+    className: GameEventVariable
   - hash:
       serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
@@ -446,6 +498,12 @@ ScriptsOnlyBuild:
     className: PlaneDiscoveryGuide
   - hash:
       serializedVersion: 2
+      Hash: f0092310a54d59e5ca9c145c6e7cde38
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Variables
+    className: Vector3Variable
+  - hash:
+      serializedVersion: 2
       Hash: 303ad70ce203ad874efe2965d0fbcff9
     assemblyName: Unity.Analytics.Tracker.dll
     namespaceName: UnityEngine.Analytics
@@ -458,10 +516,28 @@ ScriptsOnlyBuild:
     className: AnalyticsTracker
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventListenerBase
+  - hash:
+      serializedVersion: 2
+      Hash: 89e8b1ce2aeb729e738214fb1dd04b12
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Variables
+    className: RaycastHitVariable
+  - hash:
+      serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: EventSystem
+  - hash:
+      serializedVersion: 2
+      Hash: cd85c771bf098b3e960485b9f240e017
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventListener
   - hash:
       serializedVersion: 2
       Hash: 0fb27be807aa299702f28ad0bcad1f46
@@ -470,10 +546,22 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.DebugUtils
+    className: ShowEventGizmos
+  - hash:
+      serializedVersion: 2
       Hash: b8a5e8091ab0b8861d2add371082c5e0
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SpriteAsset
+  - hash:
+      serializedVersion: 2
+      Hash: c88c4199b288356ec3eb2f0d85abc619
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.CityGML2GO
+    className: SemanticType
   - hash:
       serializedVersion: 2
       Hash: b6337c40e664256917540c23828614b4
@@ -492,6 +580,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Selectable
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventBool
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -524,16 +618,34 @@ ScriptsOnlyBuild:
     className: ARCoreBackgroundRenderer
   - hash:
       serializedVersion: 2
+      Hash: add5aac1495ea69924aba334c8362232
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AlertPin
+  - hash:
+      serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_Asset
   - hash:
       serializedVersion: 2
+      Hash: 63d4e7af96798a66fb5be95e22d4bb99
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventListenerString
+  - hash:
+      serializedVersion: 2
       Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ScrollRect
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventBase
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -548,6 +660,12 @@ ScriptsOnlyBuild:
     className: ARCoreWorldOriginHelper
   - hash:
       serializedVersion: 2
+      Hash: 1de74cf2d33e009d5d7ee92491fbbee3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.CityGML2GO
+    className: CityGml2GO
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: com.unity.multiplayer-hlapi.Runtime.dll
     namespaceName: UnityEngine.Networking
@@ -560,10 +678,28 @@ ScriptsOnlyBuild:
     className: AnalyticsEventTrackerEditor
   - hash:
       serializedVersion: 2
+      Hash: 8ca05ee99f4c826cfd96def1a904071c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventListenerBool
+  - hash:
+      serializedVersion: 2
+      Hash: 1cb5d3585089294a8f34cd65931b5f04
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Variables
+    className: GameEventObjectVariable
+  - hash:
+      serializedVersion: 2
       Hash: 21e871d89bbce53c038fc75ad1b7c7f3
     assemblyName: com.unity.multiplayer-hlapi.Runtime.dll
     namespaceName: UnityEngine.Networking
     className: NetworkManager
+  - hash:
+      serializedVersion: 2
+      Hash: 893fd42c15bbb8ad2128179706728de7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventListenerObject
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -582,6 +718,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: RemoteTestResultSender
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEvent
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -644,6 +786,12 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
+      Hash: e5fc4d8a631d11e9e30d448449e39ddb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventListenerGameObject
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: com.unity.multiplayer-hlapi.Runtime.dll
     namespaceName: UnityEngine.Networking
@@ -702,6 +850,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_FontAsset
+  - hash:
+      serializedVersion: 2
+      Hash: dcea87a8ba91ab0d56289a6f72651fe1
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.RuntimeSet
+    className: VRInputsEvents
   - hash:
       serializedVersion: 2
       Hash: e1300922cc039f41ab46a47f4cb05898
@@ -776,6 +930,12 @@ ScriptsOnlyBuild:
     className: NetworkBehaviour
   - hash:
       serializedVersion: 2
+      Hash: 5fbe8094c5d5abd8969c0675ed2a7a28
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Variables
+    className: GameEventListenerObjectVariable
+  - hash:
+      serializedVersion: 2
       Hash: ff7f58b226cfe4de0dc241bd88d5a904
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -792,6 +952,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TextMeshProUGUI
+  - hash:
+      serializedVersion: 2
+      Hash: 031b15ded38ccce7084b77609f67d5d1
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.Framework.Utils
+    className: GoogleMap
   - hash:
       serializedVersion: 2
       Hash: 5f1752ed2092162f016c19510c28a8b9
@@ -824,6 +990,12 @@ ScriptsOnlyBuild:
     className: DetectedPlaneGenerator
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventGameObject
+  - hash:
+      serializedVersion: 2
       Hash: 88cc9df3c6fc697bfbeacd24c0d6f2d7
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
@@ -836,10 +1008,16 @@ ScriptsOnlyBuild:
     className: DetectedPlaneVisualizer
   - hash:
       serializedVersion: 2
-      Hash: 26085686ea4a6b89b1692149a3621578
+      Hash: cf4d7d7c98f92241486f603efbde7a35
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ARExperimentController
+  - hash:
+      serializedVersion: 2
+      Hash: 198b8df160011083d7992bbee436e5ba
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Variables
+    className: FloatVariable
   - hash:
       serializedVersion: 2
       Hash: 1db723b554a361a812257e508051085f
@@ -884,10 +1062,22 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
+      Hash: f7b85b2b637bb785f1461a819ca61075
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.RuntimeSet
+    className: VRInputsBoolean
+  - hash:
+      serializedVersion: 2
       Hash: e6ae40841db498b6e673877ac45ad208
     assemblyName: com.unity.multiplayer-hlapi.Runtime.dll
     namespaceName: UnityEngine.Networking
     className: NetworkAnimator
+  - hash:
+      serializedVersion: 2
+      Hash: 086148797312c4e58f4a2467c8011eb4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: GameEventListenerVector3
   - hash:
       serializedVersion: 2
       Hash: df434544c9f7b33d1cc7e635b180d279
@@ -914,10 +1104,22 @@ ScriptsOnlyBuild:
     className: SelectionManipulator
   - hash:
       serializedVersion: 2
+      Hash: b06676b93e63c61a0ce20b95724a75dd
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.CityGML2GO
+    className: SemanticSurfaceMaterial
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: BaseInput
+  - hash:
+      serializedVersion: 2
+      Hash: aa80b4ed722692f7fe3f62f728477c44
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Variables
+    className: StringVariable
   - hash:
       serializedVersion: 2
       Hash: 9b895dcabbc1faf095c000c32d471fd0
@@ -948,6 +1150,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SubMesh
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Events
+    className: EventInspectorStandIn
   - hash:
       serializedVersion: 2
       Hash: 20eeaeae829475b5e354d1f626c51a2b
@@ -998,6 +1206,12 @@ ScriptsOnlyBuild:
     className: ToggleGroup
   - hash:
       serializedVersion: 2
+      Hash: 28f5c6b969ddd058a7cb8b2525714f39
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Framework.Variables
+    className: IntVariable
+  - hash:
+      serializedVersion: 2
       Hash: 414d34b63636de381af23930c009caf3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -1008,13 +1222,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: add5aac1495ea69924aba334c8362232
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: AlertPin
   platform: 13
   scenePathNames:
-  - Assets/ARExperiment/_Scenes/ARExperiment.unity
-  playerPath: D:/Projects/ARCore Experiment/arexperiment.apk
+  - Assets/_Main/Scenes/ARScene.unity
+  playerPath: D:/Projects/Dissertation_AR-GIS/ARCore_FixCity.apk
