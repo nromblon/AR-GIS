@@ -55,6 +55,7 @@ namespace Assets.Scripts.CityGML2GO
             Debug.Log(_cityGml2Go.SemanticSurfaces.Count);
             foreach (var name in _cityGml2Go.SemanticSurfaces)
             {
+				// Generate random Materials if none has been assigned
                 var mat = new Material(Shader)
                 {
                     color = Random.ColorHSV(),
