@@ -16,11 +16,13 @@ using Material = UnityEngine.Material;
 using UnityEngine.Networking;
 
 namespace Assets.Scripts.CityGML2GO {
+	
 	public partial class CityGml2GO : MonoBehaviour {
 		[LabelOverride("File-/Directory Name")]
 
 		public string Filename;
 		public bool StreamingAssets;
+		public string FilePath;
 
 		public Material DefaultMaterial;
 		public GameObject Parent;
@@ -57,6 +59,7 @@ namespace Assets.Scripts.CityGML2GO {
 
 		void Start() {
 			SemanticSurfMat = GetComponent<SemanticSurfaceMaterial>();
+			
 		}
 
 		/// <summary>
@@ -64,12 +67,13 @@ namespace Assets.Scripts.CityGML2GO {
 		/// Could be any other input etc.
 		/// </summary>
 		void Update() {
-
+			//Debug.Log("Updating");
+			//InstantiateCity();
 		}
 
 		public void InstantiateCity() {
-
 			if (hasInstantiatedCity) {
+				RefreshMeshes();
 				return;
 			}
 
@@ -81,6 +85,9 @@ namespace Assets.Scripts.CityGML2GO {
 				// Change this to browse files
 				fn = Path.Combine(Application.persistentDataPath, Filename);
 			}
+
+			FilePath = fn;
+			Debug.Log("FilePath: " + fn);
 
 			Polygons = new List<GameObject>();
 
@@ -141,6 +148,16 @@ namespace Assets.Scripts.CityGML2GO {
 
 			ActualTranslate = translate / count;
 		}
+		 
+		public void RefreshMeshes() {
+			Debug.Log("Refreshing Meshes");
+			foreach (var mf in GetComponentsInChildren<MeshFilter>()) {
+				var childMesh = mf.mesh;
+				childMesh.RecalculateNormals();
+				childMesh.RecalculateBounds();
+				childMesh.RecalculateTangents();
+			}
+		}
 
 		/// <summary>
 		/// Proccesses all GML files ina directory
@@ -154,6 +171,15 @@ namespace Assets.Scripts.CityGML2GO {
 				Textures = new List<TextureInformation>();
 				yield return Run(Path.Combine(directoryName, gml));
 			}
+
+			// Do A recursive search for all subdirectories
+			foreach(var dir in Directory.GetDirectories(directoryName)) {
+				RunDirectory(dir);
+			}
+
+			// Refresh Meshes
+			RefreshMeshes();
+
 			HasInstantiatedCity = true;
 		}
 
@@ -219,6 +245,9 @@ namespace Assets.Scripts.CityGML2GO {
 
 			yield return null;
 		}
-	}
 
+		public void SetFilePath(string path) {
+			this.Filename = path;
+		}
+	}
 }

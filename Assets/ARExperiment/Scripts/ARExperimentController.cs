@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 using Assets.Scripts.CityGML2GO;
 
+using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
 // Set up touch input propagation while using Instant Preview in the editor.
@@ -20,9 +21,11 @@ public class ARExperimentController : MonoBehaviour
 	/// </summary>
 	public Camera FirstPersonCamera;
 
-	public GameObject CityGMLManager;
+	public GameObject CGMLGO;
 
 	public GameObject PingPrefab;
+
+	public GameObject cube;
 
 	public GameObject AlertPrefab;
 
@@ -46,6 +49,10 @@ public class ARExperimentController : MonoBehaviour
 		// Enable ARCore to target 60fps camera capture frame rate on supported devices.
 		// Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
 		Application.targetFrameRate = 60;
+	}
+
+	private void Start() {
+		//SceneManager.MoveGameObjectToScene
 	}
 
 	// Update is called once per frame
@@ -153,10 +160,23 @@ public class ARExperimentController : MonoBehaviour
 						if (!hasPlacedTown) {
 
 							// Anchor the town object
-							AnchorCity(hit);
-							CityGMLManager.GetComponent<CityGml2GO>().InstantiateCity();
+							if(CGMLGO == null) {
+								CGMLGO = CityGMLManager.Instance.gameObject;
+							}
 
+
+							CGMLGO.SetActive(true);
+							AnchorCity(hit);
+							//CGMLGO.GetComponent<CityGml2GO>().InstantiateCity();
+							//prefab = TowmModel;
+							CGMLGO.GetComponent<CityGml2GO>().RefreshMeshes();
+							//AnchorObject(prefab, hit);
 							//townController = town.GetComponent<TownController>();
+
+
+							prefab = cube;
+							AnchorObject(prefab, hit);
+
 							hasPlacedTown = true;
 						}
 						else {
@@ -187,9 +207,13 @@ public class ARExperimentController : MonoBehaviour
 
 		// Compensate for the hitPose rotation facing away from the raycast (i.e.
 		// camera).
-		CityGMLManager.transform.Rotate(0, 0, 0, Space.Self);
+		CGMLGO.transform.localScale = new Vector3(.01f, .01f, .01f);
+		CGMLGO.transform.position = hit.Pose.position;
+		CGMLGO.transform.rotation = hit.Pose.rotation;
 
-		CityGMLManager.transform.parent = anchor.transform;
+		CGMLGO.transform.Rotate(0, 0, 0, Space.Self);
+
+		CGMLGO.transform.parent = anchor.transform;
 	}
 
 	/// <summary>
