@@ -1,5 +1,7 @@
-Temp/*
 *.lock
 *.ide
 *.ide-shm
 *.ide-wal
+Temp/*.apk
+Library/*
+obj/*

@@ -4,6 +4,10 @@ using GoogleARCore.Examples.Common;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+using Assets.Scripts.CityGML2GO;
+
+using UnityEngine.SceneManagement;
+
 #if UNITY_EDITOR
 // Set up touch input propagation while using Instant Preview in the editor.
 using Input = GoogleARCore.InstantPreviewInput;
@@ -17,9 +21,11 @@ public class ARExperimentController : MonoBehaviour
 	/// </summary>
 	public Camera FirstPersonCamera;
 
-	public GameObject TownPrefab;
+	public GameObject CGMLGO;
 
 	public GameObject PingPrefab;
+
+	public GameObject cube;
 
 	public GameObject AlertPrefab;
 
@@ -39,10 +45,16 @@ public class ARExperimentController : MonoBehaviour
 	private bool hasPlacedTown = false;
 	private bool scaleMode = false;
 
+	public GameObject PlayAreaSelectorPrefab;
+
 	public void Awake() {
 		// Enable ARCore to target 60fps camera capture frame rate on supported devices.
 		// Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
 		Application.targetFrameRate = 60;
+	}
+
+	private void Start() {
+		//SceneManager.MoveGameObjectToScene
 	}
 
 	// Update is called once per frame
@@ -54,24 +66,25 @@ public class ARExperimentController : MonoBehaviour
 		}
 
 		// If the player has not touched the screen, we are done with this update.
-		Touch touch = Input.GetTouch(0);
 		if (Input.touchCount < 1) {
 			return;
 		}
+
+		Touch touch = Input.GetTouch(0);
 
 		// Should not handle input if the player is pointing on UI.
 		if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) {
 			return;
 		}
 
-		// Pinch to scale actions in this block.
-		if (scaleMode && Input.touchCount > 1) {
-			Touch touch1 = Input.GetTouch(1);
+		//// Pinch to scale actions in this block.
+		//if (scaleMode && Input.touchCount > 1) {
+		//	Touch touch1 = Input.GetTouch(1);
 
-			townController.PinchToScale(touch, touch1);
+		//	townController.PinchToScale(touch, touch1);
 
-			return;
-		}
+		//	return;
+		//}
 
 		// If using two fingers, start scale mode and enable town outline
 		if (!scaleMode && hasPlacedTown && Input.touchCount > 1) {
@@ -149,11 +162,23 @@ public class ARExperimentController : MonoBehaviour
 						if (!hasPlacedTown) {
 
 							// Anchor the town object
-							prefab = TownPrefab;
+							if(CGMLGO == null) {
+								CGMLGO = CityGMLManager.Instance.gameObject;
+							}
 
-							GameObject town = AnchorObject(prefab, hit);
 
-							townController = town.GetComponent<TownController>();
+							CGMLGO.SetActive(true);
+							AnchorCity(hit);
+							//CGMLGO.GetComponent<CityGml2GO>().InstantiateCity();
+							//prefab = TowmModel;
+							CGMLGO.GetComponent<CityGml2GO>().RefreshMeshes();
+							//AnchorObject(prefab, hit);
+							//townController = town.GetComponent<TownController>();
+
+
+							prefab = cube;
+							AnchorObject(prefab, hit);
+
 							hasPlacedTown = true;
 						}
 						else {
@@ -177,15 +202,31 @@ public class ARExperimentController : MonoBehaviour
 
 	}
 
+	private void AnchorCity(TrackableHit hit) {
+		// Create an anchor to allow ARCore to track the hitpoint as understanding of
+		// the physical world evolves.
+		var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+		// Compensate for the hitPose rotation facing away from the raycast (i.e.
+		// camera).
+		CGMLGO.transform.localScale = new Vector3(.01f, .01f, .01f);
+		CGMLGO.transform.position = hit.Pose.position;
+		CGMLGO.transform.rotation = hit.Pose.rotation;
+
+		CGMLGO.transform.Rotate(0, 0, 0, Space.Self);
+
+		CGMLGO.transform.parent = anchor.transform;
+	}
+
 	/// <summary>
 	/// Creates an anchored object based on a hit trackable point .
 	///
 	/// </summary>
-	/// <param name="prefab"></param>
+	/// <param name="toAnchor"></param>
 	/// <param name="hit"></param>
-	private GameObject AnchorObject(GameObject prefab, TrackableHit hit) {
+	private GameObject AnchorObject(GameObject toAnchor, TrackableHit hit) {
 		// Instantiate prefab at the hit pose.
-		var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+		var gameObject = Instantiate(toAnchor, hit.Pose.position, hit.Pose.rotation);
 
 		// Compensate for the hitPose rotation facing away from the raycast (i.e.
 		// camera).

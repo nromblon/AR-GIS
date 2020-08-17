@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{607B92C7-0065-02B7-0664-07F8513321EA}</ProjectGuid>
+    <ProjectGuid>{3E5A4D7F-CAF5-98D8-99ED-F41EC05FE5C2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -62,9 +62,135 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Main\Scripts\ARSceneController.cs" />
+    <Compile Include="Assets\_Main\Scripts\CityGMLManager.cs" />
+    <Compile Include="Assets\_Main\Scripts\ConfirmBtnController.cs" />
+    <Compile Include="Assets\_Main\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedRotationManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedScaleManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizSelectionManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizTranslationManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\PlayAreaController.cs" />
+    <Compile Include="Assets\_Main\Scripts\PlayAreaManager.cs" />
+    <Compile Include="Assets\_Main\Scripts\PlayAreaScaleManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Utilities\DontDestroy.cs" />
+    <Compile Include="Assets\_Main\Scripts\Utilities\ShowBoundsGizmo.cs" />
+    <Compile Include="Assets\_Main\Scripts\Utilities\Utilities.cs" />
     <Compile Include="Assets\ARExperiment\Scripts\AlertPin.cs" />
     <Compile Include="Assets\ARExperiment\Scripts\ARExperimentController.cs" />
     <Compile Include="Assets\ARExperiment\Scripts\TownController.cs" />
+    <Compile Include="Assets\CityGML2GO\BuildingProperties.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\DelaunayTriangle.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\Sweep\AdvancingFront.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\Sweep\AdvancingFrontNode.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\Sweep\DTSweep.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\Sweep\DTSweepBasin.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\Sweep\DTSweepConstraint.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\Sweep\DTSweepContext.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\Sweep\DTSweepDebugContext.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\Sweep\DTSweepEdgeEvent.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\Sweep\DTSweepPointComparator.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\Sweep\PointOnEdgeException.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\ITriangulatable.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Orientation.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Polygon\Contour.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Polygon\Polygon.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Polygon\PolygonPoint.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Polygon\PolygonSet.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Polygon\PolygonUtil.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Sets\ConstrainedPointSet.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Sets\PointSet.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\TriangulationAlgorithm.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\TriangulationConstraint.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\TriangulationContext.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\TriangulationDebugContext.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\TriangulationMode.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\TriangulationPoint.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Util\PointGenerator.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Util\PolygonGenerator.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Util\TriangulationUtil.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Utility\FixedArray3.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Utility\FixedBitArray3.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Utility\MathUtil.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Utility\Point2D.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Utility\Point2DList.cs" />
+    <Compile Include="Assets\CityGML2GO\Poly2Tri\Utility\Rect2D.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\CityGML2GO\BuildingProperties.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\CityGML2GO\CityGml2GO.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\CityGML2GO\CityGml2GO.TextureInformation.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\CityGML2GO\CityGml2GO.TextureTarget.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\CityGML2GO\Poly2Mesh.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\CityGML2GO\SemanticSurfaceMaterial.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\CityGML2GO\SemanticType.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\CityGML2GO\TranslateVector.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\CityGML2GO\Triangulator.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\DebugUtils\ShowEventGizmos.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\EventDescription.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\EventInspectorStandIn.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEvent.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventBase.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventBool.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventGameObject.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventListener.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventListenerBase.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventListenerBool.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventListenerGameObject.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventListenerObject.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventListenerString.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventListenerTransform.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventListenerVector3.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventObject.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventString.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventTransform.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\GameEventVector3.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\UnityEvents\EventBase.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\UnityEvents\EventBool.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\UnityEvents\EventGameObject.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\UnityEvents\EventObject.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\UnityEvents\EventString.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\UnityEvents\EventTransform.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Events\UnityEvents\EventVector3.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\RuntimeSet\Dictionnary\RuntimeDictionnary.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\RuntimeSet\Dictionnary\VRInputsBoolean.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\RuntimeSet\Dictionnary\VRInputsEvents.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\RuntimeSet\List\RuntimeSet.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Utils\GoogleMap.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Utils\LabelOverride.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Utils\Log.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Utils\Triangulator.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\BoolReference.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\BoolVariable.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\FloatReference.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\FloatVariable.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\GameEventListenerObjectReference.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\GameEventListenerObjectVariable.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\GameEventObjectReference.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\GameEventObjectVariable.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\GameEventReference.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\GameEventVariable.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\GameobjectReference.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\GameobjectVariable.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\IntReference.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\IntVariable.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\RaycastHitReference.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\RaycastHitVariable.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\ReferenceBase.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\StringReference.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\StringVariable.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\TransformReference.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\TransformVariable.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\VariableBase.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\Vector3Reference.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\Framework\Variables\Vector3Variable.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\GmlHandlers\Building.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\GmlHandlers\BuildingProperties.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\GmlHandlers\Material.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\GmlHandlers\MultiCurve.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\GmlHandlers\Polygon.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\GmlHandlers\Position.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\GmlHandlers\Semantics.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\GmlHandlers\Texture.cs" />
+    <Compile Include="Assets\CityGML2GO\Scripts\RotateAround.cs" />
     <Compile Include="Assets\GoogleARCore\Examples\AugmentedFaces\Scripts\ARCoreAugmentedFaceMeshFilter.cs" />
     <Compile Include="Assets\GoogleARCore\Examples\AugmentedFaces\Scripts\ARCoreAugmentedFaceRig.cs" />
     <Compile Include="Assets\GoogleARCore\Examples\AugmentedFaces\Scripts\AugmentedFacesExampleController.cs" />
@@ -258,77 +384,99 @@
     <Compile Include="Assets\GoogleARCore\SDK\Scripts\XPTrackingState.cs" />
     <Compile Include="Assets\QuickOutline\Scripts\OutlinedModel.cs" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\PlaneGrid.shader" />
+    <None Include="Assets\CityGML2GO\Scripts\Framework\Events\But why all these classes.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\QuickOutline\Resources\Shaders\OutlineFill.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\MobileDiffuseWithLightEstimation.shader" />
+    <None Include="Assets\CityGML2GO\Poly2Tri\AUTHORS.txt" />
     <None Include="Assets\GoogleARCore\SDK\Materials\ARBackground.shader" />
+    <None Include="Assets\_Main\Materials\Shaders\FadeAway.shader" />
+    <None Include="Assets\CityGML2GO\Poly2Tri\LICENSE.txt" />
     <None Include="Assets\QuickOutline\Readme.txt" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\TransparentShadow.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\GoogleARCore\Examples\AugmentedFaces\Materials\Shaders\AugmentedFaceOccluder.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\CameraColorRampShader.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\ARExperiment\Materials\Shaders\UI_Default_OverlayNoZTest.shader" />
     <None Include="Assets\Simple city plain\Read_me.txt" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\PointCloud.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\GoogleARCore\Examples\ComputerVision\Materials\EdgeDetectionBackground.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\GoogleARCore\SDK\Materials\ARCoreDepth.cginc" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\QuickOutline\Resources\Shaders\OutlineMask.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\MobileSpecularWithLightEstimation.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\OcclusionImageEffect.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Editor">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-weaver.Editor">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.XR.LegacyInputHelpers">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.SpatialTracking">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpatialTracking">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.XR.LegacyInputHelpers">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Runtime">
-      <HintPath>D:/Projects/ARCore Experiment/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Programs/Unity Other Versions/2019.2.6f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -502,22 +650,22 @@
       <HintPath>D:/Programs/Unity Other Versions/2019.2.6f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf">
-      <HintPath>D:/Projects/ARCore Experiment/Assets/GoogleARCore/SDK/Plugins/Google.Protobuf.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Assets/GoogleARCore/SDK/Plugins/Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Advertisements">
-      <HintPath>D:/Projects/ARCore Experiment/Library/PackageCache/com.unity.ads@2.3.1/Runtime/UnityEngine.Advertisements.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/PackageCache/com.unity.ads@2.3.1/Runtime/UnityEngine.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Advertisements.Editor">
-      <HintPath>D:/Projects/ARCore Experiment/Library/PackageCache/com.unity.ads@2.3.1/Runtime/UnityEngine.Advertisements.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/PackageCache/com.unity.ads@2.3.1/Runtime/UnityEngine.Advertisements.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/Projects/ARCore Experiment/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/Projects/ARCore Experiment/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/Projects/ARCore Experiment/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Programs/Unity Other Versions/2019.2.6f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -873,6 +1021,12 @@
     <Reference Include="Boo.Lang">
       <HintPath>D:/Programs/Unity Other Versions/2019.2.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="SimpleFileBrowser.Runtime.csproj">
+      <Project>{E2B6EAA3-4315-9A38-9362-9E597950E21F}</Project>
+      <Name>SimpleFileBrowser.Runtime</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
