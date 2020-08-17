@@ -62,8 +62,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Main\Scripts\ARSceneController.cs" />
     <Compile Include="Assets\_Main\Scripts\CityGMLManager.cs" />
+    <Compile Include="Assets\_Main\Scripts\ConfirmBtnController.cs" />
     <Compile Include="Assets\_Main\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedRotationManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedScaleManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizSelectionManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizTranslationManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\PlayAreaController.cs" />
+    <Compile Include="Assets\_Main\Scripts\PlayAreaManager.cs" />
+    <Compile Include="Assets\_Main\Scripts\PlayAreaScaleManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Utilities\DontDestroy.cs" />
+    <Compile Include="Assets\_Main\Scripts\Utilities\ShowBoundsGizmo.cs" />
+    <Compile Include="Assets\_Main\Scripts\Utilities\Utilities.cs" />
     <Compile Include="Assets\ARExperiment\Scripts\AlertPin.cs" />
     <Compile Include="Assets\ARExperiment\Scripts\ARExperimentController.cs" />
     <Compile Include="Assets\ARExperiment\Scripts\TownController.cs" />
@@ -379,6 +391,7 @@
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\MobileDiffuseWithLightEstimation.shader" />
     <None Include="Assets\CityGML2GO\Poly2Tri\AUTHORS.txt" />
     <None Include="Assets\GoogleARCore\SDK\Materials\ARBackground.shader" />
+    <None Include="Assets\_Main\Materials\Shaders\FadeAway.shader" />
     <None Include="Assets\CityGML2GO\Poly2Tri\LICENSE.txt" />
     <None Include="Assets\QuickOutline\Readme.txt" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\TransparentShadow.shader" />

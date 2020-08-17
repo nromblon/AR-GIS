@@ -17,6 +17,9 @@ using UnityEngine.Networking;
 
 namespace Assets.Scripts.CityGML2GO {
 	
+	/// <summary>
+	/// CityGML Generator. Generates gameobjects based from a GML file.
+	/// </summary>
 	public partial class CityGml2GO : MonoBehaviour {
 		[LabelOverride("File-/Directory Name")]
 
@@ -39,8 +42,10 @@ namespace Assets.Scripts.CityGML2GO {
 		public float CurveThickness;
 		public GameObject LineRendererPrefab;
 		public bool GenerateColliders;
-		public List<string> SemanticSurfaces = new List<string> { "GroundSurface", "WallSurface", "RoofSurface", "ClosureSurface", "CeilingSurface", "InteriorWallSurface", "FloorSurface", "OuterCeilingSurface", "OuterFloorSurface", "Door", "Window" };
 
+
+		public bool ApplyTextures = false;
+		public List<string> SemanticSurfaces = new List<string> { "GroundSurface", "WallSurface", "RoofSurface", "ClosureSurface", "CeilingSurface", "InteriorWallSurface", "FloorSurface", "OuterCeilingSurface", "OuterFloorSurface", "Door", "Window" };
 		public List<Poly2Mesh.Polygon> oriPoly = new List<Poly2Mesh.Polygon>();
 		public List<GameObject> Polygons = new List<GameObject>();
 		public Dictionary<string, List<string>> Materials = new Dictionary<string, List<string>>();
@@ -63,14 +68,10 @@ namespace Assets.Scripts.CityGML2GO {
 		}
 
 		/// <summary>
-		/// Check if K key is pressed, if so, run the import.
-		/// Could be any other input etc.
+		/// Instantiates the city. 
+		/// Changed by Neil Romblon, August 2020. Moved from Update() 
+		/// and added a couple lines to allow persistentDataPath as file location.
 		/// </summary>
-		void Update() {
-			//Debug.Log("Updating");
-			//InstantiateCity();
-		}
-
 		public void InstantiateCity() {
 			if (hasInstantiatedCity) {
 				RefreshMeshes();
@@ -78,6 +79,11 @@ namespace Assets.Scripts.CityGML2GO {
 			}
 
 			var fn = "";
+
+			#if UNITY_ANDROID
+			StreamingAssets = false;
+			#endif
+
 			if (StreamingAssets) {
 				fn = Path.Combine(Application.streamingAssetsPath, Filename);
 			}
@@ -124,7 +130,7 @@ namespace Assets.Scripts.CityGML2GO {
 		}
 
 		/// <summary>
-		///         /// As the values of GML are way outside of unitys range, you should apply a global translate vector to it.
+		/// As the values of GML are way outside of unitys range, you should apply a global translate vector to it.
 		/// SetTranslate tries to calculate that vector.
 		/// </summary>
 		/// <param name="directory"></param>
@@ -238,7 +244,8 @@ namespace Assets.Scripts.CityGML2GO {
 				}
 			}
 			//CombineMeshes();
-			MaterialHandler.ApplyMaterials(this);
+			if(ApplyTextures)
+				MaterialHandler.ApplyMaterials(this);
 
 			if (isSingle)
 				HasInstantiatedCity = true;

@@ -1,2 +1,5 @@
-
+Temp/*
 Temp/UnityLockfile
+*.apk
+Library/*
+obj/*

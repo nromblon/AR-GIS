@@ -8,6 +8,7 @@ TagManager:
   - Alert
   - UI Camera
   - CityGML
+  - ManipulationSystem
   layers:
   - Default
   - TransparentFX
@@ -44,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Buttons
+    uniqueID: 2791299949
     locked: 0

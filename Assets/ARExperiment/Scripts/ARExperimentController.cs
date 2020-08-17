@@ -45,6 +45,8 @@ public class ARExperimentController : MonoBehaviour
 	private bool hasPlacedTown = false;
 	private bool scaleMode = false;
 
+	public GameObject PlayAreaSelectorPrefab;
+
 	public void Awake() {
 		// Enable ARCore to target 60fps camera capture frame rate on supported devices.
 		// Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.

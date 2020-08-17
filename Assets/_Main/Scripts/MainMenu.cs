@@ -18,6 +18,9 @@ public class MainMenu : MonoBehaviour
 
 	private void Start() {
 		StartBtn.GetComponentInChildren<TextMeshProUGUI>().SetText("City Not Loaded");
+		if(CGML2GO == null) {
+			CGML2GO = GameObject.FindGameObjectWithTag("CityGML").GetComponent<CityGml2GO>();
+		}
 	}
 
 	public void Proceed() {
@@ -54,6 +57,7 @@ public class MainMenu : MonoBehaviour
 
 		StartBtn.GetComponentInChildren<TextMeshProUGUI>().SetText("Proceed");
 		StartBtn.interactable = true;
+		CityGMLManager.Instance.RecenterChildren();
 	}
 
 	IEnumerator LoadMainScene() {
@@ -66,7 +70,6 @@ public class MainMenu : MonoBehaviour
 		//}
 
 		CGML2GO.gameObject.SetActive(false);
-		DontDestroyOnLoad(CGML2GO.gameObject);
 		//SceneManager.MoveGameObjectToScene(CGML2GO.gameObject, SceneManager.GetSceneByName("ARScene"));
 		SceneManager.LoadScene("ARScene");
 		yield return null;

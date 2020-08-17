@@ -29,9 +29,11 @@ namespace GoogleARCore.Examples.ObjectManipulation
     /// </summary>
     public class RotationManipulator : Manipulator
     {
+		public bool IsDragOperated = false;
+
         private const float k_RotationRateDegreesDrag = 100.0f;
         private const float k_RotationRateDegreesTwist = 2.5f;
-
+		
         /// <summary>
         /// Returns true if the manipulation can be started for the given Drag gesture.
         /// </summary>
@@ -39,6 +41,9 @@ namespace GoogleARCore.Examples.ObjectManipulation
         /// <returns>True if the manipulation can be started.</returns>
         protected override bool CanStartManipulationForGesture(DragGesture gesture)
         {
+			if (!IsDragOperated)
+				return false;
+
             if (!IsSelected())
             {
                 return false;
