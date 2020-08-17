@@ -2,6 +2,7 @@
 *.ide
 *.ide-shm
 *.ide-wal
-Temp/*.apk
+Temp/*
+*.apk
 Library/*
 obj/*
