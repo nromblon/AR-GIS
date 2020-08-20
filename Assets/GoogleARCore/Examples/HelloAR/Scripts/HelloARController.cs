@@ -173,7 +173,6 @@ namespace GoogleARCore.Examples.HelloAR
 
         /// <summary>
         /// Check and update the application lifecycle.
-		/// Checks Motion Tracking
         /// </summary>
         private void _UpdateApplicationLifecycle()
         {

@@ -7,6 +7,11 @@ using GoogleARCore.Examples.ObjectManipulation;
 
 public class PlayAreaManager : Manipulator
 {
+	private static PlayAreaManager instance;
+	public static PlayAreaManager Instance {
+		get { return instance; }
+	}
+
 	public GameObject PlayAreaPrefab;
 	private PlayAreaController playArea;
 	public PlayAreaController PlayArea {
@@ -21,8 +26,12 @@ public class PlayAreaManager : Manipulator
 
 	private ARSceneController sceneController;
 
-    // Start is called before the first frame update
-    void Start()
+	private void Awake() {
+		instance = this;
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
 		hasPlacedPlayArea = false;
 		hasConfirmedPlayArea = false;
@@ -33,6 +42,9 @@ public class PlayAreaManager : Manipulator
 
 	#region Manipulator Methods
 	protected override bool CanStartManipulationForGesture(TapGesture gesture) {
+		if (!ARSceneController.Instance.CanPlacePlayArea)
+			return false;
+
 		// Only accept when no object is selected, to start dropping bounds
 		if (gesture.TargetObject != null)
 			return false;
@@ -49,8 +61,6 @@ public class PlayAreaManager : Manipulator
 
 		if (gesture.TargetObject != null)
 			return;
-
-		Debug.Log("TapGesture on PlayAreaManager passed prechecks");
 
 		// Raycast against the location the player touched to search for planes.
 		TrackableHit hit;
@@ -98,11 +108,16 @@ public class PlayAreaManager : Manipulator
 
 		Bounds PABounds = playArea.Bounds;
 		ARSceneController.Instance.OnPlayAreaConfirmed(PABounds,this);
+		playArea.OnPlacementConfirm();
+		Debug.Log("Play Area has been placed.");
 	}
 
 	public void RemovePlacement() {
+		CityGMLManager.Instance.b_IsCityPlaced = false;
+		CityGMLManager.Instance.Deselect();
 		hasPlacedPlayArea = false;
 		hasConfirmedPlayArea = false;
+		PlayArea.OnShowPlayArea();
 		Destroy(playArea);
 		playArea = null;
 	}

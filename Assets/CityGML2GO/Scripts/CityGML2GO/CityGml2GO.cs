@@ -80,9 +80,9 @@ namespace Assets.Scripts.CityGML2GO {
 
 			var fn = "";
 
-			#if UNITY_ANDROID
-			StreamingAssets = false;
-			#endif
+			if (Application.platform == RuntimePlatform.Android) {
+				StreamingAssets = false;
+			}
 
 			if (StreamingAssets) {
 				fn = Path.Combine(Application.streamingAssetsPath, Filename);

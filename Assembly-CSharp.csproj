@@ -66,6 +66,7 @@
     <Compile Include="Assets\_Main\Scripts\CityGMLManager.cs" />
     <Compile Include="Assets\_Main\Scripts\ConfirmBtnController.cs" />
     <Compile Include="Assets\_Main\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\CityTranslationManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedRotationManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedScaleManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizSelectionManipulator.cs" />

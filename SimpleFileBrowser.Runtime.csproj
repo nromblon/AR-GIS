@@ -74,14 +74,14 @@
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\SimpleRecycledListView\ListItem.cs" />
     <Compile Include="Assets\Plugins\SimpleFileBrowser\Scripts\SimpleRecycledListView\RecycledListView.cs" />
     <None Include="Assets\Plugins\SimpleFileBrowser\README.txt" />
-    <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Programs/Unity Other Versions/2019.2.6f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

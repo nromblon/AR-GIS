@@ -4,7 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using GoogleARCore;
 using GoogleARCore.Examples.Common;
+using GoogleARCore.Examples.ObjectManipulation;
 using FixCityAR;
+
+#if UNITY_EDITOR
+// Set up touch input propagation while using Instant Preview in the editor.
+using Input = GoogleARCore.InstantPreviewInput;
+#endif
 
 public class ARSceneController : MonoBehaviour
 {
@@ -15,10 +21,16 @@ public class ARSceneController : MonoBehaviour
 		}
 	}
 
-	public DepthMenu depthMenu;
+	public DepthMenu DepthMenu;
 	public Camera ARCamera;
+	public PlaneDiscoveryGuide planeDiscoveryGuide;
+	private bool planeDiscoveryRefreshed = false;
 
 	private bool m_IsQuitting = false;
+	public bool CanPlacePlayArea = false;
+
+	private bool DepthMenuOpened = false;
+
 	
     void Awake()
     {
@@ -33,45 +45,39 @@ public class ARSceneController : MonoBehaviour
     {
 		_UpdateApplicationLifecycle();
 
+		Debug.Log("Session status: " + Session.Status);
+
 		#region Input pre-checks
-		if (depthMenu != null && !depthMenu.CanPlaceAsset()) {
+		// Checks if Depth Menu windows are open
+		if (DepthMenu != null && !DepthMenu.CanPlaceAsset()) {
+			CanPlacePlayArea = false;
 			return;
 		}
+
 		// If the player has not touched the screen, we are done with this update.
 		if (Input.touchCount < 1) {
+			CanPlacePlayArea = false;
 			return;
 		}
+
 		Touch touch = Input.GetTouch(0);
 		// Should not handle input if the player is pointing on UI.
 		if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) {
+			CanPlacePlayArea = false;
 			return;
 		}
 		#endregion
 
+		if (!DepthMenuOpened && DepthMenu != null) {
+			// This enables Plane Discovery Guide after depth menu has been configured.
+			Debug.Log("Depth Menu needs configuration first.");
+			DepthMenuOpened = true;
+			DepthMenu.ConfigureDepthBeforePlacingFirstAsset();
+			return;
+		}
 
-	}
+		CanPlacePlayArea = true;
 
-	/// <summary>
-	/// Creates an anchored object based on a hit trackable point.
-	/// </summary>
-	/// <param name="toAnchor"></param>
-	/// <param name="hit"></param>
-	private GameObject AnchorObject(GameObject toAnchor, TrackableHit hit) {
-		// Instantiate prefab at the hit pose.
-		var gameObject = Instantiate(toAnchor, hit.Pose.position, hit.Pose.rotation);
-
-		// Compensate for the hitPose rotation facing away from the raycast (i.e.
-		// camera).
-		gameObject.transform.Rotate(0, 0, 0, Space.Self);
-
-		// Create an anchor to allow ARCore to track the hitpoint as understanding of
-		// the physical world evolves.
-		var anchor = hit.Trackable.CreateAnchor(hit.Pose);
-
-		// Make game object a child of the anchor.
-		gameObject.transform.parent = anchor.transform;
-		
-		return gameObject;
 	}
 
 	public void OnPlayAreaConfirmed(Bounds playAreaBounds, PlayAreaManager PAmngr) {
@@ -83,11 +89,14 @@ public class ARSceneController : MonoBehaviour
 		var x_ratio = playAreaBounds.size.x / cityBounds.size.x;
 		var z_ratio = playAreaBounds.size.z / cityBounds.size.z;
 		var min_ratio = Mathf.Min(x_ratio, z_ratio);
-		Vector3 newScale = cityGMLMngr.transform.localScale * min_ratio;
+		var y_scale_multiplier = PAmngr.PlayArea.MeshBoundary.transform.localScale.y;
+		Vector3 newScale = new Vector3(cityGMLMngr.transform.localScale.x * min_ratio,
+			cityGMLMngr.transform.localScale.y * min_ratio,
+			cityGMLMngr.transform.localScale.z * min_ratio);
 
 		//Debug.Log("City Bounds center: " + cityBounds.center);
 		cityGMLMngr.transform.localScale = newScale;
-		
+		cityGMLMngr.GetComponent<ScaleManipulator>().MinScale = newScale.x;
 		// set as child of play area
 		PAmngr.PlayArea.SetAsChild(cityGMLMngr.gameObject);
 
@@ -104,6 +113,10 @@ public class ARSceneController : MonoBehaviour
 		//cityGMLMngr.transform.localPosition = pos;
 		// Deselect PlayArea
 		PAmngr.PlayArea.Deselect();
+
+
+		cityGMLMngr.b_IsCityPlaced = true;
+		cityGMLMngr.Select();
 	}
 
 	#region Application Essentials

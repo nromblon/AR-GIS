@@ -4,6 +4,15 @@ using UnityEngine;
 using GoogleARCore.Examples.ObjectManipulation;
 
 public class ExtendedRotationManipulator : RotationManipulator {
+
+	public bool CanOperateWithDrag = false;
+
+	protected override bool CanStartManipulationForGesture(DragGesture gesture) {
+		if (!CanOperateWithDrag)
+			return false;
+
+		return base.CanStartManipulationForGesture(gesture);
+	}
 	/// <summary>
 	/// Returns true if the manipulation can be started for the given Twist gesture.
 	/// </summary>
