@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Main\Scripts\ARSceneController.cs" />
+    <Compile Include="Assets\_Main\Scripts\BuildingController.cs" />
     <Compile Include="Assets\_Main\Scripts\CityGMLManager.cs" />
     <Compile Include="Assets\_Main\Scripts\ConfirmBtnController.cs" />
     <Compile Include="Assets\_Main\Scripts\MainMenu.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedScaleManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizSelectionManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizTranslationManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\PlayAreaBoundsHandler.cs" />
     <Compile Include="Assets\_Main\Scripts\PlayAreaController.cs" />
     <Compile Include="Assets\_Main\Scripts\PlayAreaManager.cs" />
     <Compile Include="Assets\_Main\Scripts\PlayAreaScaleManipulator.cs" />
@@ -388,6 +390,7 @@
     <None Include="Assets\CityGML2GO\Scripts\Framework\Events\But why all these classes.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\_Main\Materials\Shaders\stencil_read.shader" />
     <None Include="Assets\QuickOutline\Resources\Shaders\OutlineFill.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\MobileDiffuseWithLightEstimation.shader" />
     <None Include="Assets\CityGML2GO\Poly2Tri\AUTHORS.txt" />
@@ -400,6 +403,7 @@
     <None Include="Assets\GoogleARCore\Examples\AugmentedFaces\Materials\Shaders\AugmentedFaceOccluder.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\CameraColorRampShader.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\_Main\Materials\Shaders\StencilMask.shader" />
     <None Include="Assets\ARExperiment\Materials\Shaders\UI_Default_OverlayNoZTest.shader" />
     <None Include="Assets\Simple city plain\Read_me.txt" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\PointCloud.shader" />
@@ -422,6 +426,7 @@
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\OcclusionImageEffect.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\_Main\Materials\Shaders\stencil_write.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

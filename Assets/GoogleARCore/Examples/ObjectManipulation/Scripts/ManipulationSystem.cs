@@ -156,6 +156,8 @@ namespace GoogleARCore.Examples.ObjectManipulation
             TwoFingerDragGestureRecognizer.Update();
             TapGestureRecognizer.Update();
             TwistGestureRecognizer.Update();
+			if(SelectedObject != null)
+				Debug.Log("target object: " + SelectedObject.name);
         }
 
         /// <summary>

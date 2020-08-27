@@ -79,9 +79,11 @@ namespace Assets.Scripts.CityGML2GO.GmlHandlers
 
                 BuildingPropertiesHandler.HandleBuildingProperties(reader, buildingProperties);
 
+
+				// Move on to next Building
                 if (reader.NodeType == XmlNodeType.EndElement && reader.LocalName == "Building")
                 {
-                    break;
+					break;
                 }
             }
 

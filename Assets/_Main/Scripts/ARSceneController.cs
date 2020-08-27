@@ -27,7 +27,6 @@ public class ARSceneController : MonoBehaviour
 	private bool planeDiscoveryRefreshed = false;
 
 	private bool m_IsQuitting = false;
-	public bool CanPlacePlayArea = false;
 
 	private bool DepthMenuOpened = false;
 
@@ -45,28 +44,15 @@ public class ARSceneController : MonoBehaviour
     {
 		_UpdateApplicationLifecycle();
 
-		Debug.Log("Session status: " + Session.Status);
+		//// Checks if Depth Menu windows are open
+		//if (DepthMenu != null && !DepthMenu.CanPlaceAsset()) {
+		//	return false;
+		//}
 
-		#region Input pre-checks
-		// Checks if Depth Menu windows are open
-		if (DepthMenu != null && !DepthMenu.CanPlaceAsset()) {
-			CanPlacePlayArea = false;
-			return;
-		}
-
-		// If the player has not touched the screen, we are done with this update.
-		if (Input.touchCount < 1) {
-			CanPlacePlayArea = false;
-			return;
-		}
-
-		Touch touch = Input.GetTouch(0);
-		// Should not handle input if the player is pointing on UI.
-		if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) {
-			CanPlacePlayArea = false;
-			return;
-		}
-		#endregion
+		//// If the player has not touched the screen, we are done with this update.
+		//if (Input.touchCount < 1) {
+		//	return false;
+		//}
 
 		if (!DepthMenuOpened && DepthMenu != null) {
 			// This enables Plane Discovery Guide after depth menu has been configured.
@@ -75,8 +61,6 @@ public class ARSceneController : MonoBehaviour
 			DepthMenu.ConfigureDepthBeforePlacingFirstAsset();
 			return;
 		}
-
-		CanPlacePlayArea = true;
 
 	}
 
@@ -96,7 +80,6 @@ public class ARSceneController : MonoBehaviour
 
 		//Debug.Log("City Bounds center: " + cityBounds.center);
 		cityGMLMngr.transform.localScale = newScale;
-		cityGMLMngr.GetComponent<ScaleManipulator>().MinScale = newScale.x;
 		// set as child of play area
 		PAmngr.PlayArea.SetAsChild(cityGMLMngr.gameObject);
 
@@ -113,10 +96,8 @@ public class ARSceneController : MonoBehaviour
 		//cityGMLMngr.transform.localPosition = pos;
 		// Deselect PlayArea
 		PAmngr.PlayArea.Deselect();
-
-
-		cityGMLMngr.b_IsCityPlaced = true;
-		cityGMLMngr.Select();
+		
+		cityGMLMngr.OnCityPlaced();
 	}
 
 	#region Application Essentials

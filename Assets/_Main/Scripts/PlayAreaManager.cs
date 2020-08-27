@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using GoogleARCore;
 using GoogleARCore.Examples.ObjectManipulation;
 
@@ -42,15 +42,24 @@ public class PlayAreaManager : Manipulator
 
 	#region Manipulator Methods
 	protected override bool CanStartManipulationForGesture(TapGesture gesture) {
-		if (!ARSceneController.Instance.CanPlacePlayArea)
+		#region Input pre-checks
+		// Should not handle input if the player is pointing on UI.
+		if (EventSystem.current.IsPointerOverGameObject(gesture.FingerId)) {
 			return false;
-
+		}
+		#endregion
+		
 		// Only accept when no object is selected, to start dropping bounds
 		if (gesture.TargetObject != null)
 			return false;
 
 		if (hasPlacedPlayArea)
 			return false;
+
+		if (!IsSelected())
+			return false;
+
+		Debug.Log("Play Area Manager: Can Manipulate");
 
 		return true;
 	}
@@ -90,8 +99,9 @@ public class PlayAreaManager : Manipulator
 
 				// Make manipulator a child of the anchor.
 				playArea.transform.parent = anchor.transform;
-				// Select the placed object.
+
 				playArea.Select();
+				Debug.Log("Play Area Select() called");
 
 				// Show Confirm Button
 				confirmBtn.ShowButton(true);

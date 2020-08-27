@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 4897883290718372656}
   - component: {fileID: 4897883291781474348}
   - component: {fileID: 4897883291781474346}
-  - component: {fileID: 8656164044872492549}
   - component: {fileID: 4897883291781474347}
-  - component: {fileID: 4830939439451416258}
+  - component: {fileID: 6973404192050208207}
   - component: {fileID: 8345428985147742020}
+  - component: {fileID: 6326145383806133568}
   - component: {fileID: 4897883291781474349}
   - component: {fileID: 6055847218470272439}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CGML2GO 1
   m_TagString: CityGML
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 4897883291781474351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -51,6 +51,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityGML2GO: {fileID: 4897883291781474346}
+  shouldRemoveOutliers: 1
+  GenerateColliders: 0
+  outlierCoeff: 3
   Manipulators: []
   b_IsCityPlaced: 0
 --- !u!114 &4897883291781474346
@@ -95,20 +98,6 @@ MonoBehaviour:
   - Window
   Polygons: []
   SemanticSurfMat: {fileID: 0}
---- !u!114 &8656164044872492549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4897883291781474351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 131bff3d9707e83448f560eae39bcf2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectTranslationMode: 0
-  MaxTranslationDistance: 0
 --- !u!114 &4897883291781474347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +123,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: c63f943d8c1671b43b5b34bc44a46f10, type: 2}
   - {fileID: 2100000, guid: a9f5ee53ddc1bc14cab9359cc8006987, type: 2}
   Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
---- !u!114 &4830939439451416258
+--- !u!114 &6973404192050208207
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,10 +132,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4897883291781474351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b8b0bad76a8e4a738051b49934fef4f, type: 3}
+  m_Script: {fileID: 11500000, guid: fb636b75ac572a342970b129fa8cb742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinScale: 0.1
+  MinScale: 0.05
   MaxScale: 10
 --- !u!114 &8345428985147742020
 MonoBehaviour:
@@ -161,6 +150,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanOperateWithDrag: 0
+--- !u!114 &6326145383806133568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4897883291781474351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860edf0cff64a274988d26f39e634a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectTranslationMode: 0
+  MaxTranslationDistance: 10000
 --- !u!114 &4897883291781474349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +180,7 @@ MonoBehaviour:
   min: {fileID: 0}
   max: {fileID: 0}
   center: {fileID: 0}
+  drawFrom: 0
 --- !u!114 &6055847218470272439
 MonoBehaviour:
   m_ObjectHideFlags: 0

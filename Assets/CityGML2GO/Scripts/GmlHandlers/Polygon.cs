@@ -151,14 +151,14 @@ namespace Assets.Scripts.CityGML2GO.GmlHandlers
                 Debug.Log(ex);
             }
 
-            if (cityGml2Go.GenerateColliders)
-            {
-                //go.AddComponent<MeshCollider>();
-            }
 
-            if (go != null)
+			if (cityGml2Go.GenerateColliders) {
+				//go.AddComponent<BoxCollider>();
+			}
+
+			if (go != null)
             {
-                if (cityGml2Go.Semantics && semanticType != null)
+				if (cityGml2Go.Semantics && semanticType != null)
                 {
                     SemanticsHandler.HandleSemantics(go, semanticType, cityGml2Go);
                 }
@@ -177,6 +177,7 @@ namespace Assets.Scripts.CityGML2GO.GmlHandlers
 
             return go;
         }
+
         public static bool IsPolyValid(List<Vector3> poly)
         {
             if (poly.First() != poly.Last())

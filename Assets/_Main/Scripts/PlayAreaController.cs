@@ -27,17 +27,21 @@ public class PlayAreaController : MonoBehaviour
 			return playAreaBounds;
 		}
 	}
-
-    // Start is called before the first frame update
-    void Start()
+	
+    void Awake()
     {
+		Debug.Log("Play Area Controller Awake()");
 		Manipulators = MeshTf.GetComponents<Manipulator>();
+		//Select();
 		boxMesh = MeshBoundary.GetComponent<MeshRenderer>();
 		animator = GetComponent<Animator>();
     }
 
 	public void Select() {
-		foreach(var m in Manipulators) {
+
+		Debug.Log("Play Area Controller Select()");
+		Debug.Log("Play Area Controller Manipulators: " + Manipulators.Length);
+		foreach (var m in Manipulators) {
 			m.enabled = true;
 			m.Select();
 		}
@@ -47,6 +51,7 @@ public class PlayAreaController : MonoBehaviour
 		foreach(var m in Manipulators) {
 			m.Deselect();
 			m.enabled = false;
+			Debug.Log("Play Area Controller Deselected");
 		}
 	}
 

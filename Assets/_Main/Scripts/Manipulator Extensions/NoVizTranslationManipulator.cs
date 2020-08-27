@@ -49,17 +49,10 @@ public class NoVizTranslationManipulator : Manipulator
 	/// <param name="gesture">The current gesture.</param>
 	/// <returns>True if the manipulation can be started.</returns>
 	protected override bool CanStartManipulationForGesture(DragGesture gesture) {
-		if (gesture.TargetObject == null) {
+		if (!IsSelected())
 			return false;
-		}
 
-		// If the gesture isn't targeting this item, don't start manipulating.
-		if (gesture.TargetObject != gameObject) {
-			return false;
-		}
-
-		// Select it.
-		Select();
+		Debug.Log(gameObject.name+" - NoVizTranslationManipulator: Can Manipulate");
 
 		return true;
 	}
@@ -92,7 +85,7 @@ public class NoVizTranslationManipulator : Manipulator
 				desiredPlacement.HoveringPosition.Value);
 
 			m_DesiredAnchorPosition = desiredPlacement.PlacementPosition.Value;
-
+			Debug.Log("NoVizTranslationManipulator: m_DesiredAnchorPosition: " + m_DesiredAnchorPosition);
 			m_GroundingPlaneHeight = desiredPlacement.UpdatedGroundingPlaneHeight;
 
 			if (desiredPlacement.PlacementRotation.HasValue) {
@@ -108,6 +101,7 @@ public class NoVizTranslationManipulator : Manipulator
 
 			if (desiredPlacement.PlacementPlane.HasValue) {
 				m_LastHit = desiredPlacement.PlacementPlane.Value;
+				Debug.Log("NoVizTranslationManipulator: m_LastHit modified: " + m_LastHit);
 			}
 		}
 	}

@@ -23,6 +23,9 @@ public class ExtendedRotationManipulator : RotationManipulator {
 			return false;
 		}
 
+
+		Debug.Log(gameObject.name + " - ExtendedRotationManipulator: Can Manipulate");
+
 		return true;
 	}
 }

@@ -221,7 +221,6 @@ MonoBehaviour:
   DepthMenu: {fileID: 1075240551}
   ARCamera: {fileID: 897456807}
   planeDiscoveryGuide: {fileID: 993641400}
-  CanPlacePlayArea: 0
 --- !u!4 &404365405
 Transform:
   m_ObjectHideFlags: 0
@@ -545,6 +544,11 @@ PrefabInstance:
         type: 3}
       propertyPath: near clip plane
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4356917929020883615, guid: afe53c79d641a32449e10f3eb8ce494a,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 1815
       objectReference: {fileID: 0}
     - target: {fileID: 4341103560190563171, guid: afe53c79d641a32449e10f3eb8ce494a,
         type: 3}
