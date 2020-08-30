@@ -76,7 +76,9 @@
     <Compile Include="Assets\_Main\Scripts\PlayAreaController.cs" />
     <Compile Include="Assets\_Main\Scripts\PlayAreaManager.cs" />
     <Compile Include="Assets\_Main\Scripts\PlayAreaScaleManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Utilities\ClippingPlane.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\DontDestroy.cs" />
+    <Compile Include="Assets\_Main\Scripts\Utilities\SetRenderQueue.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\ShowBoundsGizmo.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\Utilities.cs" />
     <Compile Include="Assets\ARExperiment\Scripts\AlertPin.cs" />
@@ -387,6 +389,7 @@
     <Compile Include="Assets\GoogleARCore\SDK\Scripts\XPTrackingState.cs" />
     <Compile Include="Assets\QuickOutline\Scripts\OutlinedModel.cs" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\PlaneGrid.shader" />
+    <None Include="Assets\_Main\Materials\Shaders\InvisibleMask.shader" />
     <None Include="Assets\CityGML2GO\Scripts\Framework\Events\But why all these classes.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
@@ -398,6 +401,7 @@
     <None Include="Assets\_Main\Materials\Shaders\FadeAway.shader" />
     <None Include="Assets\CityGML2GO\Poly2Tri\LICENSE.txt" />
     <None Include="Assets\QuickOutline\Readme.txt" />
+    <None Include="Assets\_Main\Materials\Shaders\021_Clipping_Plane.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\TransparentShadow.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\GoogleARCore\Examples\AugmentedFaces\Materials\Shaders\AugmentedFaceOccluder.shader" />
@@ -422,6 +426,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\_Main\Materials\Shaders\DepthMask.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\OcclusionImageEffect.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
