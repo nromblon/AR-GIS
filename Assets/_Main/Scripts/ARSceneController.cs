@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,8 +13,7 @@ using FixCityAR;
 using Input = GoogleARCore.InstantPreviewInput;
 #endif
 
-public class ARSceneController : MonoBehaviour
-{
+public class ARSceneController : MonoBehaviour {
 	private static ARSceneController sharedInstance;
 	public static ARSceneController Instance {
 		get {
@@ -21,13 +21,22 @@ public class ARSceneController : MonoBehaviour
 		}
 	}
 
-	public DepthMenu DepthMenu;
+	public DepthSettings DepthSettings;
 	public Camera ARCamera;
 	public PlaneDiscoveryGuide planeDiscoveryGuide;
+	public DetectedPlaneGenerator planeGenerator;
+
+	private bool isPlaneDiscoveryGuideActive;
+	public bool IsPlaneDiscoveryGuideActive {
+		get {
+			return isPlaneDiscoveryGuideActive;
+		}
+	}
+
+	private ControlsManager controlsManager;
+
 	private bool planeDiscoveryRefreshed = false;
-
 	private bool m_IsQuitting = false;
-
 	private bool DepthMenuOpened = false;
 
 	
@@ -39,8 +48,12 @@ public class ARSceneController : MonoBehaviour
 		sharedInstance = this;
 	}
 
-    // Update is called once per frame
-    void Update()
+	private void Start() {
+		controlsManager = ControlsManager.Instance;
+	}
+
+	// Update is called once per frame
+	void Update()
     {
 		_UpdateApplicationLifecycle();
 
@@ -54,11 +67,11 @@ public class ARSceneController : MonoBehaviour
 		//	return false;
 		//}
 
-		if (!DepthMenuOpened && DepthMenu != null) {
+		if (!DepthMenuOpened && DepthSettings != null) {
 			// This enables Plane Discovery Guide after depth menu has been configured.
 			Debug.Log("Depth Menu needs configuration first.");
 			DepthMenuOpened = true;
-			DepthMenu.ConfigureDepthBeforePlacingFirstAsset();
+			DepthSettings.ConfigureDepthBeforePlacingFirstAsset();
 			return;
 		}
 
@@ -95,9 +108,26 @@ public class ARSceneController : MonoBehaviour
 		//cityGMLMngr.transform.Translate(Vector3.Scale(cityBounds.center,newScale));
 		//cityGMLMngr.transform.localPosition = pos;
 		// Deselect PlayArea
-		PAmngr.PlayArea.Deselect();
 		
 		cityGMLMngr.OnCityPlaced();
+		EnablePlaneDiscoveryGuide(false);
+		SettingsMenu.Instance.EnableResetCityPlacement(true);
+		controlsManager.ShowControls(true);
+	}
+
+	public void ResetPlayAreaPlacement() {
+		EnablePlaneDiscoveryGuide(true);
+		controlsManager.ShowControls(false);
+		PlayAreaManager.Instance.RemovePlacement();
+		Debug.Log("Reset Play Area Placement");
+
+		_ShowAndroidToastMessage("Tap on a Detected Plane to place the Interactable Area.");
+	}
+
+	public void EnablePlaneDiscoveryGuide(bool val) {
+		planeDiscoveryGuide.EnablePlaneDiscoveryGuide(val);
+		planeGenerator.gameObject.SetActive(val);
+		isPlaneDiscoveryGuideActive = val;
 	}
 
 	#region Application Essentials
@@ -156,6 +186,12 @@ public class ARSceneController : MonoBehaviour
 				toastObject.Call("show");
 			}));
 		}
+	}
+
+	IEnumerator ExecuteAfterTime(float time, Action function) {
+		yield return new WaitForSecondsRealtime(time);
+		Debug.Log("Call function");
+		function();
 	}
 	#endregion
 }

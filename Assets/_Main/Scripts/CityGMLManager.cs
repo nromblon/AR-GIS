@@ -5,6 +5,7 @@ using Assets.Scripts.CityGML2GO;
 using FixCityAR;
 using GoogleARCore.Examples.ObjectManipulation;
 using Assets.Scripts.CityGML2GO.Scripts;
+using System.Collections;
 
 public enum GenerateColliderOptions {
 	DoNotGenerate = 0,
@@ -22,10 +23,11 @@ public class CityGMLManager : MonoBehaviour
 		}
 	}
 
+	[Header("Config")]
 	public float y_offset = -5;
 	public CityGml2GO cityGML2GO;
-	public bool shouldRemoveOutliers = true;
 	public GenerateColliderOptions GenerateColliders = 0;
+	public bool shouldRemoveOutliers = true;
 	public float outlierCoeff = 3f;
 
 	private Bounds bounds;
@@ -46,13 +48,16 @@ public class CityGMLManager : MonoBehaviour
 		}
 	}
 
+	[Header("Debugging")]
 	public Manipulator[] Manipulators;
 	public bool b_IsCityPlaced;
 	private BuildingProperties[] buildings;
+	[SerializeField] private Vector3 originOnPlaced;
+	[SerializeField] private Vector3 onLoadPosition;
+	[SerializeField] private Vector3 onLoadScale;
 
 	private void Awake() {
 		sharedInstance = this;
-
 		Manipulators = GetComponents<Manipulator>();        
 		// Make sure that the manipulators are disabled and deselected.
 		foreach (var m in Manipulators) {
@@ -68,17 +73,25 @@ public class CityGMLManager : MonoBehaviour
 
     }
 
-	private void LateUpdate() {
-		//if (b_IsCityPlaced && transform.hasChanged) {
-		//	Debug.Log("CityManager Tf Changed");
-		//	var box = PlayAreaManager.Instance.PlayArea.MeshBoundary.GetComponent<BoxCollider>();
-		//	//Debug.DrawLine(box.bounds.max, box.bounds.min, Color.red, .5f);
-		//	CheckWithinBounds(box);
-		//	transform.hasChanged = false;
-		//}
+	#region Initialization Methods
+	public void InitializeCity() {
+		// Recenter first level children
+		RecenterChildren();
+		
+		// recenter buildings
+		RecenterBuildings();
+
+		// Generate Colliders
+		GenerateBuildingColliders();
+
+		onLoadPosition = transform.position;
+		onLoadScale = transform.localScale;
 	}
 
-	public void RecenterChildren() {
+	/// <summary>
+	/// Recenters First level Children and adds a BuildingController component on each.
+	/// </summary>
+	private void RecenterChildren() {
 		var childCount = transform.childCount;
 		var children = new List<Transform>();
 		// Initialize List
@@ -104,14 +117,8 @@ public class CityGMLManager : MonoBehaviour
 		// reset position
 		transform.position = Vector3.zero;
 
-		// recenter buildings
-		RecenterBuildings();
-
-		// Generate Colliders
-		GenerateBuildingColliders();
-
 		// Add BuildingController Component
-		foreach(var child in children) {
+		foreach (var child in children) {
 			child.gameObject.AddComponent<BuildingController>();
 		}
 	}
@@ -224,6 +231,7 @@ public class CityGMLManager : MonoBehaviour
 			}
 		}
 	}
+	#endregion
 
 	public void CheckWithinBounds(BoxCollider box) {
 		if(buildings == null) {
@@ -242,16 +250,30 @@ public class CityGMLManager : MonoBehaviour
 		}
 	}
 
-
-
 	public void OnCityPlaced() {
 		b_IsCityPlaced = true;
 
 		var scaleManipulator = GetComponent<ExtendedScaleManipulator>();
 		var curScale = transform.localScale.x;
 
-		scaleManipulator.SetMinMax(curScale, curScale * 4);
+		scaleManipulator.SetMinMax(curScale, curScale * 8);
 		Select();
+		originOnPlaced = transform.localPosition;
+	}
+
+	public void OnCityRemoved() {
+		Deselect();
+		b_IsCityPlaced = false;
+		transform.parent = null;
+		transform.localScale = onLoadScale;
+		transform.position = onLoadPosition;
+		transform.localEulerAngles = Vector3.zero;
+
+		foreach(var bc in GetComponentsInChildren<BuildingController>()) {
+			bc.EnableRenderers(true);
+		}
+
+		gameObject.SetActive(false);
 	}
 
 	public void Select() {
@@ -269,5 +291,29 @@ public class CityGMLManager : MonoBehaviour
 
 			Debug.Log("CityManipulators deselected");
 		}
+	}
+
+	public void ResetPositionToOrigin(float duration) {
+		StartCoroutine(LerpPositionToOrigin(duration));
+	}
+
+	IEnumerator LerpPositionToOrigin(float duration) {
+		// Disable touch controls
+		ManipulationSystem.Instance.Deselect();
+		float time = 0;
+		float t;
+		Vector3 startPosition = transform.localPosition;
+		while(time < duration) {
+			t = time / duration;
+			// Smooth-step Lerp
+			t = t * t * (3f - 2f * t);
+			transform.localPosition = Vector3.Lerp(startPosition, originOnPlaced, t);
+			time += Time.deltaTime;
+			yield return null;
+		}
+		transform.localPosition = originOnPlaced;
+		// Reenable touch controls
+		Select();
+		ControlsManager.Instance.EnableRecenterButton(true);
 	}
 }

@@ -57,7 +57,7 @@ public class MainMenu : MonoBehaviour
 
 		StartBtn.GetComponentInChildren<TextMeshProUGUI>().SetText("Proceed");
 		StartBtn.interactable = true;
-		CityGMLManager.Instance.RecenterChildren();
+		CityGMLManager.Instance.InitializeCity();
 	}
 
 	IEnumerator LoadMainScene() {

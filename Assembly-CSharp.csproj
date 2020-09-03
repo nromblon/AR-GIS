@@ -66,7 +66,10 @@
     <Compile Include="Assets\_Main\Scripts\BuildingController.cs" />
     <Compile Include="Assets\_Main\Scripts\CityGMLManager.cs" />
     <Compile Include="Assets\_Main\Scripts\ConfirmBtnController.cs" />
+    <Compile Include="Assets\_Main\Scripts\ControlsManager.cs" />
+    <Compile Include="Assets\_Main\Scripts\DepthSettings.cs" />
     <Compile Include="Assets\_Main\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\AnchorlessTranslationManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\CityTranslationManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedRotationManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedScaleManipulator.cs" />
@@ -76,6 +79,7 @@
     <Compile Include="Assets\_Main\Scripts\PlayAreaController.cs" />
     <Compile Include="Assets\_Main\Scripts\PlayAreaManager.cs" />
     <Compile Include="Assets\_Main\Scripts\PlayAreaScaleManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\SettingsMenu.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\ClippingPlane.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\DontDestroy.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\SetRenderQueue.cs" />

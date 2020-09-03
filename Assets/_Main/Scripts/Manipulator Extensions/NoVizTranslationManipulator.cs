@@ -8,6 +8,9 @@ using GoogleARCore.Examples.ObjectManipulation;
 /// </summary>
 public class NoVizTranslationManipulator : Manipulator
 {
+	// If specified, translates the rootObject instead.
+	public GameObject rootObject;
+	
 	/// <summary>
 	/// The translation mode of this object.
 	/// </summary>
@@ -33,6 +36,8 @@ public class NoVizTranslationManipulator : Manipulator
 	/// </summary>
 	protected void Start() {
 		m_DesiredLocalPosition = new Vector3(0, 0, 0);
+		if (rootObject == null)
+			rootObject = this.gameObject;
 	}
 
 	/// <summary>
@@ -62,7 +67,7 @@ public class NoVizTranslationManipulator : Manipulator
 	/// </summary>
 	/// <param name="gesture">The current gesture.</param>
 	protected override void OnStartManipulation(DragGesture gesture) {
-		m_GroundingPlaneHeight = transform.parent.position.y;
+		m_GroundingPlaneHeight = rootObject.transform.parent.position.y;
 	}
 
 	/// <summary>
@@ -74,14 +79,14 @@ public class NoVizTranslationManipulator : Manipulator
 
 		TransformationUtility.Placement desiredPlacement =
 			TransformationUtility.GetBestPlacementPosition(
-				transform.parent.position, gesture.Position, m_GroundingPlaneHeight, 0.03f,
+				rootObject.transform.parent.position, gesture.Position, m_GroundingPlaneHeight, 0.03f,
 				MaxTranslationDistance, ObjectTranslationMode);
 
 		if (desiredPlacement.HoveringPosition.HasValue &&
 			desiredPlacement.PlacementPosition.HasValue) {
 			// If desired position is lower than current position, don't drop it until it's
 			// finished.
-			m_DesiredLocalPosition = transform.parent.InverseTransformPoint(
+			m_DesiredLocalPosition = rootObject.transform.parent.InverseTransformPoint(
 				desiredPlacement.HoveringPosition.Value);
 
 			m_DesiredAnchorPosition = desiredPlacement.PlacementPosition.Value;
@@ -90,12 +95,12 @@ public class NoVizTranslationManipulator : Manipulator
 
 			if (desiredPlacement.PlacementRotation.HasValue) {
 				// Rotate if the plane direction has changed.
-				if (((desiredPlacement.PlacementRotation.Value * Vector3.up) - transform.up)
+				if (((desiredPlacement.PlacementRotation.Value * Vector3.up) - rootObject.transform.up)
 					.magnitude > k_DiffThreshold) {
 					m_DesiredRotation = desiredPlacement.PlacementRotation.Value;
 				}
 				else {
-					m_DesiredRotation = transform.rotation;
+					m_DesiredRotation = rootObject.transform.rotation;
 				}
 			}
 
@@ -111,32 +116,32 @@ public class NoVizTranslationManipulator : Manipulator
 	/// </summary>
 	/// <param name="gesture">The current gesture.</param>
 	protected override void OnEndManipulation(DragGesture gesture) {
-		GameObject oldAnchor = transform.parent.gameObject;
+		GameObject oldAnchor = rootObject.transform.parent.gameObject;
 
 		Pose desiredPose = new Pose(m_DesiredAnchorPosition, m_LastHit.Pose.rotation);
 
 		Vector3 desiredLocalPosition =
-			transform.parent.InverseTransformPoint(desiredPose.position);
+			rootObject.transform.parent.InverseTransformPoint(desiredPose.position);
 
 		if (desiredLocalPosition.magnitude > MaxTranslationDistance) {
 			desiredLocalPosition = desiredLocalPosition.normalized * MaxTranslationDistance;
 		}
 
-		desiredPose.position = transform.parent.TransformPoint(desiredLocalPosition);
+		desiredPose.position = rootObject.transform.parent.TransformPoint(desiredLocalPosition);
 
 		Anchor newAnchor = m_LastHit.Trackable.CreateAnchor(desiredPose);
-		transform.parent = newAnchor.transform;
-
+		//rootObject.transform.parent = newAnchor.transform;
+		rootObject.transform.SetParent(newAnchor.transform);
 		Destroy(oldAnchor);
 
 		m_DesiredLocalPosition = Vector3.zero;
 
 		// Rotate if the plane direction has changed.
-		if (((desiredPose.rotation * Vector3.up) - transform.up).magnitude > k_DiffThreshold) {
+		if (((desiredPose.rotation * Vector3.up) - rootObject.transform.up).magnitude > k_DiffThreshold) {
 			m_DesiredRotation = desiredPose.rotation;
 		}
 		else {
-			m_DesiredRotation = transform.rotation;
+			m_DesiredRotation = rootObject.transform.rotation;
 		}
 
 		// Make sure position is updated one last time.
@@ -149,7 +154,7 @@ public class NoVizTranslationManipulator : Manipulator
 		}
 
 		// Lerp position.
-		Vector3 oldLocalPosition = transform.localPosition;
+		Vector3 oldLocalPosition = rootObject.transform.localPosition;
 		Vector3 newLocalPosition = Vector3.Lerp(
 			oldLocalPosition, m_DesiredLocalPosition, Time.deltaTime * k_PositionSpeed);
 
@@ -159,18 +164,20 @@ public class NoVizTranslationManipulator : Manipulator
 			m_IsActive = false;
 		}
 
-		transform.localPosition = newLocalPosition;
+		rootObject.transform.localPosition = newLocalPosition;
 
 		// Lerp rotation.
-		Quaternion oldRotation = transform.rotation;
+		Quaternion oldRotation = rootObject.transform.rotation;
 		Quaternion newRotation =
 			Quaternion.Lerp(oldRotation, m_DesiredRotation, Time.deltaTime * k_PositionSpeed);
-		transform.rotation = newRotation;
+		rootObject.transform.rotation = newRotation;
 
 		// Avoid placing the selection higher than the object if the anchor is higher than the
 		// object.
 		float newElevation =
-			Mathf.Max(0, -transform.InverseTransformPoint(m_DesiredAnchorPosition).y);
+			Mathf.Max(0, -rootObject.transform.InverseTransformPoint(m_DesiredAnchorPosition).y);
+
+		
 	}
 }
 

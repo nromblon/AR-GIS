@@ -38,25 +38,12 @@ public class PlayAreaController : MonoBehaviour
     }
 
 	public void Select() {
-
 		Debug.Log("Play Area Controller Select()");
 		Debug.Log("Play Area Controller Manipulators: " + Manipulators.Length);
 		foreach (var m in Manipulators) {
 			m.enabled = true;
 			m.Select();
 		}
-	}
-
-	public void Deselect() {
-		foreach(var m in Manipulators) {
-			m.Deselect();
-			m.enabled = false;
-			Debug.Log("Play Area Controller Deselected");
-		}
-	}
-
-	void OnDestroy() {
-		Deselect();
 	}
 
 	public void SetAsChild(GameObject go) {

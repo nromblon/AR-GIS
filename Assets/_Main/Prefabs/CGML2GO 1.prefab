@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4897883291781474347}
   - component: {fileID: 6973404192050208207}
   - component: {fileID: 8345428985147742020}
-  - component: {fileID: 6326145383806133568}
+  - component: {fileID: 1215527648972331281}
   - component: {fileID: 4897883291781474349}
   - component: {fileID: 6055847218470272439}
   m_Layer: 10
@@ -50,12 +50,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d95af88d27a57b419453a62a2941378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  y_offset: -5
   cityGML2GO: {fileID: 4897883291781474346}
-  shouldRemoveOutliers: 1
   GenerateColliders: 0
+  shouldRemoveOutliers: 1
   outlierCoeff: 3
   Manipulators: []
   b_IsCityPlaced: 0
+  originOnPlaced: {x: 0, y: 0, z: 0}
 --- !u!114 &4897883291781474346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanOperateWithDrag: 0
---- !u!114 &6326145383806133568
+--- !u!114 &1215527648972331281
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,9 +161,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4897883291781474351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 860edf0cff64a274988d26f39e634a52, type: 3}
+  m_Script: {fileID: 11500000, guid: 24560acc5167cba459aea37283d408cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rootObject: {fileID: 0}
   ObjectTranslationMode: 0
   MaxTranslationDistance: 10000
 --- !u!114 &4897883291781474349

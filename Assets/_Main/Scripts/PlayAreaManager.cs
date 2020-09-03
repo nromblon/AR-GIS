@@ -45,17 +45,21 @@ public class PlayAreaManager : Manipulator
 		#region Input pre-checks
 		// Should not handle input if the player is pointing on UI.
 		if (EventSystem.current.IsPointerOverGameObject(gesture.FingerId)) {
+			Debug.Log("Pointer over game object");
 			return false;
 		}
 		#endregion
-		
+
+		Debug.Log("Gesture target object: " + gesture.TargetObject);
 		// Only accept when no object is selected, to start dropping bounds
 		if (gesture.TargetObject != null)
 			return false;
 
+		Debug.Log("Has Placed Play Area: " + hasPlacedPlayArea);
 		if (hasPlacedPlayArea)
 			return false;
 
+		Debug.Log("Selected Manipulator: " + ManipulationSystem.Instance.SelectedObject.name);
 		if (!IsSelected())
 			return false;
 
@@ -113,22 +117,26 @@ public class PlayAreaManager : Manipulator
 	public void ConfirmPlacement() {
 		hasConfirmedPlayArea = true;
 
-		// deselect the play area.
-		playArea.Deselect();
-
 		Bounds PABounds = playArea.Bounds;
-		ARSceneController.Instance.OnPlayAreaConfirmed(PABounds,this);
+		sceneController.OnPlayAreaConfirmed(PABounds,this);
 		playArea.OnPlacementConfirm();
 		Debug.Log("Play Area has been placed.");
 	}
 
 	public void RemovePlacement() {
-		CityGMLManager.Instance.b_IsCityPlaced = false;
-		CityGMLManager.Instance.Deselect();
+		CityGMLManager.Instance.OnCityRemoved();
+
 		hasPlacedPlayArea = false;
 		hasConfirmedPlayArea = false;
-		PlayArea.OnShowPlayArea();
-		Destroy(playArea);
+
+		if(playArea != null) {
+			// Destroy the anchor
+			Destroy(playArea.transform.parent.gameObject);
+		}
 		playArea = null;
+
+		Select();
+		Debug.Log("after select - Manipulation System selected object: " + ManipulationSystem.Instance.SelectedObject.name);
 	}
 }
+
