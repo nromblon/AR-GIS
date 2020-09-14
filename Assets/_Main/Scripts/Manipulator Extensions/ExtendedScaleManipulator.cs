@@ -75,8 +75,8 @@ public class ExtendedScaleManipulator : Manipulator
 		//	return false;
 		//}
 
-
-		Debug.Log(gameObject.name + " - ExtendedScaleManipulator: Can Manipulate");
+		if (!ARSceneController.Instance.AllowManipulation)
+			return false;
 
 		return true;
 	}

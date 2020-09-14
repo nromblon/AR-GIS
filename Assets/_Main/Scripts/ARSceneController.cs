@@ -33,12 +33,23 @@ public class ARSceneController : MonoBehaviour {
 		}
 	}
 
+	private bool m_allowManipulation;
+	public bool AllowManipulation {
+		get {
+			return m_allowManipulation;
+		}
+		private set {
+			m_allowManipulation = value;
+		}
+	}
+
 	private ControlsManager controlsManager;
 
 	private bool planeDiscoveryRefreshed = false;
 	private bool m_IsQuitting = false;
 	private bool DepthMenuOpened = false;
 
+	private IssueObject selectedIssue;
 	
     void Awake()
     {
@@ -75,6 +86,34 @@ public class ARSceneController : MonoBehaviour {
 			return;
 		}
 
+		if (CityGMLManager.Instance.b_IsCityPlaced && Input.GetMouseButtonDown(0)) {
+			// Handle issue canvas opening/closing
+			AllowManipulation = false;
+			LayerMask layerMask = LayerMask.GetMask("Issue");
+			Debug.Log("layermask: " + layerMask);
+			Ray r = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+			RaycastHit p_hit;
+			if (Physics.Raycast(r, out p_hit, Mathf.Infinity, layerMask.value)) {
+				Debug.Log("raycast collided with something: "+p_hit.transform.name);
+				var iobj = p_hit.transform.GetComponentInParent<IssueObject>();
+				if (iobj != null) {
+					Debug.Log("raycast collided with IssueObject");
+					if (selectedIssue == null) {
+						// Select new Issue
+						selectedIssue = iobj;
+						selectedIssue.ToggleCanvas();
+					}
+					else if (selectedIssue == iobj) {
+						// Disable selected issue
+						selectedIssue.ToggleCanvas();
+						selectedIssue = null;
+					}
+					return;
+				}
+			}
+		}
+
+		AllowManipulation = true;
 	}
 
 	public void OnPlayAreaConfirmed(Bounds playAreaBounds, PlayAreaManager PAmngr) {
@@ -118,6 +157,10 @@ public class ARSceneController : MonoBehaviour {
 	public void ResetPlayAreaPlacement() {
 		EnablePlaneDiscoveryGuide(true);
 		controlsManager.ShowControls(false);
+		if (selectedIssue != null) {
+			selectedIssue.DisableCanvas();
+			selectedIssue = null;
+		}
 		PlayAreaManager.Instance.RemovePlacement();
 		Debug.Log("Reset Play Area Placement");
 

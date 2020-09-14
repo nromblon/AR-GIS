@@ -53,6 +53,9 @@ public class AnchorlessTranslationManipulator : Manipulator {
 		if (!IsSelected())
 			return false;
 
+		if (!ARSceneController.Instance.AllowManipulation)
+			return false;
+
 		Debug.Log(gameObject.name + " - NoVizTranslationManipulator: Can Manipulate");
 
 		return true;

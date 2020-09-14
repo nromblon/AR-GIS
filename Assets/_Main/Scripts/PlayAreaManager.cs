@@ -45,25 +45,19 @@ public class PlayAreaManager : Manipulator
 		#region Input pre-checks
 		// Should not handle input if the player is pointing on UI.
 		if (EventSystem.current.IsPointerOverGameObject(gesture.FingerId)) {
-			Debug.Log("Pointer over game object");
 			return false;
 		}
 		#endregion
-
-		Debug.Log("Gesture target object: " + gesture.TargetObject);
+		
 		// Only accept when no object is selected, to start dropping bounds
 		if (gesture.TargetObject != null)
 			return false;
-
-		Debug.Log("Has Placed Play Area: " + hasPlacedPlayArea);
+		
 		if (hasPlacedPlayArea)
 			return false;
-
-		Debug.Log("Selected Manipulator: " + ManipulationSystem.Instance.SelectedObject.name);
+		
 		if (!IsSelected())
 			return false;
-
-		Debug.Log("Play Area Manager: Can Manipulate");
 
 		return true;
 	}

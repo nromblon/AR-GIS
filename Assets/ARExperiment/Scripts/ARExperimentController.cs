@@ -34,7 +34,7 @@ public class ARExperimentController : MonoBehaviour
 	private TownController townController;
 
 	private GameObject currentPin;
-	private AlertPin openedAlert;
+	private IssueObject openedAlert;
 
 	/// <summary>
 	/// True if the app is in the process of quitting due to an ARCore connection error,
@@ -111,7 +111,7 @@ public class ARExperimentController : MonoBehaviour
 			if(Physics.Raycast(r, out p_hit)){
 				Debug.Log("Raycast sending for alertpin");
 				if (p_hit.transform.gameObject.tag == "Alert") {
-					AlertPin alertPin = p_hit.transform.GetComponentInParent<AlertPin>();
+					IssueObject alertPin = p_hit.transform.GetComponentInParent<IssueObject>();
 					Debug.Log("Alert Pin Hit: "+alertPin);
 					if (alertPin.ToggleCanvas()) {
 						openedAlert = alertPin;

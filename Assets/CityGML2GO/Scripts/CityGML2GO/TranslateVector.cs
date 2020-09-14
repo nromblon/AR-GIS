@@ -17,15 +17,27 @@ namespace Assets.Scripts.CityGML2GO
             Vector3 toV3 = Vector3.zero;
             using (XmlReader reader = XmlReader.Create(file.OpenRead(), new XmlReaderSettings { IgnoreWhitespace = true }))
             {
+				string srsName = "";
                 while (reader.Read())
                 {
+					if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "Envelope") {
+						srsName = reader.GetAttribute("srsName");
+						Debug.Log(srsName);
+					}
+
                     if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "lowerCorner")
                     {
                         reader.Read();
                         var parts = reader.Value.Split(' ');
                         fromV3 = new Vector3((float)double.Parse(parts[0]), (float)double.Parse(parts[2]),
                             (float)double.Parse(parts[1]));
-                    }
+
+						Coordinates fromPoint = new Coordinates(double.Parse(parts[0]), double.Parse(parts[1]),
+							double.Parse(parts[2]), srsName);
+
+						CityProperties.CheckSetRawMinPoint(fromPoint);
+
+					}
 
                     if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "upperCorner")
                     {
@@ -33,7 +45,13 @@ namespace Assets.Scripts.CityGML2GO
                         var parts = reader.Value.Split(' ');
                         toV3 = new Vector3((float)double.Parse(parts[0]), (float)double.Parse(parts[2]),
                             (float)double.Parse(parts[1]));
-                    }
+
+						Coordinates toPoint = new Coordinates(double.Parse(parts[0]), double.Parse(parts[1]),
+							double.Parse(parts[2]), srsName);
+
+						CityProperties.raw_MaxPoint = toPoint;
+						CityProperties.CheckSetRawMaxPoint(toPoint);
+					}
 
                     if (reader.NodeType == XmlNodeType.EndElement && reader.LocalName == "boundedBy")
                     {

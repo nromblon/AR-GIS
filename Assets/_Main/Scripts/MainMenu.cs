@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using SimpleFileBrowser;
 using Assets.Scripts.CityGML2GO;
 using UnityEngine.SceneManagement;
 

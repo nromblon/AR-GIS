@@ -27,6 +27,8 @@ ScriptsOnlyBuild:
     - GoogleARCore.Examples.Common.PointcloudVisualizer
     - GoogleARCore.Examples.Common.RawImageVideoPlayer
     - GoogleARCore.Examples.ObjectManipulation.ManipulationSystem
+    - IssueManager
+    - IssueObject
     - MainMenu
     - NoVizTranslationManipulator
     - PlayAreaBoundsHandler
@@ -35,12 +37,7 @@ ScriptsOnlyBuild:
     - RotateAround
     - SettingsMenu
     - ShowBoundsGizmo
-    SimpleFileBrowser.Runtime.dll:
-    - SimpleFileBrowser.FileBrowser
-    - SimpleFileBrowser.FileBrowserItem
-    - SimpleFileBrowser.FileBrowserMovement
-    - SimpleFileBrowser.FileBrowserQuickLink
-    - SimpleFileBrowser.RecycledListView
+    - UnityEngine.UI.Extensions.SegmentedControl
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
@@ -67,20 +64,13 @@ ScriptsOnlyBuild:
     UnityEngine.SpatialTracking.dll:
     - UnityEngine.SpatialTracking.TrackedPoseDriver
     UnityEngine.UI.dll:
-    - UnityEngine.EventSystems.BaseInput
     - UnityEngine.EventSystems.EventSystem
-    - UnityEngine.EventSystems.EventTrigger
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
-    - UnityEngine.UI.Dropdown
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
-    - UnityEngine.UI.InputField
     - UnityEngine.UI.RawImage
-    - UnityEngine.UI.RectMask2D
-    - UnityEngine.UI.ScrollRect
-    - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
@@ -133,67 +123,67 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10206}
     - Class: 114
-      Script: {instanceID: 10468}
+      Script: {instanceID: 10466}
     - Class: 114
-      Script: {instanceID: 10630}
+      Script: {instanceID: 10628}
     - Class: 114
-      Script: {instanceID: 10680}
+      Script: {instanceID: 10678}
     - Class: 114
-      Script: {instanceID: 10716}
+      Script: {instanceID: 10712}
     - Class: 114
-      Script: {instanceID: 10812}
+      Script: {instanceID: 10808}
     - Class: 114
-      Script: {instanceID: 10924}
+      Script: {instanceID: 10918}
     - Class: 114
-      Script: {instanceID: 11066}
+      Script: {instanceID: 11060}
     - Class: 114
-      Script: {instanceID: 11306}
+      Script: {instanceID: 11300}
     - Class: 114
-      Script: {instanceID: 11310}
+      Script: {instanceID: 11304}
     - Class: 114
-      Script: {instanceID: 11366}
+      Script: {instanceID: 11364}
     - Class: 114
-      Script: {instanceID: 11488}
+      Script: {instanceID: 11486}
     - Class: 114
-      Script: {instanceID: 11516}
+      Script: {instanceID: 11512}
     - Class: 114
-      Script: {instanceID: 11606}
+      Script: {instanceID: 11600}
     - Class: 114
-      Script: {instanceID: 11696}
+      Script: {instanceID: 11686}
     - Class: 114
-      Script: {instanceID: 11750}
+      Script: {instanceID: 11740}
     - Class: 114
-      Script: {instanceID: 11808}
+      Script: {instanceID: 11798}
     - Class: 114
-      Script: {instanceID: 11854}
+      Script: {instanceID: 11844}
     - Class: 114
-      Script: {instanceID: 11962}
+      Script: {instanceID: 11952}
     - Class: 114
-      Script: {instanceID: 11994}
+      Script: {instanceID: 11984}
     - Class: 114
-      Script: {instanceID: 12150}
+      Script: {instanceID: 12140}
     - Class: 114
-      Script: {instanceID: 12182}
+      Script: {instanceID: 12172}
     - Class: 114
-      Script: {instanceID: 12228}
+      Script: {instanceID: 12218}
     - Class: 114
-      Script: {instanceID: 12232}
+      Script: {instanceID: 12222}
     - Class: 114
-      Script: {instanceID: 12336}
+      Script: {instanceID: 12328}
     - Class: 114
-      Script: {instanceID: 12366}
+      Script: {instanceID: 12358}
     - Class: 114
-      Script: {instanceID: 12404}
+      Script: {instanceID: 12396}
     - Class: 114
-      Script: {instanceID: 12434}
+      Script: {instanceID: 12426}
     - Class: 114
-      Script: {instanceID: 12554}
+      Script: {instanceID: 12546}
     - Class: 114
-      Script: {instanceID: 12834}
+      Script: {instanceID: 12828}
     - Class: 114
-      Script: {instanceID: 12838}
+      Script: {instanceID: 12832}
     - Class: 114
-      Script: {instanceID: 12864}
+      Script: {instanceID: 12858}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -235,6 +225,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 49
       Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
@@ -242,6 +234,8 @@ ScriptsOnlyBuild:
     - Class: 89
       Script: {instanceID: 0}
     - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -256,73 +250,55 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10110}
     - Class: 114
-      Script: {instanceID: 10120}
-    - Class: 114
       Script: {instanceID: 10172}
     - Class: 114
-      Script: {instanceID: 10294}
+      Script: {instanceID: 10750}
     - Class: 114
-      Script: {instanceID: 10500}
+      Script: {instanceID: 10808}
     - Class: 114
-      Script: {instanceID: 10706}
+      Script: {instanceID: 10854}
     - Class: 114
-      Script: {instanceID: 10774}
+      Script: {instanceID: 10918}
     - Class: 114
-      Script: {instanceID: 10812}
+      Script: {instanceID: 11084}
     - Class: 114
-      Script: {instanceID: 10858}
+      Script: {instanceID: 11218}
     - Class: 114
-      Script: {instanceID: 10924}
+      Script: {instanceID: 11262}
     - Class: 114
-      Script: {instanceID: 11150}
+      Script: {instanceID: 11334}
     - Class: 114
-      Script: {instanceID: 11224}
+      Script: {instanceID: 11466}
     - Class: 114
-      Script: {instanceID: 11268}
+      Script: {instanceID: 11486}
     - Class: 114
-      Script: {instanceID: 11468}
+      Script: {instanceID: 11512}
     - Class: 114
-      Script: {instanceID: 11488}
+      Script: {instanceID: 11586}
     - Class: 114
-      Script: {instanceID: 11590}
+      Script: {instanceID: 11614}
     - Class: 114
-      Script: {instanceID: 11622}
+      Script: {instanceID: 11686}
     - Class: 114
-      Script: {instanceID: 11642}
+      Script: {instanceID: 11808}
     - Class: 114
-      Script: {instanceID: 11696}
+      Script: {instanceID: 11828}
     - Class: 114
-      Script: {instanceID: 11772}
+      Script: {instanceID: 12120}
     - Class: 114
-      Script: {instanceID: 11818}
+      Script: {instanceID: 12218}
     - Class: 114
-      Script: {instanceID: 11838}
+      Script: {instanceID: 12306}
     - Class: 114
-      Script: {instanceID: 12054}
+      Script: {instanceID: 12500}
     - Class: 114
-      Script: {instanceID: 12130}
+      Script: {instanceID: 12546}
     - Class: 114
-      Script: {instanceID: 12228}
+      Script: {instanceID: 12710}
     - Class: 114
-      Script: {instanceID: 12508}
+      Script: {instanceID: 12788}
     - Class: 114
-      Script: {instanceID: 12554}
-    - Class: 114
-      Script: {instanceID: 12718}
-    - Class: 114
-      Script: {instanceID: 12720}
-    - Class: 114
-      Script: {instanceID: 12774}
-    - Class: 114
-      Script: {instanceID: 12794}
-    - Class: 114
-      Script: {instanceID: 12814}
-    - Class: 114
-      Script: {instanceID: 12838}
-    - Class: 114
-      Script: {instanceID: 12864}
-    - Class: 114
-      Script: {instanceID: 27004}
+      Script: {instanceID: 12832}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -552,12 +528,6 @@ ScriptsOnlyBuild:
     className: HelloARController
   - hash:
       serializedVersion: 2
-      Hash: e46fb90fe982b931d02425fdac83d261
-    assemblyName: SimpleFileBrowser.Runtime.dll
-    namespaceName: SimpleFileBrowser
-    className: FileBrowserItem
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: Framework.Events
@@ -702,12 +672,6 @@ ScriptsOnlyBuild:
     className: EnvironmentalLight
   - hash:
       serializedVersion: 2
-      Hash: e46fb90fe982b931d02425fdac83d261
-    assemblyName: SimpleFileBrowser.Runtime.dll
-    namespaceName: SimpleFileBrowser
-    className: FileBrowserQuickLink
-  - hash:
-      serializedVersion: 2
       Hash: 70b5990d93842e2357518f44237e7f47
     assemblyName: Assembly-CSharp.dll
     namespaceName: GoogleARCore.Examples.Common
@@ -718,6 +682,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: Framework.Variables
     className: Vector3Variable
+  - hash:
+      serializedVersion: 2
+      Hash: af4e0db704825129116199987fa9c10f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: UnityEngine.UI.Extensions
+    className: SegmentedControl
   - hash:
       serializedVersion: 2
       Hash: d6b2f00519aebddb989d1fffa8ec7b27
@@ -736,12 +706,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Analytics.Tracker.dll
     namespaceName: UnityEngine.Analytics
     className: AnalyticsTracker
-  - hash:
-      serializedVersion: 2
-      Hash: d9f72468a83361c2e15ed68ac6fcc36b
-    assemblyName: SimpleFileBrowser.Runtime.dll
-    namespaceName: SimpleFileBrowser
-    className: RecycledListView
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -852,10 +816,10 @@ ScriptsOnlyBuild:
     className: ARCoreBackgroundRenderer
   - hash:
       serializedVersion: 2
-      Hash: add5aac1495ea69924aba334c8362232
+      Hash: 9ad41f5fa1a2a62414f509f533d6b350
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: AlertPin
+    className: IssueObject
   - hash:
       serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
@@ -960,6 +924,12 @@ ScriptsOnlyBuild:
     className: PlayAreaManager
   - hash:
       serializedVersion: 2
+      Hash: b2f3b91ce97eb64dea8f99d318563b43
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: IssueManager
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
@@ -1002,7 +972,7 @@ ScriptsOnlyBuild:
     className: ElevationManipulator
   - hash:
       serializedVersion: 2
-      Hash: 7966d0a52dfc02221a3adb8316e7d348
+      Hash: 32fd905a6caec902ccc560e76d7f37ef
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CityGMLManager
@@ -1024,12 +994,6 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RotateAround
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: SimpleFileBrowser.Runtime.dll
-    namespaceName: SimpleFileBrowser
-    className: ListItem
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1066,12 +1030,6 @@ ScriptsOnlyBuild:
     assemblyName: com.unity.multiplayer-hlapi.Runtime.dll
     namespaceName: UnityEngine.Networking
     className: NetworkStartPosition
-  - hash:
-      serializedVersion: 2
-      Hash: 029c97d0c776a306d131505738b12c20
-    assemblyName: SimpleFileBrowser.Runtime.dll
-    namespaceName: SimpleFileBrowser
-    className: FileBrowserMovement
   - hash:
       serializedVersion: 2
       Hash: be97bdcc57cafb18afe64d818538f740
@@ -1212,12 +1170,6 @@ ScriptsOnlyBuild:
     className: TranslationManipulator
   - hash:
       serializedVersion: 2
-      Hash: 8bca93c346332209f8c6ad0dcf827a15
-    assemblyName: SimpleFileBrowser.Runtime.dll
-    namespaceName: SimpleFileBrowser
-    className: FileBrowser
-  - hash:
-      serializedVersion: 2
       Hash: 869cf1959adcc16e91af1ef34dcc4c97
     assemblyName: UnityEngine.XR.LegacyInputHelpers.dll
     namespaceName: UnityEditor.XR.LegacyInputHelpers
@@ -1318,6 +1270,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SetRenderQueue
+  - hash:
+      serializedVersion: 2
+      Hash: ffca1f13a76f40f69be6b3932b0e48ed
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AnchorlessTranslationManipulator
   - hash:
       serializedVersion: 2
       Hash: d274752beba4c4af1ee4cabfaa63fe33
@@ -1570,14 +1528,8 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: ffca1f13a76f40f69be6b3932b0e48ed
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: AnchorlessTranslationManipulator
   platform: 13
   scenePathNames:
   - Assets/_Main/_Scenes/MainMenu.unity
   - Assets/_Main/_Scenes/ARScene.unity
-  playerPath: D:/Projects/Dissertation_AR-GIS/ARCore_NavigableCityGML.apk
+  playerPath: D:/Projects/Dissertation_AR-GIS/ARCore_Issues.apk

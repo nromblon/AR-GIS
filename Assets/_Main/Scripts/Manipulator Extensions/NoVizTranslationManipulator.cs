@@ -59,6 +59,9 @@ public class NoVizTranslationManipulator : Manipulator
 
 		Debug.Log(gameObject.name+" - NoVizTranslationManipulator: Can Manipulate");
 
+		if (!ARSceneController.Instance.AllowManipulation)
+			return false;
+
 		return true;
 	}
 

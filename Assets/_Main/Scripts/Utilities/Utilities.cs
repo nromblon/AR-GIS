@@ -54,6 +54,20 @@ namespace FixCityAR {
 			return center;
 		}
 
+		public static double ComputeDistance(Coordinates c1, Coordinates c2) {
+			return System.Math.Sqrt(System.Math.Pow(c1.x - c2.x,2) + System.Math.Pow(c1.y - c2.y,2));
+		}
+
+		public static double ComputeDistance(Vector3 v1, Vector3 v2) {
+			return System.Math.Sqrt(System.Math.Pow(v1.x - v2.x, 2) + System.Math.Pow(v1.z - v2.z, 2));
+		}
+
+		public static Vector3 ConvertLatLongToUnits(Coordinates c) {
+			double x = c.x * CityGMLManager.Instance.UnitPerLatLongRatio;
+			double z = c.y * CityGMLManager.Instance.UnitPerLatLongRatio;
+			return new Vector3((float)x, 0, (float)z);
+		}
+
 		/// <summary>
 		/// Fits a box collider to its children's renderer components.
 		/// Code snippet by Unity Answers user dbanfield:

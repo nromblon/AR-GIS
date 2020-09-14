@@ -16,6 +16,8 @@ public enum GenerateColliderOptions {
 
 public class CityGMLManager : MonoBehaviour
 {
+	const string GCS_CONVERT_CODE = "4326";
+
 	private static CityGMLManager sharedInstance;
 	public static CityGMLManager Instance {
 		get {
@@ -26,6 +28,7 @@ public class CityGMLManager : MonoBehaviour
 	[Header("Config")]
 	public float y_offset = -5;
 	public CityGml2GO cityGML2GO;
+	public IssueManager IssueManager;
 	public GenerateColliderOptions GenerateColliders = 0;
 	public bool shouldRemoveOutliers = true;
 	public float outlierCoeff = 3f;
@@ -56,9 +59,19 @@ public class CityGMLManager : MonoBehaviour
 	[SerializeField] private Vector3 onLoadPosition;
 	[SerializeField] private Vector3 onLoadScale;
 
+	private double coord_distance;
+	public double UnitPerLatLongRatio {
+		get {
+			double v_distance = Utilities.ComputeDistance(transform.position, Bounds.max);
+			return v_distance / coord_distance;
+		}
+	}
+	public GameObject TestIssueObject;
+
 	private void Awake() {
 		sharedInstance = this;
-		Manipulators = GetComponents<Manipulator>();        
+		Manipulators = GetComponents<Manipulator>();
+
 		// Make sure that the manipulators are disabled and deselected.
 		foreach (var m in Manipulators) {
 			m.enabled = false;
@@ -69,6 +82,9 @@ public class CityGMLManager : MonoBehaviour
 	void Start()
     {
 		this.cityGML2GO = GetComponentInChildren<CityGml2GO>();
+		if (IssueManager == null)
+			IssueManager = IssueManager.Instance;
+
 		b_IsCityPlaced = false;
 
     }
@@ -83,6 +99,9 @@ public class CityGMLManager : MonoBehaviour
 
 		// Generate Colliders
 		GenerateBuildingColliders();
+
+		// Initialize Alerts
+		InitializeIssues();
 
 		onLoadPosition = transform.position;
 		onLoadScale = transform.localScale;
@@ -231,24 +250,34 @@ public class CityGMLManager : MonoBehaviour
 			}
 		}
 	}
-	#endregion
+	
+	private void InitializeIssues() {
+		// Convert Coordinates to Lat/Long system
+		Coordinates[] cityCoords = new Coordinates[3];
+		cityCoords[0] = CityProperties.raw_MinPoint;
+		cityCoords[2] = CityProperties.raw_MaxPoint;
+		cityCoords[1] = CityProperties.raw_Center;
 
-	public void CheckWithinBounds(BoxCollider box) {
-		if(buildings == null) {
-			buildings = GetComponentsInChildren<BuildingProperties>();
-		}
+		CoordinateConverter cc = new CoordinateConverter();
+		StartCoroutine(cc.ConvertCoordinate(cityCoords, GCS_CONVERT_CODE));
 
-		foreach(var building in buildings) {
-			if (Utilities.IsPointWithinBoxCollider(building.transform.position, box)) {
-				//TODO: optimization opportunity. Should I check if active or is it fine as is?
-				// might want to check profiler for results.
-				//building.gameObject.SetActive(true);
-			}
-			else {
-				//building.gameObject.SetActive(false);
-			}
-		}
+		StartCoroutine(WaitForCoordinateConverterResults(cc, () => {
+			Debug.Log(cc.results);
+			Coordinates[] wgs_coords = cc.results;
+			Debug.Log(cc.results);
+			CityProperties.wgs_MinPoint = wgs_coords[0];
+			CityProperties.wgs_MaxPoint = wgs_coords[2];
+
+			// Compute coord_distance to be used in Conversion Ratio for LatLong to Unity Units
+			GPSEncoder.SetLocalOrigin(new Vector2((float)CityProperties.wgs_Center.y, (float)CityProperties.wgs_Center.x));
+
+			IssueManager.InitializeIssues();
+
+			// Set Issuemanager as child
+			IssueManager.gameObject.transform.SetParent(transform);
+		}));
 	}
+	#endregion
 
 	public void OnCityPlaced() {
 		b_IsCityPlaced = true;
@@ -297,6 +326,11 @@ public class CityGMLManager : MonoBehaviour
 		StartCoroutine(LerpPositionToOrigin(duration));
 	}
 
+	IEnumerator WaitForCoordinateConverterResults(CoordinateConverter cc, System.Action callback) {
+		yield return new WaitUntil(() => cc.isDone);
+		callback();
+	}
+
 	IEnumerator LerpPositionToOrigin(float duration) {
 		// Disable touch controls
 		ManipulationSystem.Instance.Deselect();
@@ -315,5 +349,66 @@ public class CityGMLManager : MonoBehaviour
 		// Reenable touch controls
 		Select();
 		ControlsManager.Instance.EnableRecenterButton(true);
+	}
+}
+
+public static class CityProperties {
+	/// <summary>
+	/// Minpoint and Maxpoint in Raw format (as read in the GML file).
+	/// </summary>
+	public static Coordinates raw_MinPoint, raw_MaxPoint;
+	private static bool HasInitMin = false, HasInitMax = false;
+	public static Coordinates raw_Center {
+		get {
+			double center_x = (raw_MaxPoint.x + raw_MinPoint.x) / 2;
+			double center_y = (raw_MaxPoint.y + raw_MinPoint.y) / 2;
+			double center_elev = (raw_MaxPoint.z + raw_MinPoint.z) / 2;
+			return new Coordinates(center_x, center_y, center_elev, raw_MaxPoint.gcs_type);
+		}
+	}
+
+	/// <summary>
+	/// Minpoint and Maxpoint in WGS84 format (lat/long degrees).
+	/// </summary>
+	public static Coordinates wgs_MinPoint, wgs_MaxPoint;
+	public static Coordinates wgs_Center {
+		get {
+			double center_x = (wgs_MaxPoint.x + wgs_MinPoint.x) / 2;
+			double center_y = (wgs_MaxPoint.y + wgs_MinPoint.y) / 2;
+			double center_elev = (wgs_MaxPoint.z + wgs_MinPoint.z) / 2;
+			return new Coordinates(center_x, center_y, center_elev, wgs_MaxPoint.gcs_type);
+		}
+	}
+
+	public static void CheckSetRawMinPoint(Coordinates point) {
+		if (!HasInitMin) {
+			raw_MinPoint = point;
+			HasInitMin = true;
+			return;
+		}
+
+		if (raw_MinPoint.x > point.x)
+			raw_MinPoint.x = point.x;
+		if (raw_MinPoint.y > point.y)
+			raw_MinPoint.y = point.y;
+		if (raw_MinPoint.z > point.z)
+			raw_MinPoint.z = point.z;
+
+	}
+
+	public static void CheckSetRawMaxPoint(Coordinates point) {
+		if (!HasInitMax) {
+			raw_MaxPoint = point;
+			HasInitMax = true;
+			return;
+		}
+
+		if (raw_MaxPoint.x < point.x)
+			raw_MaxPoint.x = point.x;
+		if (raw_MaxPoint.y < point.y)
+			raw_MaxPoint.y = point.y;
+		if (raw_MaxPoint.z < point.z)
+			raw_MaxPoint.z = point.z;
+
 	}
 }

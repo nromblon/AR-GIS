@@ -308,6 +308,9 @@
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Assets/DLL Extensions/net20/Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="netstandard">
       <HintPath>D:/Programs/Unity Other Versions/2019.2.6f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
     </Reference>

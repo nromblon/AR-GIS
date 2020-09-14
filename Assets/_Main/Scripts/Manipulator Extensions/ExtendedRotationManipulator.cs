@@ -11,6 +11,9 @@ public class ExtendedRotationManipulator : RotationManipulator {
 		if (!CanOperateWithDrag)
 			return false;
 
+		if (!ARSceneController.Instance.AllowManipulation)
+			return false;
+
 		return base.CanStartManipulationForGesture(gesture);
 	}
 	/// <summary>
@@ -23,6 +26,8 @@ public class ExtendedRotationManipulator : RotationManipulator {
 			return false;
 		}
 
+		if (!ARSceneController.Instance.AllowManipulation)
+			return false;
 
 		Debug.Log(gameObject.name + " - ExtendedRotationManipulator: Can Manipulate");
 

@@ -127,6 +127,8 @@ namespace Assets.Scripts.CityGML2GO {
 			}
 
 			ActualTranslate = Translate == Vector3.zero ? TranslateVector.GetTranslateVectorFromFile(file) : Translate;
+			Debug.Log("City Bounds: " + CityProperties.raw_MinPoint + " -- " + CityProperties.raw_MaxPoint);
+			Debug.Log("Center: " + CityProperties.raw_Center);
 		}
 
 		/// <summary>
@@ -151,6 +153,10 @@ namespace Assets.Scripts.CityGML2GO {
 				count++;
 				translate += TranslateVector.GetTranslateVectorFromFile(fileInfo);
 			}
+
+			Debug.Log("City Bounds: " + CityProperties.raw_MinPoint + " -- " + CityProperties.raw_MaxPoint);
+			Debug.Log("Center: " + CityProperties.raw_Center);
+			Debug.Log("gcs type test:" + CityProperties.raw_Center.GetGCSType());
 
 			ActualTranslate = translate / count;
 		}

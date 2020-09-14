@@ -10,12 +10,24 @@ public class PlayAreaBoundsHandler : MonoBehaviour
 		if (building != null) {
 			building.EnableRenderers(false);
 		}
+		else {
+			var issueObj = other.GetComponentInParent<IssueObject>();
+			if (issueObj != null) {
+				issueObj.EnableRenderers(false);
+			}
+		}
 	}
 
 	private void OnTriggerEnter(Collider other) {
 		var building = other.GetComponentInParent<BuildingController>();
 		if (building != null) {
 			building.EnableRenderers(true);
+		}
+		else {
+			var issueObj = other.GetComponentInParent<IssueObject>();
+			if (issueObj != null) {
+				issueObj.EnableRenderers(true);
+			}
 		}
 	}
 }
