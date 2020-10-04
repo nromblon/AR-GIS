@@ -58,7 +58,6 @@ namespace Assets.Scripts.CityGML2GO {
 			get { return hasInstantiatedCity; }
 			private set {
 				hasInstantiatedCity = value;
-				Debug.Log("City Instantiated: " + value);
 			}
 		}
 
@@ -93,7 +92,6 @@ namespace Assets.Scripts.CityGML2GO {
 			}
 
 			FilePath = fn;
-			Debug.Log("FilePath: " + fn);
 
 			Polygons = new List<GameObject>();
 
@@ -103,12 +101,10 @@ namespace Assets.Scripts.CityGML2GO {
 
 			// Checks if File is a Single file or a directory.
 			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory) {
-				Debug.Log("### - Directory detected");
 				SetTranslate(new DirectoryInfo(fn));
 				StartCoroutine("RunDirectory", fn);
 			}
 			else {
-				Debug.Log("### - Single File detected");
 				SetTranslate(new FileInfo(fn));
 				StartCoroutine(Run(fn,true));
 			}
@@ -127,8 +123,6 @@ namespace Assets.Scripts.CityGML2GO {
 			}
 
 			ActualTranslate = Translate == Vector3.zero ? TranslateVector.GetTranslateVectorFromFile(file) : Translate;
-			Debug.Log("City Bounds: " + CityProperties.raw_MinPoint + " -- " + CityProperties.raw_MaxPoint);
-			Debug.Log("Center: " + CityProperties.raw_Center);
 		}
 
 		/// <summary>
@@ -153,16 +147,11 @@ namespace Assets.Scripts.CityGML2GO {
 				count++;
 				translate += TranslateVector.GetTranslateVectorFromFile(fileInfo);
 			}
-
-			Debug.Log("City Bounds: " + CityProperties.raw_MinPoint + " -- " + CityProperties.raw_MaxPoint);
-			Debug.Log("Center: " + CityProperties.raw_Center);
-			Debug.Log("gcs type test:" + CityProperties.raw_Center.GetGCSType());
-
+			
 			ActualTranslate = translate / count;
 		}
 		 
 		public void RefreshMeshes() {
-			Debug.Log("Refreshing Meshes");
 			foreach (var mf in GetComponentsInChildren<MeshFilter>()) {
 				var childMesh = mf.mesh;
 				childMesh.RecalculateNormals();
