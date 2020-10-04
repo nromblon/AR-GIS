@@ -30,8 +30,6 @@ public class TownController : MonoBehaviour
 		// Find the ratio in the distances between each frame.
 		float deltaMagnitudeRatio = touchDeltaMag - prevTouchDeltaMag;
 
-		Debug.Log("Delta Magnitude Ratio: " + deltaMagnitudeRatio);
-
 		IncreaseScale(deltaMagnitudeRatio);
 
 	}
@@ -45,8 +43,6 @@ public class TownController : MonoBehaviour
 		increaseBy = ScaleFactor * increaseBy;
 
 		float newScale = Mathf.Clamp(currentScale + increaseBy, MinScale, MaxScale);
-
-		Debug.Log("New scale: " + newScale);
 
 		ScaleTf.localScale = new Vector3(newScale, newScale, newScale);
 	}

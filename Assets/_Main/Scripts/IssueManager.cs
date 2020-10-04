@@ -33,9 +33,7 @@ public class IssueManager : MonoBehaviour
 		// Remove Issues that are not within City Bounds.
 		var numRemoved = issues.RemoveAll((Issue obj) => 
 		!IsInsideCoordBounds(obj.GetCoordinate(),CityProperties.wgs_MinPoint, CityProperties.raw_MaxPoint));
-
-		Debug.Log("Removed " + numRemoved + " issues");
-
+		
 		// Compute coord_distance to be used in Conversion Ratio for LatLong to Unity Units
 		//GPSEncoder.SetLocalOrigin(new Vector2((float)CityProperties.wgs_Center.y, (float)CityProperties.wgs_Center.x));
 
@@ -64,12 +62,10 @@ public class IssueManager : MonoBehaviour
 			yield return webRequest.SendWebRequest();
 
 			if (webRequest.isNetworkError) {
-				Debug.LogError(webRequest.error);
 			}
 			else {
 				string json = webRequest.downloadHandler.text;
-
-				//Debug.Log(json);
+				
 				issues = new List<Issue>(ParseJsonArray(json));
 
 				foreach (var i in issues) {
@@ -81,13 +77,9 @@ public class IssueManager : MonoBehaviour
 
 	private Issue[] ParseJsonArray(string data) {
 		IssueData issues;
-		//data = data.Replace("{\"data\":", "");
-		//data = data.Remove(data.Length - 1, 1);
-		Debug.Log(data);
 
 		issues = JsonUtility.FromJson<IssueData>(data);
-
-		Debug.Log("Issues size:" + issues.data.Length);
+		
 
 		return issues.data;
 	}

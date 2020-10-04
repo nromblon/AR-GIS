@@ -26,7 +26,6 @@ namespace Assets.Scripts.CityGML2GO
                 {
 					if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "Envelope") {
 						srsName = reader.GetAttribute("srsName");
-						Debug.Log(srsName);
 					}
 
                     if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "lowerCorner")

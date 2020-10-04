@@ -80,7 +80,6 @@ public class ARSceneController : MonoBehaviour {
 
 		if (!DepthMenuOpened && DepthSettings != null) {
 			// This enables Plane Discovery Guide after depth menu has been configured.
-			Debug.Log("Depth Menu needs configuration first.");
 			DepthMenuOpened = true;
 			DepthSettings.ConfigureDepthBeforePlacingFirstAsset();
 			return;
@@ -90,14 +89,11 @@ public class ARSceneController : MonoBehaviour {
 			// Handle issue canvas opening/closing
 			AllowManipulation = false;
 			LayerMask layerMask = LayerMask.GetMask("Issue");
-			Debug.Log("layermask: " + layerMask);
 			Ray r = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 			RaycastHit p_hit;
 			if (Physics.Raycast(r, out p_hit, Mathf.Infinity, layerMask.value)) {
-				Debug.Log("raycast collided with something: "+p_hit.transform.name);
 				var iobj = p_hit.transform.GetComponentInParent<IssueObject>();
 				if (iobj != null) {
-					Debug.Log("raycast collided with IssueObject");
 					if (selectedIssue == null) {
 						// Select new Issue
 						selectedIssue = iobj;
@@ -130,7 +126,6 @@ public class ARSceneController : MonoBehaviour {
 			cityGMLMngr.transform.localScale.y * min_ratio,
 			cityGMLMngr.transform.localScale.z * min_ratio);
 
-		//Debug.Log("City Bounds center: " + cityBounds.center);
 		cityGMLMngr.transform.localScale = newScale;
 		// set as child of play area
 		PAmngr.PlayArea.SetAsChild(cityGMLMngr.gameObject);
@@ -138,15 +133,6 @@ public class ARSceneController : MonoBehaviour {
 		// set local position and localrotate = 0
 		cityGMLMngr.transform.localPosition = Vector3.zero;
 		cityGMLMngr.transform.localEulerAngles = Vector3.zero;
-		//var city_center = cityGMLMngr.Bounds.center;
-		//Debug.Log("City Bounds center_rescaled: " + city_center);
-		//city_center = Vector3.Scale(city_center, cityGMLMngr.transform.localScale);
-		//Debug.Log("City Bounds center outside of cityGO: " + city_center.ToString("F4"));
-		//cityGMLMngr.transform.localPosition = city_center;
-
-		//cityGMLMngr.transform.Translate(Vector3.Scale(cityBounds.center,newScale));
-		//cityGMLMngr.transform.localPosition = pos;
-		// Deselect PlayArea
 		
 		cityGMLMngr.OnCityPlaced();
 		EnablePlaneDiscoveryGuide(false);
@@ -162,7 +148,6 @@ public class ARSceneController : MonoBehaviour {
 			selectedIssue = null;
 		}
 		PlayAreaManager.Instance.RemovePlacement();
-		Debug.Log("Reset Play Area Placement");
 
 		_ShowAndroidToastMessage("Tap on a Detected Plane to place the Interactable Area.");
 	}
@@ -233,7 +218,6 @@ public class ARSceneController : MonoBehaviour {
 
 	IEnumerator ExecuteAfterTime(float time, Action function) {
 		yield return new WaitForSecondsRealtime(time);
-		Debug.Log("Call function");
 		function();
 	}
 	#endregion

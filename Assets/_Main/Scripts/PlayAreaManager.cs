@@ -36,7 +36,6 @@ public class PlayAreaManager : Manipulator
 		hasPlacedPlayArea = false;
 		hasConfirmedPlayArea = false;
 		sceneController = ARSceneController.Instance;
-		Debug.Log("Play area manager online");
 		this.Select();
     }
 
@@ -80,7 +79,6 @@ public class PlayAreaManager : Manipulator
 			if ((hit.Trackable is DetectedPlane) &&
 				Vector3.Dot(Camera.main.transform.position - hit.Pose.position,
 					hit.Pose.rotation * Vector3.up) < 0) {
-				Debug.Log("Hit at back of the current DetectedPlane");
 			}
 			else {
 				// Instantiate game object at the hit pose.
@@ -99,7 +97,6 @@ public class PlayAreaManager : Manipulator
 				playArea.transform.parent = anchor.transform;
 
 				playArea.Select();
-				Debug.Log("Play Area Select() called");
 
 				// Show Confirm Button
 				confirmBtn.ShowButton(true);
@@ -114,7 +111,6 @@ public class PlayAreaManager : Manipulator
 		Bounds PABounds = playArea.Bounds;
 		sceneController.OnPlayAreaConfirmed(PABounds,this);
 		playArea.OnPlacementConfirm();
-		Debug.Log("Play Area has been placed.");
 	}
 
 	public void RemovePlacement() {
@@ -130,7 +126,6 @@ public class PlayAreaManager : Manipulator
 		playArea = null;
 
 		Select();
-		Debug.Log("after select - Manipulation System selected object: " + ManipulationSystem.Instance.SelectedObject.name);
 	}
 }
 

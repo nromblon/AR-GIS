@@ -44,7 +44,6 @@ public class ControlsManager : MonoBehaviour
 
 	public void ShowControls(bool val) {
 		ControlsAnimator.SetBool(SHOW_BUTTONS, val);
-		Debug.Log("Controls Shown: " + val);
 	}
 
 	public void EnableRecenterButton(bool val) {

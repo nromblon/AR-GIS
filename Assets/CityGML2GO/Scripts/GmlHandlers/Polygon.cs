@@ -114,7 +114,6 @@ namespace Assets.Scripts.CityGML2GO.GmlHandlers
             {
                 IXmlLineInfo xmlInfo = (IXmlLineInfo)reader;
                 int lineNumber = xmlInfo.LineNumber;
-                Debug.Log(lineNumber);
                 return null;
             }
 
@@ -124,7 +123,6 @@ namespace Assets.Scripts.CityGML2GO.GmlHandlers
                 {
                     IXmlLineInfo xmlInfo = (IXmlLineInfo)reader;
                     int lineNumber = xmlInfo.LineNumber;
-                    Debug.Log(lineNumber);
                     return null;
                 }
             }
@@ -148,7 +146,9 @@ namespace Assets.Scripts.CityGML2GO.GmlHandlers
             }
             catch (Exception ex)
             {
-                Debug.Log(ex);
+				// Commented for now as it might be affecting performance
+				// - by Neil Romblon, October 4, 2020
+                //Debug.Log(ex);
             }
 
 
@@ -182,14 +182,16 @@ namespace Assets.Scripts.CityGML2GO.GmlHandlers
         {
             if (poly.First() != poly.Last())
             {
-                Debug.LogWarning("First != Last");
+				// Commented for performance testing
+                //Debug.LogWarning("First != Last");
                 return false;
             }
 
             if (poly.Count < 4)
             {
-                Debug.LogWarning("Count < 4");
-                return false;
+				// Commented for performance testing
+				//Debug.LogWarning("Count < 4");
+				return false;
             }
 
             return true;

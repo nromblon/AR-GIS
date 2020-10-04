@@ -56,9 +56,7 @@ public class NoVizTranslationManipulator : Manipulator
 	protected override bool CanStartManipulationForGesture(DragGesture gesture) {
 		if (!IsSelected())
 			return false;
-
-		Debug.Log(gameObject.name+" - NoVizTranslationManipulator: Can Manipulate");
-
+		
 		if (!ARSceneController.Instance.AllowManipulation)
 			return false;
 
@@ -93,7 +91,6 @@ public class NoVizTranslationManipulator : Manipulator
 				desiredPlacement.HoveringPosition.Value);
 
 			m_DesiredAnchorPosition = desiredPlacement.PlacementPosition.Value;
-			Debug.Log("NoVizTranslationManipulator: m_DesiredAnchorPosition: " + m_DesiredAnchorPosition);
 			m_GroundingPlaneHeight = desiredPlacement.UpdatedGroundingPlaneHeight;
 
 			if (desiredPlacement.PlacementRotation.HasValue) {
@@ -109,7 +106,6 @@ public class NoVizTranslationManipulator : Manipulator
 
 			if (desiredPlacement.PlacementPlane.HasValue) {
 				m_LastHit = desiredPlacement.PlacementPlane.Value;
-				Debug.Log("NoVizTranslationManipulator: m_LastHit modified: " + m_LastHit);
 			}
 		}
 	}

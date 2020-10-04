@@ -52,7 +52,6 @@ namespace Assets.Scripts.CityGML2GO
             }
 
             Materials = new List<Material>();
-            Debug.Log(_cityGml2Go.SemanticSurfaces.Count);
             foreach (var name in _cityGml2Go.SemanticSurfaces)
             {
 				// Generate random Materials if none has been assigned

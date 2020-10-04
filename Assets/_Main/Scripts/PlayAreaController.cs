@@ -30,16 +30,12 @@ public class PlayAreaController : MonoBehaviour
 	
     void Awake()
     {
-		Debug.Log("Play Area Controller Awake()");
 		Manipulators = MeshTf.GetComponents<Manipulator>();
-		//Select();
 		boxMesh = MeshBoundary.GetComponent<MeshRenderer>();
 		animator = GetComponent<Animator>();
     }
 
 	public void Select() {
-		Debug.Log("Play Area Controller Select()");
-		Debug.Log("Play Area Controller Manipulators: " + Manipulators.Length);
 		foreach (var m in Manipulators) {
 			m.enabled = true;
 			m.Select();

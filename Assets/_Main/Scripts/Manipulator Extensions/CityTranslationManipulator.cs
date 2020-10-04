@@ -32,8 +32,6 @@ public class CityTranslationManipulator : TranslationManipulator
 			return false;
 		}
 
-		Debug.Log(gameObject.name + " - CityTranslationManipulator: Can Manipulate");
-
 		return true;
 	}
 }

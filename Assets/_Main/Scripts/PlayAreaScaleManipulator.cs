@@ -20,8 +20,7 @@ public class PlayAreaScaleManipulator : Manipulator
 		Vector3 touchPos = Camera.main.ScreenToWorldPoint(gesture.Position);
 
 		//Ray r Camera.main.ScreenPointToRay(gesture.Position);
-
-		Debug.Log("PlayAreaScaleManipulator Dragging (OnContinue)");
+		
 		if (!IsTouchPosValid(touchPos))
 			return;
 
@@ -34,7 +33,6 @@ public class PlayAreaScaleManipulator : Manipulator
 
 	protected override void OnSelected() {
 		base.OnSelected();
-		Debug.Log("PlayAreaScaleManipulator Selected");
 	}
 
 	private void PerformScaleChange(Vector3 touchPos) {

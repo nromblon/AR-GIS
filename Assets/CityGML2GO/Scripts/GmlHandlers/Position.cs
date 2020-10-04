@@ -35,8 +35,9 @@ namespace Assets.Scripts.CityGML2GO.GmlHandlers
             }
             if (parts.Length % 3 != 0)
             {
-                Debug.LogWarning("Error in posList (Count % 3 != 0)");
-                Debug.Log(((IXmlLineInfo)reader).LineNumber);
+				// Commented for performance checking
+                //Debug.LogWarning("Error in posList (Count % 3 != 0)");
+                //Debug.Log(((IXmlLineInfo)reader).LineNumber);
                 return null;
             }
 

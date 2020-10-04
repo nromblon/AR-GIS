@@ -28,9 +28,7 @@ public class ExtendedRotationManipulator : RotationManipulator {
 
 		if (!ARSceneController.Instance.AllowManipulation)
 			return false;
-
-		Debug.Log(gameObject.name + " - ExtendedRotationManipulator: Can Manipulate");
-
+		
 		return true;
 	}
 }

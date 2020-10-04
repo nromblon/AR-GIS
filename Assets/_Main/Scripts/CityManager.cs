@@ -118,7 +118,6 @@ public class CityManager : MonoBehaviour
 		}
 		
 		var center = Bounds.center;
-		Debug.Log("Center located at: " + center);
 
 		// Detach 1st level children
 		foreach (var child in children) {
@@ -128,7 +127,6 @@ public class CityManager : MonoBehaviour
 		transform.position = new Vector3(center.x, transform.position.y, center.z);
 
 		// Reattach children
-		Debug.Log("Reattaching");
 		foreach(var child in children) {
 			child.SetParent(transform);
 		}
@@ -261,9 +259,7 @@ public class CityManager : MonoBehaviour
 		StartCoroutine(cc.ConvertCoordinate(cityCoords, GCS_CONVERT_CODE));
 
 		StartCoroutine(WaitForCoordinateConverterResults(cc, () => {
-			Debug.Log(cc.results);
 			Coordinates[] wgs_coords = cc.results;
-			Debug.Log(cc.results);
 			CityProperties.wgs_MinPoint = wgs_coords[0];
 			CityProperties.wgs_MaxPoint = wgs_coords[2];
 
@@ -306,7 +302,6 @@ public class CityManager : MonoBehaviour
 
 	public void Select() {
 		foreach (var m in Manipulators) {
-			Debug.Log("city manipulator selected");
 			m.enabled = true;
 			m.Select();
 		}
@@ -316,8 +311,6 @@ public class CityManager : MonoBehaviour
 		foreach (var m in Manipulators) {
 			m.Deselect();
 			m.enabled = false;
-
-			Debug.Log("CityManipulators deselected");
 		}
 	}
 

@@ -61,7 +61,6 @@ public class IssueObject : MonoBehaviour
 		if (!hasCanvasInitialized) {
 			Canvas.worldCamera = GameObject.FindGameObjectWithTag("UI Camera").GetComponent<Camera>();
 			hasCanvasInitialized = true;
-			Debug.Log("Issue Object's world camera: " + Canvas.worldCamera.name);
 		}
 
 		if (!isCanvasShown) {
@@ -70,11 +69,9 @@ public class IssueObject : MonoBehaviour
 			Canvas.gameObject.SetActive(true);
 			//CanvasAnimator.SetTrigger("Show");
 			isCanvasShown = true;
-			Debug.Log("In Alert Pin: Shown");
 		}
 		else {
 			DisableCanvas();
-			Debug.Log("In Alert Pin: Hidden");
 		}
 
 		return isCanvasShown;
@@ -122,7 +119,7 @@ public class IssueObject : MonoBehaviour
 		UnityWebRequest request = UnityWebRequestTexture.GetTexture(mediaURL);
 		yield return request.SendWebRequest();
 		if (request.isNetworkError || request.isHttpError)
-			Debug.Log(request.error);
+			Debug.LogError(request.error);
 		else
 			image.texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
 
@@ -181,10 +178,6 @@ public class IssueObject : MonoBehaviour
 	public void StatusChanged() {
 		var index = segmentControl.selectedSegmentIndex;
 		var status = (IssueStatusType)index;
-		Debug.Log("Status Changed:" + status);
-		// Modify Segment Control Components
-		//Color textColor = IssueStatus.StatusTypeToTextColor(status);
-		//segmentControl.selectedSegment.colors.
 
 		issue.UpdateStatus(status);
 		updateDateText.text = "last updated on " + issue.Updated_At.Value.ToLocalTime().ToString("MMMM dd, yyyy");

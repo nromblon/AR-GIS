@@ -5,7 +5,7 @@ ScriptsOnlyBuild:
     - AnchorlessTranslationManipulator
     - Assets.Scripts.CityGML2GO.CityGml2GO
     - Assets.Scripts.CityGML2GO.SemanticSurfaceMaterial
-    - CityGMLManager
+    - CityManager
     - ClippingPlane
     - ConfirmBtnController
     - ControlsManager
@@ -968,10 +968,10 @@ ScriptsOnlyBuild:
     className: ElevationManipulator
   - hash:
       serializedVersion: 2
-      Hash: 32fd905a6caec902ccc560e76d7f37ef
+      Hash: ad96a8d8e8e1e877c52b9b4b5b92fc36
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: CityGMLManager
+    className: CityManager
   - hash:
       serializedVersion: 2
       Hash: 5f1752ed2092162f016c19510c28a8b9
@@ -1528,4 +1528,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/_Main/_Scenes/MainMenu.unity
   - Assets/_Main/_Scenes/ARScene.unity
-  playerPath: D:/Projects/Dissertation_AR-GIS/ARCore_Issues.apk
+  playerPath: D:/Projects/Dissertation_AR-GIS/ARGIS_v1.apk

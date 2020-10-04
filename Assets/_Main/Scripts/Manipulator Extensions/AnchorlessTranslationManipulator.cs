@@ -55,9 +55,7 @@ public class AnchorlessTranslationManipulator : Manipulator {
 
 		if (!ARSceneController.Instance.AllowManipulation)
 			return false;
-
-		Debug.Log(gameObject.name + " - NoVizTranslationManipulator: Can Manipulate");
-
+		
 		return true;
 	}
 
@@ -95,9 +93,6 @@ public class AnchorlessTranslationManipulator : Manipulator {
 			m_DesiredLocalPosition = rootObject.transform.localPosition + localDirection;
 
 			m_PreviousWorldPoint = worldPoint;
-		}
-		else {
-			Debug.LogError("Ray did not intersect with plane!");
 		}
 	}
 

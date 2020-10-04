@@ -13,8 +13,7 @@ public class CoordinateConverter {
 		isDone = false;
 		string requestURL = CONV_URL + "x=" + toConvert.x + "&y=" + toConvert.y + "&z=" + toConvert.z +
 			"&s_srs=" + toConvert.GetGCSType() + "&t_srs=" + targetEPSGCode;
-
-		Debug.Log("Request URL: " + requestURL);
+		
 		using (UnityWebRequest webReq = UnityWebRequest.Get(requestURL)) {
 			yield return webReq.SendWebRequest();
 
@@ -23,11 +22,8 @@ public class CoordinateConverter {
 			}
 			else {
 				string json = webReq.downloadHandler.text;
-				Debug.Log(json);
 				result = JsonUtility.FromJson<Coordinates>(json);
 				result.gcs_type = targetEPSGCode;
-
-				Debug.Log("resulting coord ::" + result);
 			}
 		}
 		isDone = true;
@@ -46,8 +42,7 @@ public class CoordinateConverter {
 		}
 
 		requestURL = requestURL + "&s_srs=" + toConvert[0].GetGCSType() + "&t_srs=" + targetEPSGCode;
-
-		Debug.Log("Request URL: " + requestURL);
+		
 		using (UnityWebRequest webReq = UnityWebRequest.Get(requestURL)) {
 			yield return webReq.SendWebRequest();
 
@@ -57,16 +52,11 @@ public class CoordinateConverter {
 			else {
 				string json = webReq.downloadHandler.text;
 				json = "{\"data\":" + json.Trim() + "}";
-				Debug.Log(json);
 				ConvertedCoordinateData ccd = JsonUtility.FromJson<ConvertedCoordinateData>(json);
 				results = ccd.data;
-				Debug.Log("ccd data: " + ccd.data);
-				Debug.Log("Converted Coords: ");
 				foreach (var r in results) {
 					r.gcs_type = targetEPSGCode;
-					Debug.Log(r.ToString());
 				}
-				//Debug.Log("resulting coord ::" + result);
 			}
 		}
 

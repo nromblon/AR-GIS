@@ -47,9 +47,7 @@ public class SettingsMenu : MonoBehaviour
 	}
 
 	public void EnableResetCityPlacement(bool val) {
-		Debug.Log("Reset City Placement enabled:" + val);
 		m_ResetCityButton.interactable = val;
-		Debug.Log("ResetButton status: " + m_ResetCityButton.interactable);
 	}
 
 	private void _OnResetCityButtonClicked() {

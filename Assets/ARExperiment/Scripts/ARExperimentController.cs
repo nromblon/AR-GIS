@@ -109,16 +109,12 @@ public class ARExperimentController : MonoBehaviour
 			Ray r = Camera.main.ScreenPointToRay(touch.position);
 			RaycastHit p_hit;
 			if(Physics.Raycast(r, out p_hit)){
-				Debug.Log("Raycast sending for alertpin");
 				if (p_hit.transform.gameObject.tag == "Alert") {
 					IssueObject alertPin = p_hit.transform.GetComponentInParent<IssueObject>();
-					Debug.Log("Alert Pin Hit: "+alertPin);
 					if (alertPin.ToggleCanvas()) {
 						openedAlert = alertPin;
-						Debug.Log("Alert Pin Opened");
 					}
 					else {
-						Debug.Log("Alert Pin Closed");
 						openedAlert = null;
 					}
 
@@ -144,7 +140,6 @@ public class ARExperimentController : MonoBehaviour
 			if ((hit.Trackable is DetectedPlane) &&
 				Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
 					hit.Pose.rotation * Vector3.up) < 0) {
-				Debug.Log("Hit at back of the current DetectedPlane");
 			}
 			else {
 				if (DepthMenu != null) {
