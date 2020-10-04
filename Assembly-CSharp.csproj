@@ -64,7 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\_Main\Scripts\ARSceneController.cs" />
     <Compile Include="Assets\_Main\Scripts\BuildingController.cs" />
-    <Compile Include="Assets\_Main\Scripts\CityGMLManager.cs" />
+    <Compile Include="Assets\_Main\Scripts\CityManager.cs" />
     <Compile Include="Assets\_Main\Scripts\ConfirmBtnController.cs" />
     <Compile Include="Assets\_Main\Scripts\ControlsManager.cs" />
     <Compile Include="Assets\_Main\Scripts\CoordinateConverter.cs" />

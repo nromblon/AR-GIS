@@ -118,7 +118,7 @@ public class PlayAreaManager : Manipulator
 	}
 
 	public void RemovePlacement() {
-		CityGMLManager.Instance.OnCityRemoved();
+		CityManager.Instance.OnCityRemoved();
 
 		hasPlacedPlayArea = false;
 		hasConfirmedPlayArea = false;

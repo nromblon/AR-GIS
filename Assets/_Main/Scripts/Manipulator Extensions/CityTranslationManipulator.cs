@@ -10,10 +10,10 @@ public class CityTranslationManipulator : TranslationManipulator
     protected override void Update()
     {
 		base.Update();
-		//if (CityGMLManager.Instance.b_IsCityPlaced) {
+		//if (CityManager.Instance.b_IsCityPlaced) {
 		//	BoxCollider collider = PlayAreaManager.Instance.PlayArea.MeshBoundary.GetComponent<BoxCollider>();
 		//	//Debug.Log("PlayArea Collider bounds min: " + collider.bounds.min + " - max: " + collider.bounds.max);
-		//	CityGMLManager.Instance.CheckWithinBounds(collider);
+		//	CityManager.Instance.CheckWithinBounds(collider);
 		//}
 	}
 

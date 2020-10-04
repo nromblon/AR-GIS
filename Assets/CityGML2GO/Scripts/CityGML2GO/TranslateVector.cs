@@ -15,10 +15,14 @@ namespace Assets.Scripts.CityGML2GO
         {
             Vector3 fromV3 = Vector3.zero;
             Vector3 toV3 = Vector3.zero;
-            using (XmlReader reader = XmlReader.Create(file.OpenRead(), new XmlReaderSettings { IgnoreWhitespace = true }))
-            {
+            using (XmlReader reader = XmlReader.Create(file.OpenRead(), new XmlReaderSettings { IgnoreWhitespace = true })) 
+			{
+				////
+				///Added by Neil Romblon, September 2020
 				string srsName = "";
-                while (reader.Read())
+				/// End of Addition
+				////
+				while (reader.Read())
                 {
 					if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "Envelope") {
 						srsName = reader.GetAttribute("srsName");
@@ -32,25 +36,33 @@ namespace Assets.Scripts.CityGML2GO
                         fromV3 = new Vector3((float)double.Parse(parts[0]), (float)double.Parse(parts[2]),
                             (float)double.Parse(parts[1]));
 
+						////
+						///Added by Neil Romblon, September 2020
 						Coordinates fromPoint = new Coordinates(double.Parse(parts[0]), double.Parse(parts[1]),
 							double.Parse(parts[2]), srsName);
 
 						CityProperties.CheckSetRawMinPoint(fromPoint);
+						/// End of Addition
+						////
 
 					}
 
-                    if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "upperCorner")
+					if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "upperCorner")
                     {
                         reader.Read();
                         var parts = reader.Value.Split(' ');
                         toV3 = new Vector3((float)double.Parse(parts[0]), (float)double.Parse(parts[2]),
                             (float)double.Parse(parts[1]));
 
+						////
+						///Added by Neil Romblon, September 2020
 						Coordinates toPoint = new Coordinates(double.Parse(parts[0]), double.Parse(parts[1]),
 							double.Parse(parts[2]), srsName);
 
 						CityProperties.raw_MaxPoint = toPoint;
 						CityProperties.CheckSetRawMaxPoint(toPoint);
+						/// End of Addition
+						////
 					}
 
                     if (reader.NodeType == XmlNodeType.EndElement && reader.LocalName == "boundedBy")

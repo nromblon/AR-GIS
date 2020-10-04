@@ -22,7 +22,7 @@ public class ControlsManager : MonoBehaviour
 	[SerializeField] private Color disabledIconColor;
 
 	private ARSceneController sceneController;
-	private CityGMLManager cityManager;
+	private CityManager cityManager;
 	private Color defaultIconColor;
 
 	private void Awake() {
@@ -33,7 +33,7 @@ public class ControlsManager : MonoBehaviour
 	void Start()
     {
 		sceneController = ARSceneController.Instance;
-		cityManager = CityGMLManager.Instance;
+		cityManager = CityManager.Instance;
 		defaultIconColor = m_recenterIcon.color;
     }
 

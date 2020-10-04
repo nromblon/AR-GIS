@@ -175,9 +175,7 @@ public class IssueObject : MonoBehaviour
 
 		expandButton.interactable = true;
 
-		if(callback != null) {
-			callback();
-		}
+		callback?.Invoke();
 	}
 
 	public void StatusChanged() {

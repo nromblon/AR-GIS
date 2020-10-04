@@ -47,16 +47,35 @@ public class MainMenu : MonoBehaviour
 	}
 
 	IEnumerator WaitForInstantiateFinish() {
-		GMLSelected.SetText(CGML2GO.FilePath);
-		StartBtn.GetComponentInChildren<TextMeshProUGUI>().SetText("Loading City...");
+		GMLSelected.SetText("Loading GML path: " + CGML2GO.FilePath);
+		TextMeshProUGUI tm = StartBtn.GetComponentInChildren<TextMeshProUGUI>();
+		tm.SetText("Initializing City");
 
+		int dotCount = 0;
+		string dots = "";
+		float timeElapsed = 0;
+		float timeDotInterval = .6f;
 		while (!CGML2GO.HasInstantiatedCity) {
-			yield return null;
-		}
+			if (timeElapsed >= timeDotInterval) {
+				timeElapsed = 0;
+				tm.SetText("Initializing City" + dots);
+				if (dotCount > 2) {
+					dotCount = 0;
+					dots = "";
+				}
+				else {
+					dots = dots + ".";
+					dotCount = dotCount + 1;
+				}
+			}
 
+			yield return null;
+			timeElapsed += Time.deltaTime;
+		}
+		GMLSelected.SetText("Loaded GML path: " + CGML2GO.FilePath);
 		StartBtn.GetComponentInChildren<TextMeshProUGUI>().SetText("Proceed");
 		StartBtn.interactable = true;
-		CityGMLManager.Instance.InitializeCity();
+		CityManager.Instance.InitializeCity();
 	}
 
 	IEnumerator LoadMainScene() {

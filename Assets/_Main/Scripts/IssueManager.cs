@@ -37,7 +37,7 @@ public class IssueManager : MonoBehaviour
 		Debug.Log("Removed " + numRemoved + " issues");
 
 		// Compute coord_distance to be used in Conversion Ratio for LatLong to Unity Units
-		GPSEncoder.SetLocalOrigin(new Vector2((float)CityProperties.wgs_Center.y, (float)CityProperties.wgs_Center.x));
+		//GPSEncoder.SetLocalOrigin(new Vector2((float)CityProperties.wgs_Center.y, (float)CityProperties.wgs_Center.x));
 
 		issueObjects = new List<IssueObject>();
 

@@ -86,7 +86,7 @@ public class ARSceneController : MonoBehaviour {
 			return;
 		}
 
-		if (CityGMLManager.Instance.b_IsCityPlaced && Input.GetMouseButtonDown(0)) {
+		if (CityManager.Instance.b_IsCityPlaced && Input.GetMouseButtonDown(0)) {
 			// Handle issue canvas opening/closing
 			AllowManipulation = false;
 			LayerMask layerMask = LayerMask.GetMask("Issue");
@@ -117,7 +117,7 @@ public class ARSceneController : MonoBehaviour {
 	}
 
 	public void OnPlayAreaConfirmed(Bounds playAreaBounds, PlayAreaManager PAmngr) {
-		CityGMLManager cityGMLMngr = CityGMLManager.Instance;
+		CityManager cityGMLMngr = CityManager.Instance;
 		cityGMLMngr.gameObject.SetActive(true);
 
 		// Resize city bounds

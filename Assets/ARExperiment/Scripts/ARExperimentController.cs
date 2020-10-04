@@ -163,7 +163,7 @@ public class ARExperimentController : MonoBehaviour
 
 							// Anchor the town object
 							if(CGMLGO == null) {
-								CGMLGO = CityGMLManager.Instance.gameObject;
+								CGMLGO = CityManager.Instance.gameObject;
 							}
 
 

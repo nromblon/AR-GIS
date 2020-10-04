@@ -63,8 +63,8 @@ namespace FixCityAR {
 		}
 
 		public static Vector3 ConvertLatLongToUnits(Coordinates c) {
-			double x = c.x * CityGMLManager.Instance.UnitPerLatLongRatio;
-			double z = c.y * CityGMLManager.Instance.UnitPerLatLongRatio;
+			double x = c.x * CityManager.Instance.UnitPerLatLongRatio;
+			double z = c.y * CityManager.Instance.UnitPerLatLongRatio;
 			return new Vector3((float)x, 0, (float)z);
 		}
 
