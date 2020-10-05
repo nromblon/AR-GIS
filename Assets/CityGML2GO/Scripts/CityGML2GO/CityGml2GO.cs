@@ -13,8 +13,6 @@ using UnityEngine;
 using Debug = UnityEngine.Debug;
 using Material = UnityEngine.Material;
 
-using UnityEngine.Networking;
-
 namespace Assets.Scripts.CityGML2GO {
 	
 	/// <summary>
@@ -143,14 +141,14 @@ namespace Assets.Scripts.CityGML2GO {
 
 			Vector3 translate = Vector3.zero;
 			var count = 0;
-			foreach (var fileInfo in directory.GetFiles("*.gml")) {
+			foreach (var fileInfo in directory.GetFiles("*.gml", SearchOption.AllDirectories)) {
 				count++;
 				translate += TranslateVector.GetTranslateVectorFromFile(fileInfo);
 			}
 			
 			ActualTranslate = translate / count;
 		}
-		 
+
 		public void RefreshMeshes() {
 			foreach (var mf in GetComponentsInChildren<MeshFilter>()) {
 				var childMesh = mf.mesh;
@@ -166,17 +164,19 @@ namespace Assets.Scripts.CityGML2GO {
 		/// <param name="directoryName"></param>
 		/// <returns></returns>
 		IEnumerator RunDirectory(string directoryName) {
-			foreach (var gml in Directory.GetFiles(directoryName, "*.gml")) {
+			foreach (var gml in Directory.GetFiles(directoryName, "*.gml", SearchOption.AllDirectories)) {
+				string gml_r = gml.Replace("\\", "/");
 				Polygons = new List<GameObject>();
 				Materials = new Dictionary<string, List<string>>();
 				Textures = new List<TextureInformation>();
-				yield return Run(Path.Combine(directoryName, gml));
+				yield return Run(gml_r);
 			}
 
-			// Do A recursive search for all subdirectories
-			foreach(var dir in Directory.GetDirectories(directoryName)) {
-				RunDirectory(dir);
-			}
+			//// Do A recursive search for all subdirectories
+			//foreach(var dir in Directory.GetDirectories(directoryName)) {
+			//	Debug.Log("Dir: " + dir);
+			//	RunDirectory(dir);
+			//}
 
 			// Refresh Meshes
 			RefreshMeshes();
