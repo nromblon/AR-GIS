@@ -51,7 +51,7 @@ public class IssueObject : MonoBehaviour
 		if (!issue.created_at.Equals(issue.updated_at))
 			updateDateText.text = "last updated on " + issue.Updated_At.Value.ToLocalTime().ToString("MMMM dd, yyyy");
 
-		DownloadAndSetImage(issue.image_path);
+		StartCoroutine(DownloadAndSetImage(issue.image_path));
 
 		var status = issue.status.statusType;
 		segmentControl.selectedSegmentIndex = (int) status;
@@ -118,6 +118,7 @@ public class IssueObject : MonoBehaviour
 	IEnumerator DownloadAndSetImage(string mediaURL) {
 		UnityWebRequest request = UnityWebRequestTexture.GetTexture(mediaURL);
 		yield return request.SendWebRequest();
+		//Canvas.gameObject.SetActive(true);
 		if (request.isNetworkError || request.isHttpError)
 			Debug.LogError(request.error);
 		else
@@ -140,6 +141,8 @@ public class IssueObject : MonoBehaviour
 			image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, imageMaxHeight);
 			image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w * ratio);
 		}
+
+		//Canvas.gameObject.SetActive(false);
 	}
 
 	IEnumerator LerpCanvasWidth(float width, bool isExpand, System.Action callback = null) {
