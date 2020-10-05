@@ -93,8 +93,6 @@
     <Compile Include="Assets\_Main\Scripts\Utilities\SetRenderQueue.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\ShowBoundsGizmo.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\Utilities.cs" />
-    <Compile Include="Assets\ARExperiment\Scripts\ARExperimentController.cs" />
-    <Compile Include="Assets\ARExperiment\Scripts\TownController.cs" />
     <Compile Include="Assets\CityGML2GO\BuildingProperties.cs" />
     <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\DelaunayTriangle.cs" />
     <Compile Include="Assets\CityGML2GO\Poly2Tri\Triangulation\Delaunay\Sweep\AdvancingFront.cs" />
@@ -398,20 +396,17 @@
     <Compile Include="Assets\GoogleARCore\SDK\Scripts\XPAnchor.cs" />
     <Compile Include="Assets\GoogleARCore\SDK\Scripts\XPSession.cs" />
     <Compile Include="Assets\GoogleARCore\SDK\Scripts\XPTrackingState.cs" />
-    <Compile Include="Assets\QuickOutline\Scripts\OutlinedModel.cs" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\PlaneGrid.shader" />
     <None Include="Assets\_Main\Materials\Shaders\InvisibleMask.shader" />
     <None Include="Assets\CityGML2GO\Scripts\Framework\Events\But why all these classes.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\_Main\Materials\Shaders\stencil_read.shader" />
-    <None Include="Assets\QuickOutline\Resources\Shaders\OutlineFill.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\MobileDiffuseWithLightEstimation.shader" />
     <None Include="Assets\CityGML2GO\Poly2Tri\AUTHORS.txt" />
     <None Include="Assets\GoogleARCore\SDK\Materials\ARBackground.shader" />
     <None Include="Assets\_Main\Materials\Shaders\FadeAway.shader" />
     <None Include="Assets\CityGML2GO\Poly2Tri\LICENSE.txt" />
-    <None Include="Assets\QuickOutline\Readme.txt" />
     <None Include="Assets\_Main\Materials\Shaders\021_Clipping_Plane.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\TransparentShadow.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
@@ -419,8 +414,7 @@
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\CameraColorRampShader.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\_Main\Materials\Shaders\StencilMask.shader" />
-    <None Include="Assets\ARExperiment\Materials\Shaders\UI_Default_OverlayNoZTest.shader" />
-    <None Include="Assets\Simple city plain\Read_me.txt" />
+    <None Include="Assets\_Main\Materials\Shaders\UI_Default_OverlayNoZTest.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\PointCloud.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
@@ -431,7 +425,6 @@
     <None Include="Assets\GoogleARCore\SDK\Materials\ARCoreDepth.cginc" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
-    <None Include="Assets\QuickOutline\Resources\Shaders\OutlineMask.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\MobileSpecularWithLightEstimation.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
@@ -673,9 +666,6 @@
     </Reference>
     <Reference Include="Google.Protobuf">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Assets/GoogleARCore/SDK/Plugins/Google.Protobuf.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>D:/Projects/Dissertation_AR-GIS/Assets/Plugins/netstandard1.3/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Library/PackageCache/com.unity.ads@2.3.1/Runtime/UnityEngine.Advertisements.dll</HintPath>

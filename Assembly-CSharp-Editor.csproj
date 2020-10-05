@@ -390,9 +390,6 @@
     <Reference Include="Google.VersionHandlerImpl_v1.2.122.0">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.122.0.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>D:/Projects/Dissertation_AR-GIS/Assets/Plugins/netstandard1.3/Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Library/PackageCache/com.unity.ads@2.3.1/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
