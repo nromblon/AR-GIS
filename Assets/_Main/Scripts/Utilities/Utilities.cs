@@ -156,5 +156,18 @@ namespace FixCityAR {
 			Gizmos.DrawCube(box.center, box.size);
 		}
 
+		public static int GetTriCount(GameObject root) {
+			MeshFilter[] meshFilters = root.GetComponentsInChildren<MeshFilter>();
+			int sum = 0;
+			foreach (var mf in meshFilters) {
+				// Ignore issue objects
+				if (mf.gameObject.layer == LayerMask.NameToLayer("Issue"))
+					continue;
+				sum = sum + mf.mesh.triangles.Length;
+			}
+
+			return sum;
+		}
+
 	}
 }

@@ -142,6 +142,13 @@ namespace Assets.Scripts.CityGML2GO {
 			Vector3 translate = Vector3.zero;
 			var count = 0;
 			foreach (var fileInfo in directory.GetFiles("*.gml", SearchOption.AllDirectories)) {
+				if (PerformanceTesting.IsEvaluating) {
+					if (!PerformanceTesting.IsInEvalSet(fileInfo.FullName)) {
+						continue;
+					}
+				}
+
+				//Debug.Log("SetTranslate: " + fileInfo.FullName);
 				count++;
 				translate += TranslateVector.GetTranslateVectorFromFile(fileInfo);
 			}
@@ -164,8 +171,23 @@ namespace Assets.Scripts.CityGML2GO {
 		/// <param name="directoryName"></param>
 		/// <returns></returns>
 		IEnumerator RunDirectory(string directoryName) {
+			if (PerformanceTesting.IsEvaluating) {
+				DebugOverlay.Instance.SetStopwatch(FrameCounts.meshGenStart);
+				DebugOverlay.Instance.SaveFrameCount(FrameCounts.meshGenStart);
+				DebugOverlay.Instance.SetAverageFPS(AvgFPS.MainMenu);
+			}
+			//Debug.Log("Run Directory");
 			foreach (var gml in Directory.GetFiles(directoryName, "*.gml", SearchOption.AllDirectories)) {
+				if (PerformanceTesting.IsEvaluating) {
+					//Debug.Log("Checking gml: " + gml);
+					if (!PerformanceTesting.IsInEvalSet(gml)) {
+						continue;
+					}
+					//Debug.Log("GML passed: " + gml);
+				}
+
 				string gml_r = gml.Replace("\\", "/");
+				//Debug.Log("Running: "+ gml_r);
 				Polygons = new List<GameObject>();
 				Materials = new Dictionary<string, List<string>>();
 				Textures = new List<TextureInformation>();
@@ -182,6 +204,11 @@ namespace Assets.Scripts.CityGML2GO {
 			RefreshMeshes();
 
 			HasInstantiatedCity = true;
+
+			if (PerformanceTesting.IsEvaluating) {
+				DebugOverlay.Instance.SaveFrameCount(FrameCounts.meshGenEnd);
+				DebugOverlay.Instance.SetStopwatch(FrameCounts.meshGenEnd);
+			}
 		}
 
 		/// <summary>

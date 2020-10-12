@@ -13,6 +13,9 @@ public class MainMenu : MonoBehaviour
 	public Button StartBtn;
 	public Button LoadGMLBtn;
 
+	// Performance Testing
+	public TMP_InputField EvalNumInputField;
+
 	private string gmlPath;
 
 	private void Start() {
@@ -20,9 +23,15 @@ public class MainMenu : MonoBehaviour
 		if(CGML2GO == null) {
 			CGML2GO = GameObject.FindGameObjectWithTag("CityGML").GetComponent<CityGml2GO>();
 		}
+
+		if (PerformanceTesting.IsEvaluating)
+			DebugOverlay.Instance.MainMenuTime = Time.time;
 	}
 
 	public void Proceed() {
+		if (PerformanceTesting.IsEvaluating) {
+			DebugOverlay.Instance.SetCityLoadedIdleFps();
+		}
 		StartCoroutine(LoadMainScene());
 	}
 
@@ -34,6 +43,19 @@ public class MainMenu : MonoBehaviour
 		//		Application.persistentDataPath,
 		//		"Select Folder that contains GML Files");
 
+		PerformanceTesting.EvalSet = System.Int32.Parse(EvalNumInputField.text);
+
+		string gmlText;
+
+		if (PerformanceTesting.IsEvaluating) {
+			gmlText = "Eval Set: " + PerformanceTesting.EvalSet;
+		}
+		else {
+			gmlText = "GML path: " + CGML2GO.FilePath;
+		}
+
+		GMLSelected.SetText(gmlText);
+		
 		CGML2GO.InstantiateCity();
 		StartCoroutine(WaitForInstantiateFinish());
 
@@ -47,7 +69,6 @@ public class MainMenu : MonoBehaviour
 	}
 
 	IEnumerator WaitForInstantiateFinish() {
-		GMLSelected.SetText("Loading GML path: " + CGML2GO.FilePath);
 		TextMeshProUGUI tm = StartBtn.GetComponentInChildren<TextMeshProUGUI>();
 		tm.SetText("Initializing City");
 
@@ -72,10 +93,11 @@ public class MainMenu : MonoBehaviour
 			yield return null;
 			timeElapsed += Time.deltaTime;
 		}
-		GMLSelected.SetText("Loaded GML path: " + CGML2GO.FilePath);
+
 		StartBtn.GetComponentInChildren<TextMeshProUGUI>().SetText("Proceed");
 		StartBtn.interactable = true;
 		CityManager.Instance.InitializeCity();
+
 	}
 
 	IEnumerator LoadMainScene() {

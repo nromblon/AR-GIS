@@ -90,6 +90,10 @@ public class CityManager : MonoBehaviour
 
 	#region Initialization Methods
 	public void InitializeCity() {
+		if (PerformanceTesting.IsEvaluating) {
+			DebugOverlay.Instance.SetStopwatch(FrameCounts.cityInitStart);
+			DebugOverlay.Instance.SaveFrameCount(FrameCounts.cityInitStart);
+		}
 		// Recenter first level children
 		RecenterChildren();
 		
@@ -104,6 +108,16 @@ public class CityManager : MonoBehaviour
 
 		onLoadPosition = transform.position;
 		onLoadScale = transform.localScale;
+
+		if (PerformanceTesting.IsEvaluating) {
+			DebugOverlay.Instance.SaveFrameCount(FrameCounts.cityInitEnd);
+			DebugOverlay.Instance.SetStopwatch(FrameCounts.cityInitEnd);
+			DebugOverlay.Instance.SetAverageFPS(AvgFPS.CityInit);
+			int triCount = Utilities.GetTriCount(gameObject);
+			DebugOverlay.Instance.SetTriCount(triCount);
+
+			DebugOverlay.Instance.CityInitEndTime = Time.time;
+		}
 	}
 
 	/// <summary>

@@ -81,12 +81,14 @@
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedScaleManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizSelectionManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizTranslationManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\PerformanceTesting.cs" />
     <Compile Include="Assets\_Main\Scripts\PlayAreaBoundsHandler.cs" />
     <Compile Include="Assets\_Main\Scripts\PlayAreaController.cs" />
     <Compile Include="Assets\_Main\Scripts\PlayAreaManager.cs" />
     <Compile Include="Assets\_Main\Scripts\PlayAreaScaleManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\SettingsMenu.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\ClippingPlane.cs" />
+    <Compile Include="Assets\_Main\Scripts\Utilities\DebugOverlay.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\DontDestroy.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\GPSEncoder.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\SegmentedControl.cs" />
@@ -480,6 +482,9 @@
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Performance.Profile-Analyzer.Editor">
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.Performance.Profile-Analyzer.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>

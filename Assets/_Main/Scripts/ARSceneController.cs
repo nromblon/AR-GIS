@@ -61,6 +61,11 @@ public class ARSceneController : MonoBehaviour {
 
 	private void Start() {
 		controlsManager = ControlsManager.Instance;
+
+		if (PerformanceTesting.IsEvaluating) {
+			DebugOverlay.Instance.ARSceneTime = Time.time;
+			DebugOverlay.Instance.ARSceneFrame = Time.frameCount;
+		}
 	}
 
 	// Update is called once per frame
@@ -138,6 +143,13 @@ public class ARSceneController : MonoBehaviour {
 		EnablePlaneDiscoveryGuide(false);
 		SettingsMenu.Instance.EnableResetCityPlacement(true);
 		controlsManager.ShowControls(true);
+
+
+		if (PerformanceTesting.IsEvaluating) {
+			DebugOverlay.Instance.SaveFrameCount(FrameCounts.cityPlaced);
+			DebugOverlay.Instance.CityPlacedTime = Time.time;
+			DebugOverlay.Instance.SetAverageFPS(AvgFPS.ARScene);
+		}
 	}
 
 	public void ResetPlayAreaPlacement() {
@@ -148,6 +160,13 @@ public class ARSceneController : MonoBehaviour {
 			selectedIssue = null;
 		}
 		PlayAreaManager.Instance.RemovePlacement();
+
+
+		if (PerformanceTesting.IsEvaluating) {
+			DebugOverlay.Instance.SaveFrameCount(FrameCounts.cityRemoved);
+			DebugOverlay.Instance.CityRemovedTime = Time.time;
+			DebugOverlay.Instance.SetAverageFPS(AvgFPS.CityPlaced);
+		}
 
 		_ShowAndroidToastMessage("Tap on a Detected Plane to place the Interactable Area.");
 	}
