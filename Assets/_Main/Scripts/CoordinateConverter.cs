@@ -42,7 +42,6 @@ public class CoordinateConverter {
 		}
 
 		requestURL = requestURL + "&s_srs=" + toConvert[0].GetGCSType() + "&t_srs=" + targetEPSGCode;
-		
 		using (UnityWebRequest webReq = UnityWebRequest.Get(requestURL)) {
 			yield return webReq.SendWebRequest();
 
@@ -52,10 +51,17 @@ public class CoordinateConverter {
 			else {
 				string json = webReq.downloadHandler.text;
 				json = "{\"data\":" + json.Trim() + "}";
-				ConvertedCoordinateData ccd = JsonUtility.FromJson<ConvertedCoordinateData>(json);
-				results = ccd.data;
-				foreach (var r in results) {
-					r.gcs_type = targetEPSGCode;
+				try {
+					ConvertedCoordinateData ccd = JsonUtility.FromJson<ConvertedCoordinateData>(json);
+
+					results = ccd.data;
+					foreach (var r in results) {
+						r.gcs_type = targetEPSGCode;
+					}
+				} catch(System.Exception e) {
+					Debug.LogError(e.StackTrace);
+					Debug.Log("Request URL: " + requestURL);
+					Debug.LogError("Received JSON: " + json);
 				}
 			}
 		}
@@ -98,7 +104,8 @@ public class Coordinates {
 
 	public System.String GetGCSType() {
 		if (gcs_type.Contains("EPSG")) {
-			return gcs_type.TrimStart("EPSG:".ToCharArray());
+			var lastColonIdx = gcs_type.LastIndexOf(':');
+			return gcs_type.Substring(lastColonIdx + 1);
 		}
 		else {
 			return gcs_type;
