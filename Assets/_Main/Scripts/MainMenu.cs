@@ -26,6 +26,9 @@ public class MainMenu : MonoBehaviour
 
 		if (PerformanceTesting.IsEvaluating)
 			DebugOverlay.Instance.MainMenuTime = Time.time;
+		else {
+			Destroy(EvalNumInputField.gameObject);
+		}
 	}
 
 	public void Proceed() {

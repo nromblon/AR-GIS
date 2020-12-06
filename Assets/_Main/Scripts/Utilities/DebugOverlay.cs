@@ -34,9 +34,12 @@ public class DebugOverlay : MonoBehaviour
 		swatches = new Stopwatch[frameCounts.Length / 2];
 		elapsedMs = new long[frameCounts.Length / 2];
 
+    }
+
+	private void Start() {
 		if (!PerformanceTesting.IsEvaluating)
 			Destroy(gameObject);
-    }
+	}
 
 
 	private void Update() {

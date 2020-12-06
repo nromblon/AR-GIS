@@ -3,7 +3,7 @@ using Unity.Profiling;
 
 public class PerformanceTesting
 {
-	public const bool IsEvaluating = true;
+	public const bool IsEvaluating = false;
 
 	public static int EvalSet = -1;
 	static Dictionary<string, ProfilerMarker> profilerMarkers;
