@@ -300,8 +300,6 @@ D:\Projects\ARCore Experiment\obj\Debug\Assembly-CSharp.dll
 D:\Projects\ARCore Experiment\obj\Debug\Assembly-CSharp.pdb
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Assembly-CSharp.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Assembly-CSharp.pdb
-D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Assembly-CSharp.dll.CodeAnalysisLog.xml
-D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Assembly-CSharp.dll.lastcodeanalysissucceeded
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Boo.Lang.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\com.unity.multiplayer-hlapi.Editor.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\com.unity.multiplayer-hlapi.Runtime.dll
@@ -309,9 +307,12 @@ D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\com.unity.multiplayer-weaver.Edit
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Google.Protobuf.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Microsoft.CSharp.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Microsoft.Win32.Primitives.dll
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mono.CecilX.dll
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mono.CecilX.Mdb.dll
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mono.CecilX.Pdb.dll
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mono.CecilX.Rocks.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\mscorlib.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\netstandard.dll
-D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Newtonsoft.Json.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\System.AppContext.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\System.Collections.Concurrent.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\System.Collections.dll
@@ -430,6 +431,7 @@ D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.Analytics.Editor.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.Analytics.StandardEvents.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.Analytics.Tracker.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.CollabProxy.Editor.dll
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.Performance.Profile-Analyzer.Editor.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.Rider.Editor.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.TextMeshPro.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll
@@ -516,6 +518,20 @@ D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Boo.Lang.PatternMatching.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Boo.Lang.Parser.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Boo.Lang.Useful.dll
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.CecilTools.dll
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mirror.Weaver.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mirror.Authenticators.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mirror.Components.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mirror.Examples.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mirror.CompilerSymbols.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mirror.Cloud.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Telepathy.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mirror.Examples.Cloud.Pong.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mirror.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mirror.example.RigidbodyPhysics.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mirror.Editor.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\kcp2k.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Mirror.Examples.Cloud.GUI.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\SimpleWebTransport.pdb
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEngine.xml
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEditor.xml
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.Timeline.Editor.pdb
@@ -533,6 +549,7 @@ D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.2D.Tilemap.Editor.pdb
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEditor.SpatialTracking.pdb
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEngine.SpatialTracking.pdb
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.TextMeshPro.pdb
+D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.Performance.Profile-Analyzer.Editor.pdb
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Unity.Analytics.DataPrivacy.pdb
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEditor.XR.LegacyInputHelpers.pdb
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEditor.UI.pdb
@@ -594,8 +611,6 @@ D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEngine.VehiclesModule.xml
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEngine.VideoModule.xml
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEngine.WindModule.xml
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEngine.XRModule.xml
-D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Newtonsoft.Json.pdb
-D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\Newtonsoft.Json.xml
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEngine.ClusterInputModule.xml
 D:\Projects\Dissertation_AR-GIS\Temp\bin\Debug\UnityEngine.ClusterRendererModule.xml
 D:\Projects\Dissertation_AR-GIS\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
