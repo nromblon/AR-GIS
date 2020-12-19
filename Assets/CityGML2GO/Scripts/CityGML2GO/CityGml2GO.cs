@@ -41,7 +41,6 @@ namespace Assets.Scripts.CityGML2GO {
 		public GameObject LineRendererPrefab;
 		public bool GenerateColliders;
 
-
 		public bool ApplyTextures = false;
 		public List<string> SemanticSurfaces = new List<string> { "GroundSurface", "WallSurface", "RoofSurface", "ClosureSurface", "CeilingSurface", "InteriorWallSurface", "FloorSurface", "OuterCeilingSurface", "OuterFloorSurface", "Door", "Window" };
 		public List<Poly2Mesh.Polygon> oriPoly = new List<Poly2Mesh.Polygon>();
@@ -59,9 +58,16 @@ namespace Assets.Scripts.CityGML2GO {
 			}
 		}
 
+		private List<string> loadedFiles;
+		public List<string> LoadedFiles {
+			get {
+				return loadedFiles;
+			}
+		}
+
 		void Start() {
+			loadedFiles = new List<string>();
 			SemanticSurfMat = GetComponent<SemanticSurfaceMaterial>();
-			
 		}
 
 		/// <summary>
@@ -171,6 +177,8 @@ namespace Assets.Scripts.CityGML2GO {
 		/// <param name="directoryName"></param>
 		/// <returns></returns>
 		IEnumerator RunDirectory(string directoryName) {
+			loadedFiles.Clear();
+
 			if (PerformanceTesting.IsEvaluating) {
 				DebugOverlay.Instance.SetStopwatch(FrameCounts.meshGenStart);
 				DebugOverlay.Instance.SaveFrameCount(FrameCounts.meshGenStart);
@@ -191,6 +199,9 @@ namespace Assets.Scripts.CityGML2GO {
 				Polygons = new List<GameObject>();
 				Materials = new Dictionary<string, List<string>>();
 				Textures = new List<TextureInformation>();
+
+				loadedFiles.Add(Path.GetFileName(gml_r));
+
 				yield return Run(gml_r);
 			}
 

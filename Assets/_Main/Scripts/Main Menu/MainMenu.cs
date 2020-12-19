@@ -107,6 +107,13 @@ public class MainMenu : MonoBehaviour
 			timeElapsed += Time.deltaTime;
 		}
 
+		Debug.Log("Loaded Files are:::");
+		int i = 1;
+		foreach(var filename in CGML2GO.LoadedFiles) {
+			Debug.Log("("+i+")"+" -"+filename);
+			i++;
+		}
+
 		// Enable Buttons
 		StartBtn.GetComponentInChildren<TextMeshProUGUI>().SetText("Start Offline");
 		StartBtn.interactable = true;

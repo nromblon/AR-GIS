@@ -5,8 +5,7 @@ using TMPro;
 using FixCityAR;
 using UnityEngine.UI;
 
-public class ServerListItem : MonoBehaviour
-{
+public class ServerListItem : MonoBehaviour {
 	[Header("Config")]
 	[SerializeField] Color unselectedState;
 	[SerializeField] Color selectedState;
@@ -21,6 +20,9 @@ public class ServerListItem : MonoBehaviour
 	[SerializeField] private Image btnImg;
 
 	private DiscoveryResponse info;
+	public DiscoveryResponse Info {
+		get;
+	}
 
 	private void Start() {
 		list = GetComponentInParent<ServerList>();
@@ -30,7 +32,7 @@ public class ServerListItem : MonoBehaviour
 	public void SetServerInfo(DiscoveryResponse info) {
 		this.info = info;
 
-		this.text.text = info.hostName;
+		this.text.text = info.serverName;
 	}
 
 	public void OnSelected() {

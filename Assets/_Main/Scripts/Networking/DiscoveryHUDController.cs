@@ -40,7 +40,7 @@ public class DiscoveryHUDController : MonoBehaviour
 	}
 
 	public void OnDiscoveredServer(DiscoveryResponse info) {
-		Debug.Log("Discovered Server: " + info.hostName + "by" + info.hostUsername + "(IP: "+ info.EndPoint.Address.ToString());
+		Debug.Log("Discovered Server: " + info.serverName + "by" + info.hostUsername + "(IP: "+ info.EndPoint.Address.ToString());
 		networkMenu.AddServer(info);
 	}
 }

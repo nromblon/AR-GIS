@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 using Mirror;
 
 /*
@@ -12,6 +12,8 @@ public class NewNetworkManager : NetworkManager
 	[Header("In-game Data")]
 	public string username;
 	public string hostName;
+	public List<string> loadedFiles;
+	public int numUsers;
 
 	#region Unity Callbacks
 

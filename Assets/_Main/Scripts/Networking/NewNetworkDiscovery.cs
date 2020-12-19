@@ -27,9 +27,14 @@ namespace FixCityAR {
 
 		public long serverId;
 
-		public string hostName;
+		public string serverName;
 
 		public string hostUsername;
+
+		public int numUsers;
+		public int maxUsers;
+
+		public string[] loadedFiles;
 	}
 
 	[Serializable]
@@ -37,6 +42,7 @@ namespace FixCityAR {
 
 	public class NewNetworkDiscovery : NetworkDiscoveryBase<DiscoveryRequest, DiscoveryResponse> {
 
+		private NewNetworkManager netManager;
 
 		#region Server
 		public long ServerId { get; private set; }
@@ -57,6 +63,7 @@ namespace FixCityAR {
 				transport = Transport.activeTransport;
 
 			base.Start();
+			netManager = (NewNetworkManager)NewNetworkManager.singleton;
 		}
 
 		/// <summary>
@@ -89,9 +96,15 @@ namespace FixCityAR {
 				return new DiscoveryResponse() {
 					serverId = ServerId,
 					uri = transport.ServerUri(),
-					hostName = ((NewNetworkManager)NewNetworkManager.singleton).hostName,
-					hostUsername = ((NewNetworkManager)NewNetworkManager.singleton).username
-					//TODO: Change this. Make the host name to be retrieved from custom network manager.
+					serverName = netManager.hostName,
+					hostUsername = netManager.username,
+					loadedFiles = netManager.loadedFiles.ToArray(),
+					numUsers = netManager.numUsers,
+					maxUsers = netManager.maxConnections
+					// TODO: add numUsers, maxUsers, loadedFiles
+					// But first learn whether if placing those properties in network manager is
+					// the right way to do it.
+					// Read on Network Authority maybe?
 				};
 			}
 			catch (Exception e) {

@@ -24,11 +24,6 @@ namespace FixCityAR {
 
 		private bool isRoomListShown = false;
 
-		// Start is called before the first frame update
-		void Start() {
-			roomList.ItemSelected += CheckIfButtonsEnable;
-		}
-
 		public void AddServer(DiscoveryResponse info) {
 			roomList.AddItem(info);
 		}
@@ -41,6 +36,11 @@ namespace FixCityAR {
 
 		public void ShowSessionList() {
 			ToggleRoomListShown();
+			discoveryController.FindServers();
+		}
+
+		public void RefreshSessionList() {
+			roomList.ClearList();
 			discoveryController.FindServers();
 		}
 

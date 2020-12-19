@@ -94,6 +94,8 @@ public class CityManager : MonoBehaviour
 			DebugOverlay.Instance.SetStopwatch(FrameCounts.cityInitStart);
 			DebugOverlay.Instance.SaveFrameCount(FrameCounts.cityInitStart);
 		}
+		((NewNetworkManager)NewNetworkManager.singleton).loadedFiles = cityGML2GO.LoadedFiles;
+
 		// Recenter first level children
 		RecenterChildren();
 		

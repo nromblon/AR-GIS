@@ -6,12 +6,15 @@ using FixCityAR;
 public class ServerList : MonoBehaviour {
 	public GameObject itemPrefab;
 
+	[Header("Setup")]
 	[SerializeField] private Transform contentTf;
+	[SerializeField] private ServerDetails detailsPanel;
+	[SerializeField] private NetworkMenu networkMenu;
 
 	private List<ServerList> serverList;
-
 	private Dictionary<long, ServerListItem> serverDict;
 
+	[Header("Runtime Data")]
 	public ServerListItem selectedItem;
 
 	public event System.Action ItemSelected = delegate { };
@@ -28,13 +31,11 @@ public class ServerList : MonoBehaviour {
 			serverDict[info.serverId].SetServerInfo(info);
 		}
 		else {
-			ServerListItem item = Instantiate(itemPrefab).GetComponent<ServerListItem>();
-			item.transform.SetParent(contentTf);
+			ServerListItem item = Instantiate(itemPrefab,contentTf).GetComponent<ServerListItem>();
 			item.SetServerInfo(info);
 
 			serverDict[info.serverId] = item;
 		}
-		
 	}
 
 	public void OnItemSelected(long itemIdx) {
@@ -43,19 +44,22 @@ public class ServerList : MonoBehaviour {
 		if (newSelected == selectedItem) {
 			selectedItem.SetSelected(false);
 			selectedItem = null;
+			detailsPanel.SetDetails(null);
+
 		}
 		else {
 			selectedItem = newSelected;
+			detailsPanel.SetDetails(newSelected.Info);
 			selectedItem.SetSelected(true);
 		}
-		ItemSelected.Invoke();
+		networkMenu.CheckIfButtonsEnable();
 	}
 
 	public void ClearList() {
-		foreach(KeyValuePair<long, ServerListItem> entry in serverDict) {
-			Destroy(entry.Value.gameObject);
+		foreach (Transform child in contentTf) {
+			Destroy(child.gameObject);
 		}
-
+		detailsPanel.SetDetails(null);
 		serverList.Clear();
 	}
 }
