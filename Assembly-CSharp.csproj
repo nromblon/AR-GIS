@@ -87,6 +87,11 @@
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedScaleManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizSelectionManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizTranslationManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Networking\ARScene UI\SystemMessage.cs" />
+    <Compile Include="Assets\_Main\Scripts\Networking\ARScene UI\SystemMessagesPanel.cs" />
+    <Compile Include="Assets\_Main\Scripts\Networking\ARUser.cs" />
+    <Compile Include="Assets\_Main\Scripts\Networking\ChatBehaviour.cs" />
+    <Compile Include="Assets\_Main\Scripts\Networking\ConnectMessage.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\DiscoveryHUDController.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\NetworkDiscovery\Data\DiscoveryInfo.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\NetworkDiscovery\Data\GameBroadcastPacket.cs" />

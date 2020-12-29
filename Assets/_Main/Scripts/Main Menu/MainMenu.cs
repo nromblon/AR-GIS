@@ -110,7 +110,7 @@ public class MainMenu : MonoBehaviour
 		Debug.Log("Loaded Files are:::");
 		int i = 1;
 		foreach(var filename in CGML2GO.LoadedFiles) {
-			Debug.Log("("+i+")"+" -"+filename);
+			Debug.Log("("+i+")"+": "+filename);
 			i++;
 		}
 

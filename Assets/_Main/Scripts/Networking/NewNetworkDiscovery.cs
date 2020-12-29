@@ -76,6 +76,7 @@ namespace FixCityAR {
 		/// <param name="request">Request comming from client</param>
 		/// <param name="endpoint">Address of the client that sent the request</param>
 		protected override void ProcessClientRequest(DiscoveryRequest request, IPEndPoint endpoint) {
+			Debug.Log($"[NewNetworkDiscovery] Request received from client {endpoint.Address}");
 			base.ProcessClientRequest(request, endpoint);
 		}
 
@@ -96,10 +97,10 @@ namespace FixCityAR {
 				return new DiscoveryResponse() {
 					serverId = ServerId,
 					uri = transport.ServerUri(),
-					serverName = netManager.hostName,
-					hostUsername = netManager.username,
+					serverName = netManager.roomName,
+					hostUsername = PlayerPrefs.GetString("username"),
 					loadedFiles = netManager.loadedFiles.ToArray(),
-					numUsers = netManager.numUsers,
+					numUsers = NetworkServer.connections.Count,
 					maxUsers = netManager.maxConnections
 					// TODO: add numUsers, maxUsers, loadedFiles
 					// But first learn whether if placing those properties in network manager is

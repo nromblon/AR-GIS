@@ -21,7 +21,7 @@ public class ServerListItem : MonoBehaviour {
 
 	private DiscoveryResponse info;
 	public DiscoveryResponse Info {
-		get;
+		get { return info;  }
 	}
 
 	private void Start() {

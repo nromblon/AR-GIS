@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Mirror;
 
@@ -9,9 +10,9 @@ using Mirror;
 
 public class NewNetworkManager : NetworkManager
 {
+	// TODO: move these to a network behaviour so that they are synced.
 	[Header("In-game Data")]
-	public string username;
-	public string hostName;
+	public string roomName;
 	public List<string> loadedFiles;
 	public int numUsers;
 
@@ -83,7 +84,11 @@ public class NewNetworkManager : NetworkManager
 
     /// <summary>
     /// This causes the server to switch scenes and sets the networkSceneName.
-    /// <para>Clients that connect to this server will automatically switch to this scene. This is called autmatically if onlineScene or offlineScene are set, but it can be called from user code to switch scenes again while the game is in progress. This automatically sets clients to be not-ready. The clients must call NetworkClient.Ready() again to participate in the new scene.</para>
+    /// <para>Clients that connect to this server will automatically switch to this scene. 
+	/// This is called autmatically if onlineScene or offlineScene are set, but it can be 
+	/// called from user code to switch scenes again while the game is in progress. 
+	/// This automatically sets clients to be not-ready. The clients must call NetworkClient.Ready()
+	/// again to participate in the new scene.</para>
     /// </summary>
     /// <param name="newSceneName"></param>
     public override void ServerChangeScene(string newSceneName)
@@ -132,7 +137,8 @@ public class NewNetworkManager : NetworkManager
     /// <para>Unity calls this on the Server when a Client connects to the Server. Use an override to tell the NetworkManager what to do when a client connects to the server.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override void OnServerConnect(NetworkConnection conn) { }
+    public override void OnServerConnect(NetworkConnection conn) {
+	}
 
     /// <summary>
     /// Called on the server when a client is ready.
@@ -183,6 +189,12 @@ public class NewNetworkManager : NetworkManager
     public override void OnClientConnect(NetworkConnection conn)
     {
         base.OnClientConnect(conn);
+
+		ConnectRequest req = new ConnectRequest {
+			username = PlayerPrefs.GetString("username")
+		};
+
+		conn.Send(req);
     }
 
     /// <summary>
@@ -221,13 +233,19 @@ public class NewNetworkManager : NetworkManager
     /// This is invoked when a host is started.
     /// <para>StartHost has multiple signatures, but they all cause this hook to be called.</para>
     /// </summary>
-    public override void OnStartHost() { }
+    public override void OnStartHost() {
+
+	}
 
     /// <summary>
     /// This is invoked when a server is started - including when a host is started.
     /// <para>StartServer has multiple signatures, but they all cause this hook to be called.</para>
     /// </summary>
-    public override void OnStartServer() { }
+    public override void OnStartServer() {
+		base.OnStartServer();
+
+		NetworkServer.RegisterHandler<ConnectRequest>(OnUserJoined);
+	}
 
     /// <summary>
     /// This is invoked when the client is started.
@@ -250,4 +268,22 @@ public class NewNetworkManager : NetworkManager
     public override void OnStopClient() { }
 
     #endregion
+
+	void OnUserJoined(NetworkConnection conn, ConnectRequest request) {
+		Debug.Log($"A client: {conn.address} has connected.");
+		Debug.Log($"Active scene: {SceneManager.GetActiveScene().name}");
+		//if (SceneManager.GetActiveScene().name == "ARScene") {
+		//	//SystemMessagesPanel.Instance.AddMessage(null);
+		//	//Debug.Log(conn.identity.netId + " has connected");
+
+		//	GameObject go = Instantiate(playerPrefab);
+		//	go.GetComponent<ARUser>().username = request.username;
+		//	NetworkServer.AddPlayerForConnection(conn, go);
+		//}
+
+		GameObject go = Instantiate(playerPrefab);
+		go.GetComponent<ARUser>().username = request.username;
+		Debug.Log($"Request username: {request.username} || ARUser new username: {go.GetComponent<ARUser>().username}");
+		NetworkServer.AddPlayerForConnection(conn, go);
+	}
 }

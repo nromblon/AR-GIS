@@ -11,7 +11,7 @@ public class ServerList : MonoBehaviour {
 	[SerializeField] private ServerDetails detailsPanel;
 	[SerializeField] private NetworkMenu networkMenu;
 
-	private List<ServerList> serverList;
+	private List<ServerList> servers;
 	private Dictionary<long, ServerListItem> serverDict;
 
 	[Header("Runtime Data")]
@@ -22,7 +22,7 @@ public class ServerList : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-		serverList = new List<ServerList>();
+		servers = new List<ServerList>();
 		serverDict = new Dictionary<long, ServerListItem>();
     }
 
@@ -38,16 +38,18 @@ public class ServerList : MonoBehaviour {
 		}
 	}
 
-	public void OnItemSelected(long itemIdx) {
-		var newSelected = serverDict[itemIdx];
-
+	public void OnItemSelected(long serverId) {
+		var newSelected = serverDict[serverId];
+		Debug.Log($"[ServerList] Selected item idx: {newSelected}");
 		if (newSelected == selectedItem) {
+			Debug.Log($"[ServerList] newSelected == Selected item");
 			selectedItem.SetSelected(false);
 			selectedItem = null;
 			detailsPanel.SetDetails(null);
 
 		}
 		else {
+			Debug.Log($"[ServerList] newSelected: {newSelected.Info.serverName}");
 			selectedItem = newSelected;
 			detailsPanel.SetDetails(newSelected.Info);
 			selectedItem.SetSelected(true);
@@ -60,6 +62,8 @@ public class ServerList : MonoBehaviour {
 			Destroy(child.gameObject);
 		}
 		detailsPanel.SetDetails(null);
-		serverList.Clear();
+
+		serverDict.Clear();
+		servers.Clear();
 	}
 }

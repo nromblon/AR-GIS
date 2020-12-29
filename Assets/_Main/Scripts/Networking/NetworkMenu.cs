@@ -18,20 +18,33 @@ namespace FixCityAR {
 		[SerializeField] private Button showServersButton;
 
 		[SerializeField] private Button proceedJoin;
-		[SerializeField] private ServerList roomList;
+		[SerializeField] private ServerList serverList;
 
 		[SerializeField] private DiscoveryHUDController discoveryController; 
 
 		private bool isRoomListShown = false;
 
+		private NewNetworkManager netManager;
+
+		private void Start() {
+			netManager = (NewNetworkManager) NewNetworkManager.singleton;
+		}
+
 		public void AddServer(DiscoveryResponse info) {
-			roomList.AddItem(info);
+			serverList.AddItem(info);
 		}
 
 		public void HostSession() {
 			string hostName = this.roomname.text;
 			string username = this.username.text;
+
+			PlayerPrefs.SetString("username", username);
+			netManager.roomName = roomname.text;
+			netManager.loadedFiles = CityManager.Instance.cityGML2GO.LoadedFiles;
+
 			discoveryController.StartHost(hostName, username);
+			netManager.StartHost();
+			Debug.Log("Hosting Session");
 		}
 
 		public void ShowSessionList() {
@@ -40,13 +53,15 @@ namespace FixCityAR {
 		}
 
 		public void RefreshSessionList() {
-			roomList.ClearList();
+			discoveryController.StopFinding();
+			serverList.ClearList();
 			discoveryController.FindServers();
+			proceedJoin.interactable = false;
 		}
 
 		public void CheckIfButtonsEnable() {
 			if (!username.text.Equals("")) {
-				if(roomList.selectedItem != null) {
+				if(serverList.selectedItem != null) {
 					proceedJoin.interactable = true;
 				}
 				else {
@@ -67,7 +82,9 @@ namespace FixCityAR {
 		}
 
 		public void JoinSession() {
-			
+			PlayerPrefs.SetString("username", username.text);
+			discoveryController.Connect(serverList.selectedItem.Info);
+			Debug.Log("Joining Session");
 		}
 
 		public void ShowMenu() {
@@ -78,7 +95,7 @@ namespace FixCityAR {
 			ClearInputFields();
 			gameObject.SetActive(false);
 			discoveryController.StopFinding();
-			roomList.ClearList();
+			serverList.ClearList();
 		}
 
 		private void ClearInputFields() {

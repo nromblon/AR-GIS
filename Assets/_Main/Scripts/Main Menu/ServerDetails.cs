@@ -17,6 +17,7 @@ public class ServerDetails : MonoBehaviour
 
 	public void SetDetails(DiscoveryResponse info) {
 		if (info == null) {
+			Debug.Log("[ServerDetails] Info parameter is null. Clearing details");
 			serverNameTM.text = "";
 			hostNameTM.text = "";
 			numUsersTM.text = "";
@@ -29,6 +30,7 @@ public class ServerDetails : MonoBehaviour
 			scrollbar.interactable = false;
 		}
 		else {
+			Debug.Log("[ServerDetails] Setting ");
 			serverNameTM.text = info.serverName;
 			hostNameTM.text = hostNamePrefix + info.hostUsername;
 			numUsersTM.text = numUsersPrefix + info.numUsers + "/" + info.maxUsers;
