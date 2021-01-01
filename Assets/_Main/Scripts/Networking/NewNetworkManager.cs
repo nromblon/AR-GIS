@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Net.Sockets;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Mirror;
@@ -55,17 +56,18 @@ public class NewNetworkManager : NetworkManager
     public override void OnDestroy()
     {
         base.OnDestroy();
+		Shutdown();
     }
 
-    #endregion
+	#endregion
 
-    #region Start & Stop
+	#region Start & Stop
 
-    /// <summary>
-    /// Set the frame rate for a headless server.
-    /// <para>Override if you wish to disable the behavior or set your own tick rate.</para>
-    /// </summary>
-    public override void ConfigureServerFrameRate()
+	/// <summary>
+	/// Set the frame rate for a headless server.
+	/// <para>Override if you wish to disable the behavior or set your own tick rate.</para>
+	/// </summary>
+	public override void ConfigureServerFrameRate()
     {
         base.ConfigureServerFrameRate();
     }
@@ -234,7 +236,7 @@ public class NewNetworkManager : NetworkManager
     /// <para>StartHost has multiple signatures, but they all cause this hook to be called.</para>
     /// </summary>
     public override void OnStartHost() {
-
+		base.OnStartHost();
 	}
 
     /// <summary>
@@ -243,7 +245,6 @@ public class NewNetworkManager : NetworkManager
     /// </summary>
     public override void OnStartServer() {
 		base.OnStartServer();
-
 		NetworkServer.RegisterHandler<ConnectRequest>(OnUserJoined);
 	}
 

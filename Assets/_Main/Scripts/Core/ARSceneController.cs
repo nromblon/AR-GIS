@@ -5,13 +5,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using GoogleARCore;
 using GoogleARCore.Examples.Common;
-using GoogleARCore.Examples.ObjectManipulation;
 using FixCityAR;
 
 #if UNITY_EDITOR
 // Set up touch input propagation while using Instant Preview in the editor.
 using Input = GoogleARCore.InstantPreviewInput;
 #endif
+
+public enum ApplicationMode {
+	Host,
+	Client
+}
 
 public class ARSceneController : MonoBehaviour {
 	private static ARSceneController sharedInstance;
@@ -25,6 +29,7 @@ public class ARSceneController : MonoBehaviour {
 	public Camera ARCamera;
 	public PlaneDiscoveryGuide planeDiscoveryGuide;
 	public DetectedPlaneGenerator planeGenerator;
+
 
 	private bool isPlaneDiscoveryGuideActive;
 	public bool IsPlaneDiscoveryGuideActive {
@@ -50,8 +55,17 @@ public class ARSceneController : MonoBehaviour {
 	private bool DepthMenuOpened = false;
 
 	private IssueObject selectedIssue;
-	
-    void Awake()
+
+	// Network-related fields and attributes
+
+	public ApplicationMode applicationMode;
+	public string AnchorId {
+		get;
+		private set;
+	}
+
+
+	void Awake()
     {
 		// Enable ARCore to target 60fps camera capture frame rate on supported devices.
 		// Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
@@ -69,8 +83,7 @@ public class ARSceneController : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update()
-    {
+	void Update() {
 		_UpdateApplicationLifecycle();
 
 		//// Checks if Depth Menu windows are open
@@ -116,6 +129,8 @@ public class ARSceneController : MonoBehaviour {
 
 		AllowManipulation = true;
 	}
+
+	#region Play Area Functions / Callbacks
 
 	public void OnPlayAreaConfirmed(Bounds playAreaBounds, PlayAreaManager PAmngr) {
 		CityManager cityGMLMngr = CityManager.Instance;
@@ -169,6 +184,23 @@ public class ARSceneController : MonoBehaviour {
 		}
 
 		_ShowAndroidToastMessage("Tap on a Detected Plane to place the Interactable Area.");
+	}
+	#endregion
+
+	/// <summary>
+	/// For Host: Called after Cloud Anchor has been successfully published.
+	/// For Client: Called right after the client joins the server.
+	/// </summary>
+	/// <param name="anchorId"></param>
+	public void SetCloudAnchorId(string anchorId) {
+		AnchorId = anchorId;
+		if (applicationMode == ApplicationMode.Host) {
+			// Advertise Server
+			// Set anchorId to DiscoveryResponse
+		}
+		else {
+			// Allow Play Area Manager to Resolve
+		}
 	}
 
 	public void EnablePlaneDiscoveryGuide(bool val) {

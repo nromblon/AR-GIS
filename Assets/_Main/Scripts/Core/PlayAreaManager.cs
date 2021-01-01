@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using GoogleARCore;
+using GoogleARCore.CrossPlatform;
 using GoogleARCore.Examples.ObjectManipulation;
 
 public class PlayAreaManager : Manipulator
@@ -26,6 +27,8 @@ public class PlayAreaManager : Manipulator
 
 	private ARSceneController sceneController;
 
+	private AsyncTask<CloudAnchorResult> cloudAnchorTask;
+
 	private void Awake() {
 		instance = this;
 	}
@@ -38,6 +41,21 @@ public class PlayAreaManager : Manipulator
 		sceneController = ARSceneController.Instance;
 		this.Select();
     }
+
+	private void Update() {
+		// Handle Cloud Anchor Resolution here (If Device is not a Host)
+		if (sceneController.applicationMode != ApplicationMode.Client)
+			return;
+
+		
+		//if (sceneController.applicationMode == ApplicationMode.Client) {
+		//	AsyncTask<CloudAnchorResult> asynCtask = XPSession.ResolveCloudAnchor(sceneController.AnchorId);
+		//}
+		// else { 
+		//var pose = Frame.Pose;
+		//var mapQuality = XPSession.EstimateFeatureMapQualityForHosting(pose); // only added in SDK ver 1.20. currently on 1.18
+
+	}
 
 	#region Manipulator Methods
 	protected override bool CanStartManipulationForGesture(TapGesture gesture) {
@@ -58,6 +76,9 @@ public class PlayAreaManager : Manipulator
 		if (!IsSelected())
 			return false;
 
+		if (sceneController.applicationMode == ApplicationMode.Client)
+			return false;
+
 		return true;
 	}
 
@@ -68,19 +89,19 @@ public class PlayAreaManager : Manipulator
 		if (gesture.TargetObject != null)
 			return;
 
+		// Cloud Anchor Hosting is handled here. (If Device is the Host)
+
 		// Raycast against the location the player touched to search for planes.
 		TrackableHit hit;
 		TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon;
 
 		if (Frame.Raycast(
 			gesture.StartPosition.x, gesture.StartPosition.y, raycastFilter, out hit)) {
-			// Use hit pose and camera pose to check if hittest is from the
-			// back of the plane, if it is, no need to create the anchor.
-			if ((hit.Trackable is DetectedPlane) &&
-				Vector3.Dot(Camera.main.transform.position - hit.Pose.position,
-					hit.Pose.rotation * Vector3.up) < 0) {
-			}
-			else {
+
+			var dotProduct = Vector3.Dot(Camera.main.transform.position - hit.Pose.position, hit.Pose.rotation * Vector3.up);
+			// Comnpares hit pose and camera pose to check if TrackableHit is from the
+			// back of the plane. If it is, Do not create an anchor.
+			if ((hit.Trackable is DetectedPlane) && !(dotProduct < 0)) {
 				// Instantiate game object at the hit pose.
 				playArea = Instantiate(PlayAreaPrefab, hit.Pose.position, hit.Pose.rotation)
 					.GetComponent<PlayAreaController>();
@@ -88,6 +109,13 @@ public class PlayAreaManager : Manipulator
 				// Create an anchor to allow ARCore to track the hitpoint as understanding of
 				// the physical world evolves.
 				var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+				// Host anchor
+				cloudAnchorTask = XPSession.CreateCloudAnchor(anchor);
+				//if (sceneController.applicationMode == ApplicationMode.Host) {
+				//	// place if statement before raycast
+				//	AsyncTask<CloudAnchorResult> asyncTask = XPSession.CreateCloudAnchor(anchor);
+				//}
 
 				this.Deselect();
 
@@ -126,6 +154,33 @@ public class PlayAreaManager : Manipulator
 		playArea = null;
 
 		Select();
+	}
+
+	IEnumerator WaitForCloudAnchorTask(System.Action<XPAnchor> callback) {
+		while (!cloudAnchorTask.IsComplete) {
+			yield return null;
+		}
+
+		if(cloudAnchorTask.Result.Response == CloudServiceResponse.Success) {
+			callback(cloudAnchorTask.Result.Anchor);
+		}
+		else {
+			Debug.LogError($"[PlayAreaManager] Hosting/Resolution Failed! Cloud Service Response: " +
+				$"{cloudAnchorTask.Result.Response.ToString()}");
+		}
+		
+	}
+
+	private void OnCloudAnchorHostSuccess(XPAnchor result) {
+		sceneController.SetCloudAnchorId(result.CloudId);
+		// Re-parent play area to XPAnchor?
+	}
+
+	private void OnCloudAnchorResolveSuccess(XPAnchor result) {
+		// How to instantiate anchor? Or is it automatic? (Its automatic: though a different object is returned in the form 
+		// of XPAnchor)
+		// Instantiate Play Area Object on Resolved Anchor Object
+		var newParent = result.transform;
 	}
 }
 

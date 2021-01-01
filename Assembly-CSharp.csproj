@@ -92,7 +92,6 @@
     <Compile Include="Assets\_Main\Scripts\Networking\ARUser.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\ChatBehaviour.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\ConnectMessage.cs" />
-    <Compile Include="Assets\_Main\Scripts\Networking\DiscoveryHUDController.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\NetworkDiscovery\Data\DiscoveryInfo.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\NetworkDiscovery\Data\GameBroadcastPacket.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\NetworkDiscovery\NetworkDiscovery.cs" />

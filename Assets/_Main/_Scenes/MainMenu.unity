@@ -571,7 +571,6 @@ GameObject:
   - component: {fileID: 118224837}
   - component: {fileID: 118224836}
   - component: {fileID: 118224840}
-  - component: {fileID: 118224841}
   m_Layer: 5
   m_Name: Network Canvas
   m_TagString: Untagged
@@ -680,21 +679,7 @@ MonoBehaviour:
   showServersButton: {fileID: 423478078}
   proceedJoin: {fileID: 1297339079}
   serverList: {fileID: 1952530889}
-  discoveryController: {fileID: 118224841}
---- !u!114 &118224841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 118224835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dc376248d616f248b31053b5e58e500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkDiscovery: {fileID: 1363352524}
-  networkMenu: {fileID: 118224840}
+  netDiscovery: {fileID: 1363352524}
 --- !u!1 &118930470
 GameObject:
   m_ObjectHideFlags: 0
@@ -6654,7 +6639,7 @@ MonoBehaviour:
   OnServerFound:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 118224841}
+      - m_Target: {fileID: 118224840}
         m_MethodName: OnDiscoveredServer
         m_Mode: 0
         m_Arguments:

@@ -20,7 +20,7 @@ namespace FixCityAR {
 		[SerializeField] private Button proceedJoin;
 		[SerializeField] private ServerList serverList;
 
-		[SerializeField] private DiscoveryHUDController discoveryController; 
+		[SerializeField] private NewNetworkDiscovery netDiscovery;
 
 		private bool isRoomListShown = false;
 
@@ -30,63 +30,57 @@ namespace FixCityAR {
 			netManager = (NewNetworkManager) NewNetworkManager.singleton;
 		}
 
-		public void AddServer(DiscoveryResponse info) {
-			serverList.AddItem(info);
-		}
-
+		#region Main Networking Buttons
 		public void HostSession() {
 			string hostName = this.roomname.text;
 			string username = this.username.text;
+			netDiscovery.StopDiscovery();
 
 			PlayerPrefs.SetString("username", username);
 			netManager.roomName = roomname.text;
 			netManager.loadedFiles = CityManager.Instance.cityGML2GO.LoadedFiles;
-
-			discoveryController.StartHost(hostName, username);
 			netManager.StartHost();
+			netDiscovery.AdvertiseServer();
 			Debug.Log("Hosting Session");
-		}
-
-		public void ShowSessionList() {
-			ToggleRoomListShown();
-			discoveryController.FindServers();
-		}
-
-		public void RefreshSessionList() {
-			discoveryController.StopFinding();
-			serverList.ClearList();
-			discoveryController.FindServers();
-			proceedJoin.interactable = false;
-		}
-
-		public void CheckIfButtonsEnable() {
-			if (!username.text.Equals("")) {
-				if(serverList.selectedItem != null) {
-					proceedJoin.interactable = true;
-				}
-				else {
-					proceedJoin.interactable = false;
-				}
-
-				if (!roomname.text.Equals("")) {
-					hostButton.interactable = true;
-				}
-				else {
-					hostButton.interactable = false;
-				}
-			}
-			else {
-				proceedJoin.interactable = false;
-				hostButton.interactable = false;
-			}
 		}
 
 		public void JoinSession() {
 			PlayerPrefs.SetString("username", username.text);
-			discoveryController.Connect(serverList.selectedItem.Info);
+			netManager.StartClient(serverList.selectedItem.Info.uri);
+			netDiscovery.StopDiscovery();
+			//discoveryController.Connect(serverList.selectedItem.Info);
 			Debug.Log("Joining Session");
 		}
+		#endregion
 
+		#region Discovery
+		/// <summary>
+		/// Listener for discovered server. Set in Editor, under NetworkDiscovery script.
+		/// </summary>
+		/// <param name="info"></param>
+		public void OnDiscoveredServer(DiscoveryResponse info) {
+			Debug.Log($"Discovered Server: {info.serverName} by {info.hostUsername} (IP: {info.EndPoint.Address.ToString()})");
+			AddServer(info);
+		}
+
+		private void AddServer(DiscoveryResponse info) {
+			serverList.AddItem(info);
+		}
+
+		public void ShowSessionList() {
+			ToggleRoomListShown();
+			netDiscovery.StartDiscovery();
+		}
+
+		public void RefreshSessionList() {
+			netDiscovery.StopDiscovery();
+			serverList.ClearList();
+			netDiscovery.StartDiscovery();
+			proceedJoin.interactable = false;
+		}
+		#endregion
+
+		#region UI and Utility functions
 		public void ShowMenu() {
 			gameObject.SetActive(true);
 		}
@@ -94,7 +88,8 @@ namespace FixCityAR {
 		public void HideMenu() {
 			ClearInputFields();
 			gameObject.SetActive(false);
-			discoveryController.StopFinding();
+
+			netDiscovery.StopDiscovery();
 			serverList.ClearList();
 		}
 
@@ -115,6 +110,29 @@ namespace FixCityAR {
 				isRoomListShown = true;
 			}
 		}
+
+		public void CheckIfButtonsEnable() {
+			if (!username.text.Equals("")) {
+				if (serverList.selectedItem != null) {
+					proceedJoin.interactable = true;
+				}
+				else {
+					proceedJoin.interactable = false;
+				}
+
+				if (!roomname.text.Equals("")) {
+					hostButton.interactable = true;
+				}
+				else {
+					hostButton.interactable = false;
+				}
+			}
+			else {
+				proceedJoin.interactable = false;
+				hostButton.interactable = false;
+			}
+		}
+		#endregion
 
 		public void BackButtonPressed() {
 			if (isRoomListShown) {

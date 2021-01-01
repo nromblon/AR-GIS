@@ -13,7 +13,6 @@ ScriptsOnlyBuild:
     - ControlsManager
     - DebugOverlay
     - DepthSettings
-    - DiscoveryHUDController
     - DontDestroy
     - ExtendedRotationManipulator
     - ExtendedScaleManipulator
@@ -134,17 +133,17 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9832}
+      Script: {instanceID: 9834}
     - Class: 114
-      Script: {instanceID: 10194}
+      Script: {instanceID: 10196}
     - Class: 114
-      Script: {instanceID: 10260}
+      Script: {instanceID: 10262}
     - Class: 114
-      Script: {instanceID: 10300}
+      Script: {instanceID: 10302}
     - Class: 114
-      Script: {instanceID: 10602}
+      Script: {instanceID: 10604}
     - Class: 114
-      Script: {instanceID: 10788}
+      Script: {instanceID: 10790}
     - Class: 114
       Script: {instanceID: 10852}
     - Class: 114
@@ -156,53 +155,53 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11298}
     - Class: 114
-      Script: {instanceID: 11578}
+      Script: {instanceID: 11580}
     - Class: 114
-      Script: {instanceID: 11582}
+      Script: {instanceID: 11584}
     - Class: 114
-      Script: {instanceID: 11658}
+      Script: {instanceID: 11660}
     - Class: 114
-      Script: {instanceID: 11792}
+      Script: {instanceID: 11794}
     - Class: 114
-      Script: {instanceID: 11822}
+      Script: {instanceID: 11824}
     - Class: 114
-      Script: {instanceID: 11938}
+      Script: {instanceID: 11940}
     - Class: 114
-      Script: {instanceID: 12030}
+      Script: {instanceID: 12032}
     - Class: 114
-      Script: {instanceID: 12090}
+      Script: {instanceID: 12092}
     - Class: 114
-      Script: {instanceID: 12152}
+      Script: {instanceID: 12154}
     - Class: 114
-      Script: {instanceID: 12208}
+      Script: {instanceID: 12210}
     - Class: 114
-      Script: {instanceID: 12334}
+      Script: {instanceID: 12336}
     - Class: 114
-      Script: {instanceID: 12376}
+      Script: {instanceID: 12378}
     - Class: 114
-      Script: {instanceID: 12554}
+      Script: {instanceID: 12556}
     - Class: 114
-      Script: {instanceID: 12598}
+      Script: {instanceID: 12600}
     - Class: 114
-      Script: {instanceID: 12650}
+      Script: {instanceID: 12652}
     - Class: 114
-      Script: {instanceID: 12658}
+      Script: {instanceID: 12660}
     - Class: 114
-      Script: {instanceID: 12782}
+      Script: {instanceID: 12784}
     - Class: 114
-      Script: {instanceID: 12818}
+      Script: {instanceID: 12820}
     - Class: 114
-      Script: {instanceID: 12858}
+      Script: {instanceID: 12860}
     - Class: 114
-      Script: {instanceID: 12900}
+      Script: {instanceID: 12902}
     - Class: 114
-      Script: {instanceID: 13046}
+      Script: {instanceID: 13048}
     - Class: 114
-      Script: {instanceID: 13394}
+      Script: {instanceID: 13396}
     - Class: 114
-      Script: {instanceID: 13398}
+      Script: {instanceID: 13400}
     - Class: 114
-      Script: {instanceID: 13426}
+      Script: {instanceID: 13428}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -259,33 +258,31 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9806}
+      Script: {instanceID: 9808}
     - Class: 114
-      Script: {instanceID: 9832}
+      Script: {instanceID: 9834}
     - Class: 114
-      Script: {instanceID: 9842}
+      Script: {instanceID: 9844}
     - Class: 114
-      Script: {instanceID: 10008}
+      Script: {instanceID: 10010}
     - Class: 114
-      Script: {instanceID: 10050}
+      Script: {instanceID: 10052}
     - Class: 114
-      Script: {instanceID: 10194}
+      Script: {instanceID: 10196}
     - Class: 114
-      Script: {instanceID: 10204}
+      Script: {instanceID: 10206}
     - Class: 114
-      Script: {instanceID: 10260}
+      Script: {instanceID: 10262}
     - Class: 114
-      Script: {instanceID: 10302}
+      Script: {instanceID: 10304}
     - Class: 114
-      Script: {instanceID: 10444}
+      Script: {instanceID: 10446}
     - Class: 114
-      Script: {instanceID: 10560}
+      Script: {instanceID: 10562}
     - Class: 114
-      Script: {instanceID: 10648}
+      Script: {instanceID: 10650}
     - Class: 114
-      Script: {instanceID: 10808}
-    - Class: 114
-      Script: {instanceID: 10824}
+      Script: {instanceID: 10810}
     - Class: 114
       Script: {instanceID: 10938}
     - Class: 114
@@ -299,59 +296,59 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11390}
     - Class: 114
-      Script: {instanceID: 11478}
+      Script: {instanceID: 11480}
     - Class: 114
-      Script: {instanceID: 11526}
+      Script: {instanceID: 11528}
     - Class: 114
-      Script: {instanceID: 11614}
+      Script: {instanceID: 11616}
     - Class: 114
-      Script: {instanceID: 11670}
+      Script: {instanceID: 11672}
     - Class: 114
-      Script: {instanceID: 11772}
+      Script: {instanceID: 11774}
     - Class: 114
-      Script: {instanceID: 11792}
+      Script: {instanceID: 11794}
     - Class: 114
-      Script: {instanceID: 11822}
+      Script: {instanceID: 11824}
     - Class: 114
-      Script: {instanceID: 11916}
+      Script: {instanceID: 11918}
     - Class: 114
-      Script: {instanceID: 11952}
+      Script: {instanceID: 11954}
     - Class: 114
-      Script: {instanceID: 12030}
+      Script: {instanceID: 12032}
     - Class: 114
-      Script: {instanceID: 12164}
+      Script: {instanceID: 12166}
     - Class: 114
-      Script: {instanceID: 12186}
+      Script: {instanceID: 12188}
     - Class: 114
-      Script: {instanceID: 12354}
+      Script: {instanceID: 12356}
     - Class: 114
-      Script: {instanceID: 12532}
+      Script: {instanceID: 12534}
     - Class: 114
-      Script: {instanceID: 12562}
+      Script: {instanceID: 12564}
     - Class: 114
-      Script: {instanceID: 12650}
+      Script: {instanceID: 12652}
     - Class: 114
-      Script: {instanceID: 12746}
+      Script: {instanceID: 12748}
     - Class: 114
-      Script: {instanceID: 12756}
+      Script: {instanceID: 12758}
     - Class: 114
-      Script: {instanceID: 12992}
-    - Class: 114
-      Script: {instanceID: 13044}
+      Script: {instanceID: 12994}
     - Class: 114
       Script: {instanceID: 13046}
     - Class: 114
-      Script: {instanceID: 13234}
+      Script: {instanceID: 13048}
     - Class: 114
-      Script: {instanceID: 13314}
+      Script: {instanceID: 13236}
     - Class: 114
-      Script: {instanceID: 13336}
+      Script: {instanceID: 13316}
     - Class: 114
       Script: {instanceID: 13338}
     - Class: 114
-      Script: {instanceID: 13398}
+      Script: {instanceID: 13340}
     - Class: 114
-      Script: {instanceID: 13530}
+      Script: {instanceID: 13400}
+    - Class: 114
+      Script: {instanceID: 13532}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -463,7 +460,7 @@ ScriptsOnlyBuild:
     className: BoolVariable
   - hash:
       serializedVersion: 2
-      Hash: 61513f51af30ed00d41f22e4566c8a4a
+      Hash: fecbb356dd93036977ceafcc42a7acd7
     assemblyName: Assembly-CSharp.dll
     namespaceName: FixCityAR
     className: NetworkMenu
@@ -493,7 +490,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: f517792c04639d9a02d4b5f095f944d3
+      Hash: 790d13e4803651d1755506aba4a64aa5
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ARUser
@@ -857,12 +854,6 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SystemMessage
-  - hash:
-      serializedVersion: 2
-      Hash: 45bbf23ec15c86ca2660457857eeee98
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: DiscoveryHUDController
   - hash:
       serializedVersion: 2
       Hash: 071d93f3e16645b8ca72486802a5b912
@@ -1771,7 +1762,7 @@ ScriptsOnlyBuild:
     className: NetworkLogSettings
   - hash:
       serializedVersion: 2
-      Hash: d274752beba4c4af1ee4cabfaa63fe33
+      Hash: 8102d784b5de3c9b73a2193e00fff3e6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ARSceneController

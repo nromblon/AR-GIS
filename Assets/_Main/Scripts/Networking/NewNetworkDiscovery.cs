@@ -66,6 +66,10 @@ namespace FixCityAR {
 			netManager = (NewNetworkManager)NewNetworkManager.singleton;
 		}
 
+		private void OnDestroy() {
+			StopDiscovery();
+		}
+
 		/// <summary>
 		/// Reply to the client to inform it of this server
 		/// </summary>
