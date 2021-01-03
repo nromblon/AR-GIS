@@ -49,6 +49,7 @@ public class ARSceneController : MonoBehaviour {
 	}
 
 	private ControlsManager controlsManager;
+	private PlayAreaManager PAManager;
 
 	private bool planeDiscoveryRefreshed = false;
 	private bool m_IsQuitting = false;
@@ -75,11 +76,18 @@ public class ARSceneController : MonoBehaviour {
 
 	private void Start() {
 		controlsManager = ControlsManager.Instance;
+		PAManager = PlayAreaManager.Instance;
 
 		if (PerformanceTesting.IsEvaluating) {
 			DebugOverlay.Instance.ARSceneTime = Time.time;
 			DebugOverlay.Instance.ARSceneFrame = Time.frameCount;
 		}
+
+		if (applicationMode == ApplicationMode.Host) {
+			// Start Hosting Process
+			PAManager.Select();
+		}
+		// Client begins in ARUser.Start() -> "RequestCloudId"
 	}
 
 	// Update is called once per frame
@@ -136,7 +144,8 @@ public class ARSceneController : MonoBehaviour {
 		CityManager cityGMLMngr = CityManager.Instance;
 		cityGMLMngr.gameObject.SetActive(true);
 
-		// Resize city bounds
+		#region City Model Transform re-adjustment
+		// Rescale City to Fit inside Play Area Bounds
 		Bounds cityBounds = cityGMLMngr.Bounds;
 		var x_ratio = playAreaBounds.size.x / cityBounds.size.x;
 		var z_ratio = playAreaBounds.size.z / cityBounds.size.z;
@@ -145,20 +154,53 @@ public class ARSceneController : MonoBehaviour {
 		Vector3 newScale = new Vector3(cityGMLMngr.transform.localScale.x * min_ratio,
 			cityGMLMngr.transform.localScale.y * min_ratio,
 			cityGMLMngr.transform.localScale.z * min_ratio);
-
 		cityGMLMngr.transform.localScale = newScale;
-		// set as child of play area
-		PAmngr.PlayArea.SetAsChild(cityGMLMngr.gameObject);
 
-		// set local position and localrotate = 0
+		// Attach City as a child of the Play Area
+		cityGMLMngr.transform.SetParent(PAmngr.PlayArea.transform);
+
+		// Reset Local Position and Local Rotation to Vector3.Zero
 		cityGMLMngr.transform.localPosition = Vector3.zero;
 		cityGMLMngr.transform.localEulerAngles = Vector3.zero;
-		
-		cityGMLMngr.OnCityPlaced();
+		#endregion
+
+		// Callback functions for the other components
+		cityGMLMngr.OnCityAttached();
 		EnablePlaneDiscoveryGuide(false);
 		SettingsMenu.Instance.EnableResetCityPlacement(true);
 		controlsManager.ShowControls(true);
+		
+		if (PerformanceTesting.IsEvaluating) {
+			DebugOverlay.Instance.SaveFrameCount(FrameCounts.cityPlaced);
+			DebugOverlay.Instance.CityPlacedTime = Time.time;
+			DebugOverlay.Instance.SetAverageFPS(AvgFPS.ARScene);
+		}
+	}
 
+	/// <summary>
+	/// Called on the client devices.There are no PABounds as the City Transform might have been manipulated
+	/// before the client connected. Instead, determined Transform values are passed with the cityTf parameter.
+	/// </summary>
+	/// <param name="PAmngr"></param>
+	public void OnPlayAreaConfirmed(TfValues cityTf, PlayAreaManager PAmngr) {
+		CityManager cityGMLMngr = CityManager.Instance;
+		cityGMLMngr.gameObject.SetActive(true);
+
+		#region City Model Transform re-adjustment
+		// Attach City as a child of the Play Area
+		cityGMLMngr.transform.SetParent(PAmngr.PlayArea.transform);
+
+		// Adjust City Transform to reflect the server's City Transform.
+		cityGMLMngr.transform.localPosition = cityTf.localPosition;
+		cityGMLMngr.transform.localRotation = cityTf.localRotation;
+		cityGMLMngr.transform.localScale = cityTf.localScale;
+		#endregion
+
+		// Callback functions for the other components
+		cityGMLMngr.OnCityAttached();
+		EnablePlaneDiscoveryGuide(false);
+		SettingsMenu.Instance.EnableResetCityPlacement(true);
+		controlsManager.ShowControls(true);
 
 		if (PerformanceTesting.IsEvaluating) {
 			DebugOverlay.Instance.SaveFrameCount(FrameCounts.cityPlaced);
@@ -166,6 +208,7 @@ public class ARSceneController : MonoBehaviour {
 			DebugOverlay.Instance.SetAverageFPS(AvgFPS.ARScene);
 		}
 	}
+
 
 	public void ResetPlayAreaPlacement() {
 		EnablePlaneDiscoveryGuide(true);
@@ -194,12 +237,18 @@ public class ARSceneController : MonoBehaviour {
 	/// <param name="anchorId"></param>
 	public void SetCloudAnchorId(string anchorId) {
 		AnchorId = anchorId;
-		if (applicationMode == ApplicationMode.Host) {
-			// Advertise Server
-			// Set anchorId to DiscoveryResponse
-		}
-		else {
-			// Allow Play Area Manager to Resolve
+		// Empty means PlayArea Placement was removed. Thus, no further action is required.
+		if (anchorId != "") {
+			AnchorId = anchorId;
+			if (applicationMode == ApplicationMode.Host) {
+				// Advertise Server
+				var netDiscovery = FindObjectOfType<NewNetworkDiscovery>();
+				netDiscovery.AdvertiseServer();
+			}
+			else {
+				// Allow Play Area Manager to Resolve
+				PAManager.StartResolving(AnchorId);
+			}
 		}
 	}
 

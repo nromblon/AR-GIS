@@ -42,17 +42,6 @@ public class PlayAreaController : MonoBehaviour
 		}
 	}
 
-	public void SetAsChild(GameObject go) {
-		//go.transform.SetParent(MeshBoundary.transform);
-		go.transform.SetParent(transform);
-		//var scaleX = go.transform.localScale.x;
-		//go.transform.localScale = new Vector3(go.transform.localScale.x / transform.localScale.x,
-		//	scaleX / transform.localScale.y,
-		//	go.transform.localScale.z / transform.localScale.z);
-		//go.transform.localPosition = Vector3.zero;
-		//go.transform.localEulerAngles = Vector3.zero;
-	}
-
 	public void OnPlacementConfirm() {
 		animator.SetBool(SHOW_FLAG, false);
 	}

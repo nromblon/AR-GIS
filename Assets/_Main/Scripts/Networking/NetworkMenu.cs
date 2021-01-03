@@ -40,7 +40,7 @@ namespace FixCityAR {
 			netManager.roomName = roomname.text;
 			netManager.loadedFiles = CityManager.Instance.cityGML2GO.LoadedFiles;
 			netManager.StartHost();
-			netDiscovery.AdvertiseServer();
+			//netDiscovery.AdvertiseServer();
 			Debug.Log("Hosting Session");
 		}
 

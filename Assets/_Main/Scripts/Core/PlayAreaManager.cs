@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 using GoogleARCore;
 using GoogleARCore.CrossPlatform;
 using GoogleARCore.Examples.ObjectManipulation;
+using GoogleARCore.Examples.CloudAnchors;
+using Mirror;
+using FixCityAR;
 
 public class PlayAreaManager : Manipulator
 {
@@ -13,48 +16,32 @@ public class PlayAreaManager : Manipulator
 		get { return instance; }
 	}
 
-	public GameObject PlayAreaPrefab;
 	private PlayAreaController playArea;
 	public PlayAreaController PlayArea {
 		get { return playArea; }
 	}
+
+	private ARSceneController ARSceneCtrl;
+
+	[Header("Setup")]
+	[SerializeField] private ConfirmBtnController confirmBtn;
+	[SerializeField] private GameObject playAreaPrefab;
+	[SerializeField] private ARCoreWorldOriginHelper worldOriginHelper;
+
+	[Header("Runtime Data")]
 	public bool hasPlacedPlayArea;
 	public bool hasConfirmedPlayArea;
 
-
-	[Header("UI Setup")]
-	public ConfirmBtnController confirmBtn;
-
-	private ARSceneController sceneController;
-
 	private AsyncTask<CloudAnchorResult> cloudAnchorTask;
+	public ARUser localUser;
+	private XPAnchor cloudAnchor;
 
 	private void Awake() {
 		instance = this;
-	}
 
-	// Start is called before the first frame update
-	void Start()
-    {
 		hasPlacedPlayArea = false;
 		hasConfirmedPlayArea = false;
-		sceneController = ARSceneController.Instance;
-		this.Select();
-    }
-
-	private void Update() {
-		// Handle Cloud Anchor Resolution here (If Device is not a Host)
-		if (sceneController.applicationMode != ApplicationMode.Client)
-			return;
-
-		
-		//if (sceneController.applicationMode == ApplicationMode.Client) {
-		//	AsyncTask<CloudAnchorResult> asynCtask = XPSession.ResolveCloudAnchor(sceneController.AnchorId);
-		//}
-		// else { 
-		//var pose = Frame.Pose;
-		//var mapQuality = XPSession.EstimateFeatureMapQualityForHosting(pose); // only added in SDK ver 1.20. currently on 1.18
-
+		ARSceneCtrl = ARSceneController.Instance;
 	}
 
 	#region Manipulator Methods
@@ -76,7 +63,7 @@ public class PlayAreaManager : Manipulator
 		if (!IsSelected())
 			return false;
 
-		if (sceneController.applicationMode == ApplicationMode.Client)
+		if (ARSceneCtrl.applicationMode == ApplicationMode.Client)
 			return false;
 
 		return true;
@@ -89,8 +76,6 @@ public class PlayAreaManager : Manipulator
 		if (gesture.TargetObject != null)
 			return;
 
-		// Cloud Anchor Hosting is handled here. (If Device is the Host)
-
 		// Raycast against the location the player touched to search for planes.
 		TrackableHit hit;
 		TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon;
@@ -98,89 +83,171 @@ public class PlayAreaManager : Manipulator
 		if (Frame.Raycast(
 			gesture.StartPosition.x, gesture.StartPosition.y, raycastFilter, out hit)) {
 
-			var dotProduct = Vector3.Dot(Camera.main.transform.position - hit.Pose.position, hit.Pose.rotation * Vector3.up);
 			// Comnpares hit pose and camera pose to check if TrackableHit is from the
 			// back of the plane. If it is, Do not create an anchor.
+			var dotProduct = Vector3.Dot(Camera.main.transform.position - hit.Pose.position, hit.Pose.rotation * Vector3.up);
 			if ((hit.Trackable is DetectedPlane) && !(dotProduct < 0)) {
+
 				// Instantiate game object at the hit pose.
-				playArea = Instantiate(PlayAreaPrefab, hit.Pose.position, hit.Pose.rotation)
+				playArea = Instantiate(playAreaPrefab, hit.Pose.position, hit.Pose.rotation)
 					.GetComponent<PlayAreaController>();
 
+				//playAreaPrefab.SetActive(true);
+				//playAreaPrefab.transform.SetPositionAndRotation(hit.Pose.position, hit.Pose.rotation);
+				//playArea = playAreaPrefab.GetComponent<PlayAreaController>();
+				
 				// Create an anchor to allow ARCore to track the hitpoint as understanding of
 				// the physical world evolves.
 				var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
-				// Host anchor
-				cloudAnchorTask = XPSession.CreateCloudAnchor(anchor);
-				//if (sceneController.applicationMode == ApplicationMode.Host) {
-				//	// place if statement before raycast
-				//	AsyncTask<CloudAnchorResult> asyncTask = XPSession.CreateCloudAnchor(anchor);
-				//}
-
-				this.Deselect();
-
-				hasPlacedPlayArea = true;
-
-				// Make manipulator a child of the anchor.
+				// Attach PlayArea Object as a child of the anchor.
 				playArea.transform.parent = anchor.transform;
 
+				this.Deselect();
 				playArea.Select();
 
 				// Show Confirm Button
 				confirmBtn.ShowButton(true);
+				
+				hasPlacedPlayArea = true;
 			}
 		}
 	}
 	#endregion
 
+	/// <summary>
+	/// Finalizes the position, rotation, and scale of the play area.
+	/// This Function should only occur on the Host's device.
+	/// </summary>
 	public void ConfirmPlacement() {
 		hasConfirmedPlayArea = true;
 
 		Bounds PABounds = playArea.Bounds;
-		sceneController.OnPlayAreaConfirmed(PABounds,this);
+		ARSceneCtrl.OnPlayAreaConfirmed(PABounds,this);
+
+		// Notify Play Area anim controller
+		playArea.OnPlacementConfirm();
+
+		// Attempt to Host Anchor
+		var anchor = playArea.GetComponentInParent<Anchor>();
+		cloudAnchorTask = XPSession.CreateCloudAnchor(anchor).ThenAction(OnHostComplete);
+	}
+
+	/// <summary>
+	/// Called by non-host. Creates a Copy of the server's play area into the client's scene.
+	/// </summary>
+	public void ClientCreatePlayArea(TfValues paTf, TfValues cTf) {
+		var paGO = Instantiate(playAreaPrefab);
+		//Adjust Play Area Transform values.
+		paGO.transform.localPosition = paTf.localPosition;
+		paGO.transform.localRotation = paTf.localRotation;
+		paGO.transform.localScale = paTf.localScale;
+
+		playArea = paGO.GetComponent<PlayAreaController>();
+
+		// Attach city inside.
+		ARSceneCtrl.OnPlayAreaConfirmed(cTf, this);
+
+		// Notify Play Area anim controller
 		playArea.OnPlacementConfirm();
 	}
 
+	/// <summary>
+	/// Removes the placement of the play area.
+	/// This function should only be called by the host's device.
+	/// </summary>
 	public void RemovePlacement() {
-		CityManager.Instance.OnCityRemoved();
+		CityManager.Instance.DetachCity();
 
+		// Destroy XP Anchor
+		if (cloudAnchor != null) {
+			Destroy(cloudAnchor.gameObject);
+		}
+
+		//if(playArea != null) {
+		//	// Destroy the anchor
+		//	Destroy(playArea.transform.parent.gameObject);
+		//}
+
+		// Destroy play area
+		Destroy(playArea.gameObject);
+
+		playArea = null;
 		hasPlacedPlayArea = false;
 		hasConfirmedPlayArea = false;
-
-		if(playArea != null) {
-			// Destroy the anchor
-			Destroy(playArea.transform.parent.gameObject);
-		}
-		playArea = null;
+		localUser.CityTfBehaviour.OnPlayAreaRemoved();
+		ARSceneCtrl.SetCloudAnchorId("");
 
 		Select();
 	}
 
-	IEnumerator WaitForCloudAnchorTask(System.Action<XPAnchor> callback) {
-		while (!cloudAnchorTask.IsComplete) {
-			yield return null;
-		}
+	/// <summary>
+	/// Called by non-host. Detaches the city component from the play area and destroys the play area object.
+	/// </summary>
+	public void ClientRemovePlayArea() {
+		CityManager.Instance.DetachCity();
+		ARSceneCtrl.SetCloudAnchorId("");
+		Destroy(this.cloudAnchor);
+		playArea = null;
+	}
 
-		if(cloudAnchorTask.Result.Response == CloudServiceResponse.Success) {
-			callback(cloudAnchorTask.Result.Anchor);
+	/// <summary>
+	/// Callback for when the XPSession.CreateCloudAnchor is a success. Creates a new Anchor, of type XPAnchor, as well as its
+	/// Id (CloudId) in the ARCore Cloud Anchor service. Anchor is null if Hosting failed.
+	/// </summary>
+	/// <param name="result"></param>
+	private void OnHostComplete(CloudAnchorResult result) {
+		if (result.Response == CloudServiceResponse.Success) {
+			this.cloudAnchor = result.Anchor;
+			ARSceneCtrl.SetCloudAnchorId(cloudAnchor.CloudId);
+
+			// Set world Origin to XPAnchor 
+			worldOriginHelper.SetWorldOrigin(cloudAnchor.transform);
+
+			var OGAnchor = playArea.GetComponentInParent<Anchor>();
+
+			// Detach City-Containing Play Area from the Anchor.
+			playArea.transform.SetParent(null);
+
+			// Destroy Original Anchor (Not sure if ideal)
+			Destroy(OGAnchor.gameObject);
+
+			// Notify the connected clients through CityTfBehaviour function.
+			localUser.CityTfBehaviour.OnPlayAreaConfirm();
 		}
 		else {
-			Debug.LogError($"[PlayAreaManager] Hosting/Resolution Failed! Cloud Service Response: " +
+			Debug.LogError($"[PlayAreaManager] Hosting Anchor Failed! Cloud Service Response: " +
 				$"{cloudAnchorTask.Result.Response.ToString()}");
 		}
-		
 	}
 
-	private void OnCloudAnchorHostSuccess(XPAnchor result) {
-		sceneController.SetCloudAnchorId(result.CloudId);
-		// Re-parent play area to XPAnchor?
+	/// <summary>
+	/// Called by the ARSceneController.
+	/// Starts to attempt resolving of the hosted Cloud Anchor from the given CloudId.
+	/// </summary>
+	/// <param name="CloudId"> The Hosted Cloud Anchor's Id. Accessed by CloudAnchorResult.Anchor.CloudId.</param>
+	public void StartResolving(string CloudId) {
+		XPSession.ResolveCloudAnchor(CloudId).ThenAction(OnResolveComplete);
 	}
 
-	private void OnCloudAnchorResolveSuccess(XPAnchor result) {
-		// How to instantiate anchor? Or is it automatic? (Its automatic: though a different object is returned in the form 
-		// of XPAnchor)
+	/// <summary>
+	/// Callback after ResolveCloudAnchor() is completed. Returns either success or an error.
+	/// </summary>
+	/// <param name="result"> The Resolved Cloud Anchor and Service Response. Anchor is Null if Response is an error.</param>
+	private void OnResolveComplete(CloudAnchorResult result) {
 		// Instantiate Play Area Object on Resolved Anchor Object
-		var newParent = result.transform;
+		if (result.Response == CloudServiceResponse.Success) {
+			// Set world origin to XPAnchor
+			this.cloudAnchor = result.Anchor;
+			worldOriginHelper.SetWorldOrigin(cloudAnchor.transform);
+
+			// Request PlayAreaTf from Server. If request success, leads to ClientCreatePlayArea().
+			localUser.CityTfBehaviour.RequestPlayAreaTf();
+		}
+		else {
+			Debug.LogError($"[PlayAreaManager] Resolving Anchor Failed! Cloud Service Response: " +
+				$"{cloudAnchorTask.Result.Response.ToString()}");
+		}
 	}
 }
 

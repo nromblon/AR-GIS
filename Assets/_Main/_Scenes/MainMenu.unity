@@ -6560,6 +6560,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs: []
   roomName: 
+  anchorId: 
   loadedFiles: []
   numUsers: 0
 --- !u!4 &1363352521
@@ -10935,4 +10936,5 @@ PrefabInstance:
     - {fileID: 4830939439451416258, guid: e74af86e8205bf8409c1a27022448e5d, type: 3}
     - {fileID: 5418775617230789899, guid: e74af86e8205bf8409c1a27022448e5d, type: 3}
     - {fileID: 4729297719155956581, guid: e74af86e8205bf8409c1a27022448e5d, type: 3}
+    - {fileID: 4897883291781474349, guid: e74af86e8205bf8409c1a27022448e5d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e74af86e8205bf8409c1a27022448e5d, type: 3}

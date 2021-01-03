@@ -1,8 +1,10 @@
 ﻿using System.Net.Sockets;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Mirror;
+using FixCityAR;
 
 /*
 	Documentation: https://mirror-networking.com/docs/Components/NetworkManager.html
@@ -77,6 +79,7 @@ public class NewNetworkManager : NetworkManager
     /// </summary>
     public override void OnApplicationQuit()
     {
+		FindObjectOfType<NewNetworkDiscovery>().StopDiscovery();
         base.OnApplicationQuit();
     }
 

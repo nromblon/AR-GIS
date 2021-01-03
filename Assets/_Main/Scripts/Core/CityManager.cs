@@ -32,6 +32,7 @@ public class CityManager : MonoBehaviour
 	public GenerateColliderOptions GenerateColliders = 0;
 	public bool shouldRemoveOutliers = true;
 	public float outlierCoeff = 3f;
+	public float syncUpdateDuration = 1f;
 
 	private Bounds bounds;
 	public Bounds Bounds {
@@ -66,6 +67,13 @@ public class CityManager : MonoBehaviour
 			return v_distance / coord_distance;
 		}
 	}
+
+	// For Networking Purposes. Should only be set to true if manipulation is done.
+	public bool HasManipulationPerformed = false;
+	// True if the local user is currently manipulating the city object.
+	public bool IsManipulating = false;
+	// Reference for the currently running LerpToTransform Coroutine
+	private Coroutine runningSyncCouroutine;
 
 	private void Awake() {
 		sharedInstance = this;
@@ -290,7 +298,7 @@ public class CityManager : MonoBehaviour
 	}
 	#endregion
 
-	public void OnCityPlaced() {
+	public void OnCityAttached() {
 		b_IsCityPlaced = true;
 
 		var scaleManipulator = GetComponent<ExtendedScaleManipulator>();
@@ -301,8 +309,9 @@ public class CityManager : MonoBehaviour
 		originOnPlaced = transform.localPosition;
 	}
 
-	public void OnCityRemoved() {
+	public void DetachCity() {
 		Deselect();
+
 		b_IsCityPlaced = false;
 		transform.parent = null;
 		transform.localScale = onLoadScale;
@@ -330,8 +339,26 @@ public class CityManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Called by the client if someone on the network has updated their City Module's transform.
+	/// Called every update if transform.hasChanged = true in CityTransformBehaviour.
+	/// </summary>
+	/// <param name="cityTf"> The values for the changed city transform. </param>
+	public void ClientUpdateTransform(TfValues cityTf) {
+		StartCoroutine(LerpToTransform(cityTf,syncUpdateDuration));
+
+	}
+
 	public void ResetPositionToOrigin(float duration) {
-		StartCoroutine(LerpPositionToOrigin(duration));
+		// If this client is currently manipulating, ignore incoming Rpc.
+		if (IsManipulating)
+			return;
+
+		// If Tf is already syncing, stop and resync to new instruction.
+		if (runningSyncCouroutine != null)
+			StopCoroutine(runningSyncCouroutine);
+
+		runningSyncCouroutine = StartCoroutine(LerpPositionToOrigin(duration));
 	}
 
 	IEnumerator WaitForCoordinateConverterResults(CoordinateConverter cc, System.Action callback) {
@@ -357,6 +384,32 @@ public class CityManager : MonoBehaviour
 		// Reenable touch controls
 		Select();
 		ControlsManager.Instance.EnableRecenterButton(true);
+	}
+
+	IEnumerator LerpToTransform(TfValues toTf, float duration) {
+		// Disable touch controls
+		ManipulationSystem.Instance.Deselect();
+		float time = 0;
+		float t;
+		Vector3 startPosition = transform.localPosition;
+		Quaternion startRotation = transform.localRotation;
+		Vector3 startScale = transform.localScale;
+		while (time < duration) {
+			t = time / duration;
+			// Smooth-step Lerp
+			t = t * t * (3f - 2f * t);
+			transform.localPosition = Vector3.Lerp(startPosition, toTf.localPosition, t);
+			transform.localRotation = Quaternion.Lerp(startRotation, toTf.localRotation, t);
+			transform.localScale = Vector3.Lerp(startScale, toTf.localScale, t);
+			time += Time.deltaTime;
+			yield return null;
+		}
+		transform.localPosition = originOnPlaced;
+		// Reenable touch controls
+		Select();
+		ControlsManager.Instance.EnableRecenterButton(true);
+
+		runningSyncCouroutine = null;
 	}
 }
 

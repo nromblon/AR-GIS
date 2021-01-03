@@ -27,8 +27,9 @@ namespace FixCityAR {
 
 		public long serverId;
 
-		public string serverName;
+		public string anchorId;
 
+		public string serverName;
 		public string hostUsername;
 
 		public int numUsers;
@@ -64,10 +65,6 @@ namespace FixCityAR {
 
 			base.Start();
 			netManager = (NewNetworkManager)NewNetworkManager.singleton;
-		}
-
-		private void OnDestroy() {
-			StopDiscovery();
 		}
 
 		/// <summary>
@@ -106,6 +103,7 @@ namespace FixCityAR {
 					loadedFiles = netManager.loadedFiles.ToArray(),
 					numUsers = NetworkServer.connections.Count,
 					maxUsers = netManager.maxConnections
+					
 					// TODO: add numUsers, maxUsers, loadedFiles
 					// But first learn whether if placing those properties in network manager is
 					// the right way to do it.

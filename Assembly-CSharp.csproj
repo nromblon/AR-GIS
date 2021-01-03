@@ -82,7 +82,9 @@
     <Compile Include="Assets\_Main\Scripts\Main Menu\ServerList.cs" />
     <Compile Include="Assets\_Main\Scripts\Main Menu\ServerListItem.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\AnchorlessTranslationManipulator.cs" />
-    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\CityTranslationManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\City Manipulators\CityRotationManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\City Manipulators\CityScaleManipulator.cs" />
+    <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\City Manipulators\CityTranslationManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedRotationManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\ExtendedScaleManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\Manipulator Extensions\NoVizSelectionManipulator.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Assets\_Main\Scripts\Networking\ARScene UI\SystemMessagesPanel.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\ARUser.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\ChatBehaviour.cs" />
+    <Compile Include="Assets\_Main\Scripts\Networking\CityTransformBehaviour.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\ConnectMessage.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\NetworkDiscovery\Data\DiscoveryInfo.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\NetworkDiscovery\Data\GameBroadcastPacket.cs" />
