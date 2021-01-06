@@ -50,6 +50,7 @@ public class ARSceneController : MonoBehaviour {
 
 	private ControlsManager controlsManager;
 	private PlayAreaManager PAManager;
+	private CityManager cityManager;
 
 	private bool planeDiscoveryRefreshed = false;
 	private bool m_IsQuitting = false;
@@ -77,6 +78,9 @@ public class ARSceneController : MonoBehaviour {
 	private void Start() {
 		controlsManager = ControlsManager.Instance;
 		PAManager = PlayAreaManager.Instance;
+		cityManager = CityManager.Instance;
+		// Hide City Manager on startup.
+		cityManager.gameObject.SetActive(false);
 
 		if (PerformanceTesting.IsEvaluating) {
 			DebugOverlay.Instance.ARSceneTime = Time.time;
@@ -141,31 +145,32 @@ public class ARSceneController : MonoBehaviour {
 	#region Play Area Functions / Callbacks
 
 	public void OnPlayAreaConfirmed(Bounds playAreaBounds, PlayAreaManager PAmngr) {
-		CityManager cityGMLMngr = CityManager.Instance;
-		cityGMLMngr.gameObject.SetActive(true);
+		cityManager.gameObject.SetActive(true);
 
 		#region City Model Transform re-adjustment
 		// Rescale City to Fit inside Play Area Bounds
-		Bounds cityBounds = cityGMLMngr.Bounds;
+		Bounds cityBounds = cityManager.Bounds;
 		var x_ratio = playAreaBounds.size.x / cityBounds.size.x;
 		var z_ratio = playAreaBounds.size.z / cityBounds.size.z;
 		var min_ratio = Mathf.Min(x_ratio, z_ratio);
 		var y_scale_multiplier = PAmngr.PlayArea.MeshBoundary.transform.localScale.y;
-		Vector3 newScale = new Vector3(cityGMLMngr.transform.localScale.x * min_ratio,
-			cityGMLMngr.transform.localScale.y * min_ratio,
-			cityGMLMngr.transform.localScale.z * min_ratio);
-		cityGMLMngr.transform.localScale = newScale;
+		Vector3 newScale = new Vector3(cityManager.transform.localScale.x * min_ratio,
+			cityManager.transform.localScale.y * min_ratio,
+			cityManager.transform.localScale.z * min_ratio);
+		cityManager.transform.localScale = newScale;
 
 		// Attach City as a child of the Play Area
-		cityGMLMngr.transform.SetParent(PAmngr.PlayArea.transform);
+		cityManager.transform.SetParent(PAmngr.PlayArea.CityContainer.transform);
 
-		// Reset Local Position and Local Rotation to Vector3.Zero
-		cityGMLMngr.transform.localPosition = Vector3.zero;
-		cityGMLMngr.transform.localEulerAngles = Vector3.zero;
+		// Reset Local Position and Local Rotation to Vector3.Zero; Local Scale to 1, and set CityContainer to City's previous scale.
+		cityManager.transform.localPosition = Vector3.zero;
+		cityManager.transform.localEulerAngles = Vector3.zero;
+		PAmngr.PlayArea.CityContainer.transform.localScale = cityManager.transform.localScale;
+		cityManager.transform.localScale = Vector3.one;
 		#endregion
 
 		// Callback functions for the other components
-		cityGMLMngr.OnCityAttached();
+		cityManager.OnCityAttached();
 		EnablePlaneDiscoveryGuide(false);
 		SettingsMenu.Instance.EnableResetCityPlacement(true);
 		controlsManager.ShowControls(true);
@@ -183,21 +188,20 @@ public class ARSceneController : MonoBehaviour {
 	/// </summary>
 	/// <param name="PAmngr"></param>
 	public void OnPlayAreaConfirmed(TfValues cityTf, PlayAreaManager PAmngr) {
-		CityManager cityGMLMngr = CityManager.Instance;
-		cityGMLMngr.gameObject.SetActive(true);
+		cityManager.gameObject.SetActive(true);
 
 		#region City Model Transform re-adjustment
 		// Attach City as a child of the Play Area
-		cityGMLMngr.transform.SetParent(PAmngr.PlayArea.transform);
+		cityManager.transform.SetParent(PAmngr.PlayArea.CityContainer.transform);
 
 		// Adjust City Transform to reflect the server's City Transform.
-		cityGMLMngr.transform.localPosition = cityTf.localPosition;
-		cityGMLMngr.transform.localRotation = cityTf.localRotation;
-		cityGMLMngr.transform.localScale = cityTf.localScale;
+		cityManager.transform.localPosition = cityTf.localPosition;
+		cityManager.transform.localRotation = cityTf.localRotation;
+		cityManager.transform.localScale = cityTf.localScale;
 		#endregion
 
 		// Callback functions for the other components
-		cityGMLMngr.OnCityAttached();
+		cityManager.OnCityAttached();
 		EnablePlaneDiscoveryGuide(false);
 		SettingsMenu.Instance.EnableResetCityPlacement(true);
 		controlsManager.ShowControls(true);
@@ -300,7 +304,7 @@ public class ARSceneController : MonoBehaviour {
 	/// Show an Android toast message.
 	/// </summary>
 	/// <param name="message">Message string to show in the toast.</param>
-	private void _ShowAndroidToastMessage(string message) {
+	public void _ShowAndroidToastMessage(string message) {
 		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 		AndroidJavaObject unityActivity =
 			unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");

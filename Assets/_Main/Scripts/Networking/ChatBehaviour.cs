@@ -27,15 +27,11 @@ public class ChatBehaviour : NetworkBehaviour
 	}
 
 	[ClientCallback]
-	private void OnDestroy() {
+	private void OnApplicationQuit() {
 		if (!hasAuthority)
 			return;
 
-		Send($"{user.username} has left the server.");
-
 		OnMessage -= HandleMessage;
-
-		// Notify the server that a client has left
 	}
 
 	private void HandleMessage(string message) {

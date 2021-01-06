@@ -1,0 +1,107 @@
+{
+    "m_SelectedDeviceId": "192.168.1.9:5555",
+    "m_SelectedPackage": {
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
+        "exited": false
+    },
+    "m_SelectedPriority": 1,
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "0A211JEC217518",
+            "name": "com.neilromblon.fixcityAR",
+            "processId": 6894,
+            "exited": true
+        },
+        {
+            "deviceId": "0A211JEC217518",
+            "name": "com.neilromblon.fixcityAR",
+            "processId": 7551,
+            "exited": true
+        },
+        {
+            "deviceId": "0A211JEC217518",
+            "name": "com.neilromblon.fixcityAR",
+            "processId": 14058,
+            "exited": false
+        },
+        {
+            "deviceId": "9905d37f",
+            "name": "com.neilromblon.fixcityAR",
+            "processId": 16011,
+            "exited": true
+        },
+        {
+            "deviceId": "9905d37f",
+            "name": "com.miui.home",
+            "processId": 2447,
+            "exited": false
+        },
+        {
+            "deviceId": "9905d37f",
+            "name": "com.neilromblon.fixcityAR",
+            "processId": 20469,
+            "exited": false
+        },
+        {
+            "deviceId": "192.168.1.9:5555",
+            "name": "com.miui.home",
+            "processId": 2447,
+            "exited": false
+        }
+    ],
+    "m_Tags": {
+        "m_Entries": [
+            {
+                "m_Name": "Filter by all listed tags",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "No Filter",
+                "m_Selected": true
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Tag Control...",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Unity",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "CRASH",
+                "m_Selected": false
+            }
+        ]
+    },
+    "m_MemoryViewerState": {
+        "MemoryWindowHeight": 255.0,
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
+        "MemoryGroup": 1,
+        "Behavior": 1
+    },
+    "m_Filter": "",
+    "m_FilterIsRegularExpression": false,
+    "m_SymbolPaths": []
+}

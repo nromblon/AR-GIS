@@ -6560,7 +6560,6 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs: []
   roomName: 
-  anchorId: 
   loadedFiles: []
   numUsers: 0
 --- !u!4 &1363352521
@@ -10779,17 +10778,17 @@ PrefabInstance:
     - target: {fileID: 4897883290718372656, guid: e74af86e8205bf8409c1a27022448e5d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4897883290718372656, guid: e74af86e8205bf8409c1a27022448e5d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4897883290718372656, guid: e74af86e8205bf8409c1a27022448e5d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4897883291781474348, guid: e74af86e8205bf8409c1a27022448e5d,
         type: 3}
@@ -10931,6 +10930,21 @@ PrefabInstance:
         type: 3}
       propertyPath: MaxTranslationDistance
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 640390119842340422, guid: e74af86e8205bf8409c1a27022448e5d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189449622782672374, guid: e74af86e8205bf8409c1a27022448e5d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 154664613075307003, guid: e74af86e8205bf8409c1a27022448e5d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4830939439451416258, guid: e74af86e8205bf8409c1a27022448e5d, type: 3}

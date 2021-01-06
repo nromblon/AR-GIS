@@ -93,7 +93,6 @@ public class CityManager : MonoBehaviour
 			IssueManager = IssueManager.Instance;
 
 		b_IsCityPlaced = false;
-
     }
 
 	#region Initialization Methods
@@ -301,7 +300,7 @@ public class CityManager : MonoBehaviour
 	public void OnCityAttached() {
 		b_IsCityPlaced = true;
 
-		var scaleManipulator = GetComponent<ExtendedScaleManipulator>();
+		var scaleManipulator = GetComponent<CityScaleManipulator>();
 		var curScale = transform.localScale.x;
 
 		scaleManipulator.SetMinMax(curScale, curScale * 8);
@@ -345,20 +344,30 @@ public class CityManager : MonoBehaviour
 	/// </summary>
 	/// <param name="cityTf"> The values for the changed city transform. </param>
 	public void ClientUpdateTransform(TfValues cityTf) {
-		StartCoroutine(LerpToTransform(cityTf,syncUpdateDuration));
+		// If this client is currently manipulating, ignore incoming Rpc.
+		Debug.Log($"[{this.GetType().Name}] ClientUpdateTransform enter.");
+		if (IsManipulating) {
+			Debug.Log($"[{this.GetType().Name}] Device is currently manipulating, ignore syncupdate");
+			return;
+		}
 
+		Debug.Log($"[{this.GetType().Name}] ClientUpdateTransform called. ");
+		// If Tf is already syncing, stop and resync to new instruction.
+		if (runningSyncCouroutine != null) {
+			Debug.Log($"[{this.GetType().Name}] Previous runningSync Coroutine is running. Stopping previous coroutine...");
+			StopCoroutine(runningSyncCouroutine);
+			runningSyncCouroutine = null;
+			Debug.Log($"[{this.GetType().Name}] Current LerpToTransform Coroutine Cancelled");
+		}
+
+		string scaleTiny = $"( {cityTf.localScale.x}, {cityTf.localScale.y}, {cityTf.localScale.z})";
+		string cityTfStr = $"localPosition: {cityTf.localPosition} | localRotation: {cityTf.localRotation} | localScale: {scaleTiny}";
+		Debug.Log($"[{this.GetType().Name}] ClientUpdateTransform: cityTf Values: {cityTfStr}. ");
+		runningSyncCouroutine = StartCoroutine(LerpToTransform(cityTf, syncUpdateDuration));
 	}
 
 	public void ResetPositionToOrigin(float duration) {
-		// If this client is currently manipulating, ignore incoming Rpc.
-		if (IsManipulating)
-			return;
-
-		// If Tf is already syncing, stop and resync to new instruction.
-		if (runningSyncCouroutine != null)
-			StopCoroutine(runningSyncCouroutine);
-
-		runningSyncCouroutine = StartCoroutine(LerpPositionToOrigin(duration));
+		StartCoroutine(LerpPositionToOrigin(duration));
 	}
 
 	IEnumerator WaitForCoordinateConverterResults(CoordinateConverter cc, System.Action callback) {
@@ -367,6 +376,7 @@ public class CityManager : MonoBehaviour
 	}
 
 	IEnumerator LerpPositionToOrigin(float duration) {
+		IsManipulating = true;
 		// Disable touch controls
 		ManipulationSystem.Instance.Deselect();
 		float time = 0;
@@ -382,18 +392,29 @@ public class CityManager : MonoBehaviour
 		}
 		transform.localPosition = originOnPlaced;
 		// Reenable touch controls
-		Select();
+		ManipulationSystem.Instance.Select(gameObject);
+
 		ControlsManager.Instance.EnableRecenterButton(true);
+
+		IsManipulating = false;
+		HasManipulationPerformed = true;
 	}
 
 	IEnumerator LerpToTransform(TfValues toTf, float duration) {
+		Debug.Log($"[{this.GetType().Name}] Entering LerpToTransform Coroutine");
 		// Disable touch controls
 		ManipulationSystem.Instance.Deselect();
+		ControlsManager.Instance.EnableRecenterButton(false);
+
 		float time = 0;
 		float t;
 		Vector3 startPosition = transform.localPosition;
 		Quaternion startRotation = transform.localRotation;
 		Vector3 startScale = transform.localScale;
+
+		var scaleManipulator = GetComponent<CityScaleManipulator>();
+		scaleManipulator.enabled = false;
+
 		while (time < duration) {
 			t = time / duration;
 			// Smooth-step Lerp
@@ -401,15 +422,23 @@ public class CityManager : MonoBehaviour
 			transform.localPosition = Vector3.Lerp(startPosition, toTf.localPosition, t);
 			transform.localRotation = Quaternion.Lerp(startRotation, toTf.localRotation, t);
 			transform.localScale = Vector3.Lerp(startScale, toTf.localScale, t);
+			Debug.Log($"[{this.GetType().Name}] localScale: {transform.localScale}");
 			time += Time.deltaTime;
 			yield return null;
 		}
-		transform.localPosition = originOnPlaced;
+
+		transform.localPosition = toTf.localPosition;
+		transform.localRotation = toTf.localRotation;
+		transform.localScale = toTf.localScale;
+
+		scaleManipulator.enabled = true;
 		// Reenable touch controls
-		Select();
+		ManipulationSystem.Instance.Select(gameObject);
+
 		ControlsManager.Instance.EnableRecenterButton(true);
 
 		runningSyncCouroutine = null;
+		Debug.Log($"[{this.GetType().Name}] LerpToTransform Coroutine Finished");
 	}
 }
 

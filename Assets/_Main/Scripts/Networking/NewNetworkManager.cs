@@ -172,6 +172,11 @@ public class NewNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerDisconnect(NetworkConnection conn)
     {
+		// Notify the server that a client has left
+		ARUser player = conn.identity.gameObject.GetComponent<ARUser>();
+		string username = player.username;
+		player.ChatBehaviour.Send($"{player.username} has left the server.");
+
         base.OnServerDisconnect(conn);
     }
 
@@ -209,7 +214,7 @@ public class NewNetworkManager : NetworkManager
     /// <param name="conn">Connection to the server.</param>
     public override void OnClientDisconnect(NetworkConnection conn)
     {
-        base.OnClientDisconnect(conn);
+		base.OnClientDisconnect(conn);
     }
 
     /// <summary>

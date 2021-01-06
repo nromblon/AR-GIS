@@ -25,16 +25,19 @@ public class PlayAreaManager : Manipulator
 
 	[Header("Setup")]
 	[SerializeField] private ConfirmBtnController confirmBtn;
+	[SerializeField] private ConfirmBtnController tryHostBtn;
+
 	[SerializeField] private GameObject playAreaPrefab;
+	[SerializeField] private GameObject XPAnchorVisualizer;
 	[SerializeField] private ARCoreWorldOriginHelper worldOriginHelper;
 
 	[Header("Runtime Data")]
 	public bool hasPlacedPlayArea;
 	public bool hasConfirmedPlayArea;
-
-	private AsyncTask<CloudAnchorResult> cloudAnchorTask;
+	
 	public ARUser localUser;
 	private XPAnchor cloudAnchor;
+	AsyncTask<CloudAnchorResult> anchorTask;
 
 	private void Awake() {
 		instance = this;
@@ -120,6 +123,7 @@ public class PlayAreaManager : Manipulator
 	/// This Function should only occur on the Host's device.
 	/// </summary>
 	public void ConfirmPlacement() {
+		Debug.Log($"[{this.GetType().Name}] ConfirmPlacement() called.");
 		hasConfirmedPlayArea = true;
 
 		Bounds PABounds = playArea.Bounds;
@@ -128,25 +132,27 @@ public class PlayAreaManager : Manipulator
 		// Notify Play Area anim controller
 		playArea.OnPlacementConfirm();
 
-		// Attempt to Host Anchor
-		var anchor = playArea.GetComponentInParent<Anchor>();
-		cloudAnchorTask = XPSession.CreateCloudAnchor(anchor).ThenAction(OnHostComplete);
+		TryHostAnchor();
 	}
 
 	/// <summary>
 	/// Called by non-host. Creates a Copy of the server's play area into the client's scene.
 	/// </summary>
-	public void ClientCreatePlayArea(TfValues paTf, TfValues cTf) {
-		var paGO = Instantiate(playAreaPrefab);
+	public void ClientCreatePlayArea(TfValues paTf, TfValues cTf, Vector3 cityContainerScale) {
+		var paGO = Instantiate(playAreaPrefab, cloudAnchor.transform);
 		//Adjust Play Area Transform values.
 		paGO.transform.localPosition = paTf.localPosition;
 		paGO.transform.localRotation = paTf.localRotation;
 		paGO.transform.localScale = paTf.localScale;
 
 		playArea = paGO.GetComponent<PlayAreaController>();
+		playArea.CityContainer.transform.localScale = cityContainerScale;
 
 		// Attach city inside.
 		ARSceneCtrl.OnPlayAreaConfirmed(cTf, this);
+
+		hasPlacedPlayArea = true;
+		hasConfirmedPlayArea = true;
 
 		// Notify Play Area anim controller
 		playArea.OnPlacementConfirm();
@@ -189,6 +195,18 @@ public class PlayAreaManager : Manipulator
 		ARSceneCtrl.SetCloudAnchorId("");
 		Destroy(this.cloudAnchor);
 		playArea = null;
+		hasPlacedPlayArea = false;
+		hasConfirmedPlayArea = false;
+	}
+
+	public void TryHostAnchor() {
+		// Attempt to Host Anchor
+		var anchor = playArea.GetComponentInParent<Anchor>();
+
+		Debug.Log($"[{this.GetType().Name}] Attempting to host anchor");
+
+		ARSceneCtrl._ShowAndroidToastMessage("Attempting to Host...");
+		anchorTask = XPSession.CreateCloudAnchor(anchor).ThenAction(OnHostComplete);
 	}
 
 	/// <summary>
@@ -198,26 +216,39 @@ public class PlayAreaManager : Manipulator
 	/// <param name="result"></param>
 	private void OnHostComplete(CloudAnchorResult result) {
 		if (result.Response == CloudServiceResponse.Success) {
+			// For debugging only.
+			//Instantiate(XPAnchorVisualizer, result.Anchor.transform);
+
+			Debug.Log($"[{this.GetType().Name}] AnchorHost Success! CloudId: {result.Anchor.CloudId}");
+			ARSceneCtrl._ShowAndroidToastMessage("Anchor Host Success!");
 			this.cloudAnchor = result.Anchor;
 			ARSceneCtrl.SetCloudAnchorId(cloudAnchor.CloudId);
-
+			
 			// Set world Origin to XPAnchor 
-			worldOriginHelper.SetWorldOrigin(cloudAnchor.transform);
+			//worldOriginHelper.SetWorldOrigin(cloudAnchor.transform);
 
 			var OGAnchor = playArea.GetComponentInParent<Anchor>();
 
 			// Detach City-Containing Play Area from the Anchor.
-			playArea.transform.SetParent(null);
+			playArea.transform.SetParent(cloudAnchor.transform, true);
 
 			// Destroy Original Anchor (Not sure if ideal)
 			Destroy(OGAnchor.gameObject);
 
 			// Notify the connected clients through CityTfBehaviour function.
 			localUser.CityTfBehaviour.OnPlayAreaConfirm();
+
 		}
 		else {
-			Debug.LogError($"[PlayAreaManager] Hosting Anchor Failed! Cloud Service Response: " +
-				$"{cloudAnchorTask.Result.Response.ToString()}");
+			if (result.Response == CloudServiceResponse.ErrorDatasetInadequate) {
+				Debug.Log($"[{this.GetType().Name}] Can't Host Anchor: Error Dataset Inadequate!");
+				ARSceneCtrl._ShowAndroidToastMessage("Scan more of the surroundings!");
+				tryHostBtn.ShowButton(true);
+			}
+			else {
+				Debug.LogError($"[PlayAreaManager] Hosting Anchor Failed! Cloud Service Response: " +
+				$"{result.Response.ToString()}");
+			}
 		}
 	}
 
@@ -227,6 +258,8 @@ public class PlayAreaManager : Manipulator
 	/// </summary>
 	/// <param name="CloudId"> The Hosted Cloud Anchor's Id. Accessed by CloudAnchorResult.Anchor.CloudId.</param>
 	public void StartResolving(string CloudId) {
+		Debug.Log($"[{this.GetType().Name}] Starting Anchor Resolution Attempt...");
+		ARSceneCtrl._ShowAndroidToastMessage("Attempting to resolve Anchor...");
 		XPSession.ResolveCloudAnchor(CloudId).ThenAction(OnResolveComplete);
 	}
 
@@ -237,16 +270,21 @@ public class PlayAreaManager : Manipulator
 	private void OnResolveComplete(CloudAnchorResult result) {
 		// Instantiate Play Area Object on Resolved Anchor Object
 		if (result.Response == CloudServiceResponse.Success) {
+			Debug.Log($"[{this.GetType().Name}] Resolve Successs");
+			ARSceneCtrl._ShowAndroidToastMessage("Anchor Resolution Success");
+			// For debugging only.
+			//Instantiate(XPAnchorVisualizer, result.Anchor.transform);
+
 			// Set world origin to XPAnchor
 			this.cloudAnchor = result.Anchor;
-			worldOriginHelper.SetWorldOrigin(cloudAnchor.transform);
+			//worldOriginHelper.SetWorldOrigin(cloudAnchor.transform);
 
 			// Request PlayAreaTf from Server. If request success, leads to ClientCreatePlayArea().
 			localUser.CityTfBehaviour.RequestPlayAreaTf();
 		}
 		else {
 			Debug.LogError($"[PlayAreaManager] Resolving Anchor Failed! Cloud Service Response: " +
-				$"{cloudAnchorTask.Result.Response.ToString()}");
+				$"{result.Response.ToString()}");
 		}
 	}
 }

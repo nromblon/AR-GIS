@@ -10,6 +10,7 @@ public class PlayAreaController : MonoBehaviour
 
 	public GameObject MeshBoundary;
 	public GameObject MeshTf;
+	public GameObject CityContainer;
 	public Manipulator[] Manipulators;
 
 	private Bounds playAreaBounds;

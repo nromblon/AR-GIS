@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Mirror;
 
 public class CloudAnchorMessage : NetworkMessage {
@@ -25,14 +26,15 @@ public class ARUser : NetworkBehaviour {
 		ChatBehaviour = GetComponent<ChatBehaviour>();
 		CityTfBehaviour = GetComponent<CityTransformBehaviour>();
 
-		if (hasAuthority) {
-			username = PlayerPrefs.GetString("username");
-			Debug.Log($"[ARUser] Setting username: {username}");
+		if (!hasAuthority)
+			return;
 
-			PlayAreaManager.Instance.localUser = this;
-		}
-
+		username = PlayerPrefs.GetString("username");
+		Debug.Log($"[ARUser] Setting username: {username}");
+			
+		PlayAreaManager.Instance.localUser = this;
 		isHost = isServer;
+
 		Debug.Log($"[ARUser] Am I host?: {isHost}");
 		if (isHost) {
 			ARSceneController.Instance.applicationMode = ApplicationMode.Host;
@@ -40,36 +42,43 @@ public class ARUser : NetworkBehaviour {
 		else {
 			ARSceneController.Instance.applicationMode = ApplicationMode.Client;
 			// Only clients (non-host) will receive the CloudId broadcast message.
-
-			if (hasAuthority) {
-				NetworkClient.RegisterHandler<CloudAnchorMessage>(OnCloudIdReceived);
-				RequestCloudId();
-			}
+			NetworkClient.RegisterHandler<CloudAnchorMessage>(OnCloudIdReceived);
+			RequestCloudId();
 		}
 
 		Debug.Log($"[ARUser] ARSceneController application mode : {ARSceneController.Instance.applicationMode.ToString()}");
 	}
 
+	private void OnApplicationQuit() {
+		if (hasAuthority)
+			NetworkClient.Disconnect();
+
+	}
+
 	#region Broadcasting New Cloud Id (Already Joined)
 	[Server]
 	public void BroadcastCloudId(string cloudId) {
+		Debug.Log($"[{this.GetType().Name}] Broadcasting Cloud Id: {cloudId} ");
 		NetworkServer.SendToAll(new CloudAnchorMessage {
 			CloudId = cloudId
 		});
 	}
 
 	public void OnCloudIdReceived(NetworkConnection conn, CloudAnchorMessage msg) {
+		Debug.Log($"[{this.GetType().Name}] Received Cloud Id: {msg.CloudId} ");
 		ARSceneController.Instance.SetCloudAnchorId(msg.CloudId);
 	}
 	#endregion
 
 	#region Requesting Cloud Id (Newly Joined)]
 	public void RequestCloudId() {
+		Debug.Log($"[{this.GetType().Name}] Requesting Cloud Id...");
 		CmdRequestCloudId();
 	}
 
 	[Command]
 	void CmdRequestCloudId() {
+		Debug.Log($"[{this.GetType().Name}] Cloud Id Command Received, sending TargetRpc...");
 		TargetReplyCloudIdRequest(ARSceneController.Instance.AnchorId);
 	}
 
@@ -78,10 +87,13 @@ public class ARUser : NetworkBehaviour {
 		// If server hasn't set the play area yet, (i.e. also no cloud anchor)
 		// Try and try again until success.
 		if(serverCloudId == "") {
+			Debug.Log($"[{this.GetType().Name}] ServerCloudId is currently empty. Retrying...");
 			RetryCloudIdRequest();
 			return;
 		}
 
+
+		Debug.Log($"[{this.GetType().Name}] Setting Cloud Id: {serverCloudId}");
 		SetCloudId(serverCloudId);
 	}
 	
@@ -95,6 +107,7 @@ public class ARUser : NetworkBehaviour {
 
 	private IEnumerator WaitAndTryRequestCloudId(float waitInterval) {
 		yield return new WaitForSeconds(waitInterval);
+		Debug.Log($"[{this.GetType().Name}] Wait Interval for retry passed, retrying now...");
 		RequestCloudId();
 	}
 	#endregion

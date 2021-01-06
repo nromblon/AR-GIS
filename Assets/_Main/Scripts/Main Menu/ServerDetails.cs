@@ -36,7 +36,7 @@ public class ServerDetails : MonoBehaviour
 			numUsersTM.text = numUsersPrefix + info.numUsers + "/" + info.maxUsers;
 			string filesStr = "";
 			foreach (string file in info.loadedFiles) {
-				filesStr = file + "\n";
+				filesStr += file + "\n";
 			}
 			loadedFilesTM.text = filesStr;
 
