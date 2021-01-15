@@ -10,9 +10,9 @@ public class ToolBehaviour : NetworkBehaviour
 
 	private ControlsManager ctrlManager;
 	/// <summary>
-	/// If touch is held longer than 1 second, do not consider it as a 'tap'
+	/// If touch is held longer than .1 second, do not consider it as a 'tap'
 	/// </summary>
-	private float tapReleaseThreshold = .5f;
+	private float tapReleaseThreshold = .3f;
 	private float timePressed = 0;
 
 	private bool hasTapBegin = false;
@@ -48,6 +48,7 @@ public class ToolBehaviour : NetworkBehaviour
 		}
 		else {
 			// Tap Continue.
+			timePressed += Time.deltaTime;
 			if (t.phase == TouchPhase.Moved) {
 				// Tap Moved. Cancel tracking
 				hasTapBegin = false;

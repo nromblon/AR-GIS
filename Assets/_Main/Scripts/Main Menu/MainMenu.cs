@@ -42,7 +42,11 @@ public class MainMenu : MonoBehaviour
 			DebugOverlay.Instance.SetCityLoadedIdleFps();
 		}
 		((NewNetworkManager)NewNetworkManager.singleton).isOnline = false;
-		StartCoroutine(LoadMainScene());
+
+		//StartCoroutine(LoadMainScene());
+
+		CGML2GO.gameObject.SetActive(false);
+		NewNetworkManager.singleton.StartHost();
 	}
 
 	public void OpenNetworkMenu() {

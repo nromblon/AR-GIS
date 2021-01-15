@@ -9,12 +9,23 @@ public class PlayAreaBoundsHandler : MonoBehaviour
 		var building = other.GetComponentInParent<BuildingController>();
 		if (building != null) {
 			building.EnableRenderers(false);
+			return;
 		}
-		else {
-			var issueObj = other.GetComponentInParent<IssueObject>();
-			if (issueObj != null) {
-				issueObj.EnableRenderers(false);
-			}
+
+		var issueObj = other.GetComponentInParent<IssueObject>();
+		if (issueObj != null) {
+			issueObj.EnableRenderers(false);
+			return;
+		}
+
+		if (other.tag == "InfoPin") {
+			other.GetComponent<InfoPin>().gameObject.SetActive(false);
+			return;
+		}
+
+		if (other.tag == "Ping") {
+			other.GetComponent<InfoPin>().gameObject.SetActive(false);
+			return;
 		}
 	}
 
@@ -22,12 +33,23 @@ public class PlayAreaBoundsHandler : MonoBehaviour
 		var building = other.GetComponentInParent<BuildingController>();
 		if (building != null) {
 			building.EnableRenderers(true);
+			return;
 		}
-		else {
-			var issueObj = other.GetComponentInParent<IssueObject>();
-			if (issueObj != null) {
-				issueObj.EnableRenderers(true);
-			}
+
+		var issueObj = other.GetComponentInParent<IssueObject>();
+		if (issueObj != null) {
+			issueObj.EnableRenderers(true);
+			return;
+		}
+
+		if (other.tag == "InfoPin") {
+			other.GetComponent<InfoPin>().gameObject.SetActive(true);
+			return;
+		}
+
+		if (other.tag == "Ping") {
+			other.GetComponent<InfoPin>().gameObject.SetActive(true);
+			return;
 		}
 	}
 }

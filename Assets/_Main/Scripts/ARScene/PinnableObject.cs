@@ -14,12 +14,14 @@ public class PinnableObject : NetworkBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
-		fixedScale = transform.localScale.x;
 		cityParentTf = CityManager.Instance.transform;
-    }
 
-    // Update is called once per frame
-    protected void Update()
+		//var canvas = GetComponentInChildren<Canvas>();
+		//canvas.worldCamera = GameObject.FindGameObjectWithTag("UI Camera").GetComponent<Camera>();
+	}
+
+	// Update is called once per frame
+	protected void Update()
     {
 		if (!keepScale)
 			return;
@@ -36,11 +38,14 @@ public class PinnableObject : NetworkBehaviour
     }
 
 	public void PinToCity(Vector3 worldPos) {
-		transform.position = worldPos;
 		if (cityParentTf == null)
 			cityParentTf = CityManager.Instance.transform;
 		transform.SetParent(cityParentTf, false);
-		// set proper initial scale
+		//transform.localScale = Vector3.one;
+		fixedScale = transform.localScale.x;
+		transform.position = worldPos;
+		
+		// TODO: set proper initial scale
 
 		Debug.Log($"[PinnableObject] Pin Parent: {transform.parent.name}");
 		isPinned = true;

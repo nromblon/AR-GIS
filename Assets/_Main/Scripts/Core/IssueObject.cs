@@ -59,7 +59,7 @@ public class IssueObject : MonoBehaviour
 
 	public bool ToggleCanvas() {
 		if (!hasCanvasInitialized) {
-			Canvas.worldCamera = GameObject.FindGameObjectWithTag("UI Camera").GetComponent<Camera>();
+			//Canvas.worldCamera = GameObject.FindGameObjectWithTag("UI Camera").GetComponent<Camera>();
 			hasCanvasInitialized = true;
 		}
 

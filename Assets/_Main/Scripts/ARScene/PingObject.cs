@@ -14,7 +14,8 @@ public class PingObject : PinnableObject
     {
 		base.Start();
 		mainCamera = Camera.main;
-    }
+
+	}
 
     // Update is called once per frame
     protected new void Update()

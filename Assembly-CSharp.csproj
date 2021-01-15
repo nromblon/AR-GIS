@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Main\Scripts\AlwaysFace.cs" />
     <Compile Include="Assets\_Main\Scripts\ARScene\ButtonController.cs" />
     <Compile Include="Assets\_Main\Scripts\ARScene\ControlsAnimatorCallback.cs" />
     <Compile Include="Assets\_Main\Scripts\ARScene\InfoPin.cs" />

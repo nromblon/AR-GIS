@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 687272775569809764}
   - component: {fileID: 8557546774818485212}
   - component: {fileID: 6601576445108101158}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: PanelArrow
   m_TagString: Ping
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7331021509038101231}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ScaleOffset
   m_TagString: Ping
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 6915347387692736834}
   - component: {fileID: 6915347387692736832}
   - component: {fileID: 6915347387692736833}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Panel
   m_TagString: Ping
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 6915347388196960967}
   - component: {fileID: 6915347388196960960}
   - component: {fileID: 6915347388196960961}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Canvas
   m_TagString: Ping
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 8154867106241337361}
   - component: {fileID: 7510641523075626606}
   - component: {fileID: 1299886805072255938}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PingObject
   m_TagString: Ping
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -343,6 +343,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   keepScale: 1
+  alwaysFaceCamera: 1
+  eyeIcon: {fileID: 0}
 --- !u!136 &1299886805072255938
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -368,7 +370,7 @@ GameObject:
   - component: {fileID: 5176726925752141691}
   - component: {fileID: 1081761473687442806}
   - component: {fileID: 5625475627317915937}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Image
   m_TagString: Ping
   m_Icon: {fileID: 0}

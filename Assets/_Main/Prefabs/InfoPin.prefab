@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 150531716}
   - component: {fileID: 150531715}
   - component: {fileID: 150531714}
-  m_Layer: 5
+  - component: {fileID: 1643605544286635704}
+  m_Layer: 13
   m_Name: Canvas
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -28,7 +29,7 @@ RectTransform:
   m_GameObject: {fileID: 150531712}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 784774401}
   m_Father: {fileID: 4018081008143819310}
@@ -36,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 345}
+  m_AnchoredPosition: {x: 0, y: 466}
   m_SizeDelta: {x: 300, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &150531716
@@ -99,6 +100,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1643605544286635704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150531712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21d7a50ab9327c4dbaf228bba4dc216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FaceTo: {fileID: 0}
 --- !u!1 &784774400
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,7 +124,7 @@ GameObject:
   - component: {fileID: 784774401}
   - component: {fileID: 784774403}
   - component: {fileID: 784774402}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Panel
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -188,7 +202,7 @@ GameObject:
   - component: {fileID: 1722745122}
   - component: {fileID: 1722745124}
   - component: {fileID: 1722745123}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: CreatedByText
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -344,7 +358,7 @@ GameObject:
   - component: {fileID: 1938023110}
   - component: {fileID: 1938023112}
   - component: {fileID: 1938023111}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: InfoText
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -498,7 +512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4198827063981475500}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ScaleOffset
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -532,7 +546,7 @@ GameObject:
   - component: {fileID: 7673244957345286390}
   - component: {fileID: 2152301240232815379}
   - component: {fileID: 1583206859929148465}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: DeleteBtn
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -649,20 +663,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!136 &4018081007866466292
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 902381286829677449}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.019533986
-  m_Height: 0.080190316
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.05, z: 0}
 --- !u!1 &2774041350008866123
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,7 +674,7 @@ GameObject:
   - component: {fileID: 3990036485819656107}
   - component: {fileID: 7961368060259703496}
   - component: {fileID: 1824057164507442029}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Image
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -746,7 +746,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1660010645229103324}
   - component: {fileID: 6872135270820377359}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Text Area
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -797,7 +797,8 @@ GameObject:
   - component: {fileID: 4018081008143819310}
   - component: {fileID: 3374277637438901330}
   - component: {fileID: 37830309166749780}
-  m_Layer: 0
+  - component: {fileID: 3502695746204351559}
+  m_Layer: 13
   m_Name: InfoPin
   m_TagString: InfoPin
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -855,6 +856,20 @@ MonoBehaviour:
   usernameTM: {fileID: 1722745123}
   inputField: {fileID: 7214798060980353311}
   deleteBtn: {fileID: 1583206859929148465}
+--- !u!136 &3502695746204351559
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4018081008143819311}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 53
+  m_Height: 201
+  m_Direction: 1
+  m_Center: {x: 0, y: 117.8, z: 0}
 --- !u!1 &4227669813161968970
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +881,7 @@ GameObject:
   - component: {fileID: 7748898064541007310}
   - component: {fileID: 2232510372889460187}
   - component: {fileID: 3652523249535272670}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Placeholder
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -1022,7 +1037,7 @@ GameObject:
   - component: {fileID: 6736312850219093151}
   - component: {fileID: 8955552736100824177}
   - component: {fileID: 7950863298980338922}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Text
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -1178,7 +1193,7 @@ GameObject:
   - component: {fileID: 6228919454042813735}
   - component: {fileID: 2970894423581730719}
   - component: {fileID: 316867172257133669}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: PanelArrow
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -1252,7 +1267,7 @@ GameObject:
   - component: {fileID: 6769468756199547469}
   - component: {fileID: 3749669946848475123}
   - component: {fileID: 7214798060980353311}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: InputField (TMP)
   m_TagString: InfoPin
   m_Icon: {fileID: 0}
@@ -1439,6 +1454,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: InfoPin
       objectReference: {fileID: 0}
+    - target: {fileID: 4304907593960389830, guid: 026eefd270ec1314da8ea0cc1e8c0b55,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1337398150250937248, guid: 026eefd270ec1314da8ea0cc1e8c0b55,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1499,12 +1519,6 @@ PrefabInstance:
 --- !u!4 &2716964503079754991 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1337398150250937248, guid: 026eefd270ec1314da8ea0cc1e8c0b55,
-    type: 3}
-  m_PrefabInstance: {fileID: 3980052159953807183}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &902381286829677449 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4304907593960389830, guid: 026eefd270ec1314da8ea0cc1e8c0b55,
     type: 3}
   m_PrefabInstance: {fileID: 3980052159953807183}
   m_PrefabAsset: {fileID: 0}

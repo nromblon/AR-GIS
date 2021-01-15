@@ -14,6 +14,8 @@ public class ARUser : NetworkBehaviour {
 	public string username;
 	[SyncVar]
 	public bool isHost;
+	[SyncVar]
+	public Color playerColor;
 
 	public ChatBehaviour ChatBehaviour { private set; get; }
 
