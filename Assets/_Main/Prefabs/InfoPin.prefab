@@ -37,9 +37,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 466}
+  m_AnchoredPosition: {x: 0, y: 231.5}
   m_SizeDelta: {x: 300, y: 175}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: -0.17}
 --- !u!223 &150531716
 Canvas:
   m_ObjectHideFlags: 0
@@ -853,6 +853,7 @@ MonoBehaviour:
   syncInterval: 0.1
   keepScale: 1
   canvas: {fileID: 150531716}
+  renderer: {fileID: 3735556447620862729}
   usernameTM: {fileID: 1722745123}
   inputField: {fileID: 7214798060980353311}
   deleteBtn: {fileID: 1583206859929148465}
@@ -1519,6 +1520,12 @@ PrefabInstance:
 --- !u!4 &2716964503079754991 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1337398150250937248, guid: 026eefd270ec1314da8ea0cc1e8c0b55,
+    type: 3}
+  m_PrefabInstance: {fileID: 3980052159953807183}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3735556447620862729 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 354835037688837190, guid: 026eefd270ec1314da8ea0cc1e8c0b55,
     type: 3}
   m_PrefabInstance: {fileID: 3980052159953807183}
   m_PrefabAsset: {fileID: 0}

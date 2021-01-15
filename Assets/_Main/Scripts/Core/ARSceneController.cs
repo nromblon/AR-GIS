@@ -59,7 +59,7 @@ public class ARSceneController : MonoBehaviour {
 	private IssueObject selectedIssue;
 
 	// Network-related fields and attributes
-
+	public ARUser localUser;
 	public ApplicationMode applicationMode;
 	public string AnchorId {
 		get;
@@ -118,7 +118,7 @@ public class ARSceneController : MonoBehaviour {
 		if (CityManager.Instance.b_IsCityPlaced && Input.GetMouseButtonDown(0)) {
 			// Handle issue canvas opening/closing
 			AllowManipulation = false;
-			LayerMask layerMask = LayerMask.GetMask("Issue");
+			LayerMask layerMask = LayerMask.GetMask("Issue","Pinnables");
 			Ray r = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 			RaycastHit p_hit;
 			if (Physics.Raycast(r, out p_hit, Mathf.Infinity, layerMask.value)) {
@@ -134,6 +134,20 @@ public class ARSceneController : MonoBehaviour {
 						selectedIssue.ToggleCanvas();
 						selectedIssue = null;
 					}
+					return;
+				}
+				
+				if (p_hit.collider.CompareTag("InfoPin")) {
+					var infoPin = p_hit.collider.GetComponent<InfoPin>();
+					infoPin.ToggleShowCanvas();
+
+					return;
+				}
+
+				if (p_hit.collider.CompareTag("Ping")) {
+					var ping = p_hit.collider.GetComponent<PingObject>();
+					localUser.ToolBehaviour.pingReference.GetComponent<PingObject>().UnPinToCity();
+					localUser.ToolBehaviour.pingReference = null;
 					return;
 				}
 			}

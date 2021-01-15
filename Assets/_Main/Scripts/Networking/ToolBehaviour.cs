@@ -19,13 +19,13 @@ public class ToolBehaviour : NetworkBehaviour
 	private LayerMask mask;
 
 	[SyncVar]
-	private GameObject pingReference = null;
+	public GameObject pingReference = null;
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
 		ctrlManager = ControlsManager.Instance;
-		mask = LayerMask.GetMask("CityPlane");
+		mask = LayerMask.GetMask("CityPlane","Pinnables","Issue");
 	}
 
     // Update is called once per frame
@@ -63,10 +63,15 @@ public class ToolBehaviour : NetworkBehaviour
 					RaycastHit rayHit;
 					if (Physics.Raycast(r, out rayHit, Mathf.Infinity, mask.value)) {
 						// Pin Object.
-						Debug.Log($"[ToolBehaviour] Hit: {rayHit.collider.gameObject.name}");
-						CmdSpawnTool(rayHit.point);
+						if (rayHit.collider.tag == "CityGML") {
+							Debug.Log($"[ToolBehaviour] Hit: {rayHit.collider.gameObject.name}");
+							CmdSpawnTool(rayHit.point);
+						}
 					}
 				}
+
+				hasTapBegin = false;
+				return;
 			}
 		}
     }
@@ -93,6 +98,18 @@ public class ToolBehaviour : NetworkBehaviour
 	}
 
 	private void SpawnPing(Vector3 point) {
+		PingObject ping = Instantiate(PingPrefab).GetComponent<PingObject>();
+		ping.PinToCity(point);
+		NetworkServer.Spawn(ping.gameObject);
 
+		ping.netIdentity.AssignClientAuthority(netIdentity.connectionToClient);
+		ping.username = GetComponentInParent<ARUser>().username;
+		// TODO: set color
+
+
+		if (pingReference != null) {
+			pingReference.GetComponent<PingObject>().UnPinToCity();
+		}
+		pingReference = ping.gameObject;
 	}
 }

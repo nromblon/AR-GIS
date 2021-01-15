@@ -18,13 +18,8 @@ public class PlayAreaBoundsHandler : MonoBehaviour
 			return;
 		}
 
-		if (other.tag == "InfoPin") {
-			other.GetComponent<InfoPin>().gameObject.SetActive(false);
-			return;
-		}
-
-		if (other.tag == "Ping") {
-			other.GetComponent<InfoPin>().gameObject.SetActive(false);
+		if (other.tag == "InfoPin" || other.tag == "Ping") {
+			other.GetComponent<PinnableObject>().ShowVisuals(false);
 			return;
 		}
 	}
@@ -42,13 +37,8 @@ public class PlayAreaBoundsHandler : MonoBehaviour
 			return;
 		}
 
-		if (other.tag == "InfoPin") {
-			other.GetComponent<InfoPin>().gameObject.SetActive(true);
-			return;
-		}
-
-		if (other.tag == "Ping") {
-			other.GetComponent<InfoPin>().gameObject.SetActive(true);
+		if (other.tag == "InfoPin" || other.tag == "Ping") {
+			other.GetComponent<PinnableObject>().ShowVisuals(true);
 			return;
 		}
 	}

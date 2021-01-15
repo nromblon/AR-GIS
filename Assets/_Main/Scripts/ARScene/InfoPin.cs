@@ -9,9 +9,12 @@ public class InfoPin : PinnableObject
 {
 	[Header("Setup")]
 	[SerializeField] private Canvas canvas;
+	[SerializeField] private MeshRenderer renderer;
 	[SerializeField] private TextMeshProUGUI usernameTM;
 	[SerializeField] private TMP_InputField inputField;
 	[SerializeField] private Button deleteBtn;
+
+	private bool canvasPrevState = false;
 
     // Start is called before the first frame update
     protected new void Start()
@@ -37,8 +40,13 @@ public class InfoPin : PinnableObject
 		inputField.Select();
 	}
 
+	public void ToggleShowCanvas() {
+		ShowCanvas(!canvas.gameObject.activeSelf);
+	}
+
 	public void ShowCanvas(bool val) {
 		canvas.gameObject.SetActive(val);
+		canvasPrevState = val;
 	}
 
 	public void SetUsername(string username) {
@@ -59,5 +67,13 @@ public class InfoPin : PinnableObject
 		inputField.text = infoTxt;
 		usernameTM.text = username;
 		Debug.Log($"[InfoPin] Pin Parent: {transform.parent.name}");
+	}
+
+	public override void ShowVisuals(bool val) {
+		renderer.enabled = val;
+		if (!val)
+			canvas.gameObject.SetActive(false);
+		else
+			canvas.gameObject.SetActive(canvasPrevState);
 	}
 }

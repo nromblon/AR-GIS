@@ -21,12 +21,15 @@ public class ARUser : NetworkBehaviour {
 
 	public CityTransformBehaviour CityTfBehaviour { private set; get; }
 
+	public ToolBehaviour ToolBehaviour { private set; get; }
+
 	// Start is called before the first frame update
 	void Start() {
 		transform.position = Vector3.zero;
 
 		ChatBehaviour = GetComponent<ChatBehaviour>();
 		CityTfBehaviour = GetComponent<CityTransformBehaviour>();
+		ToolBehaviour = GetComponent<ToolBehaviour>();
 
 		if (!hasAuthority)
 			return;
@@ -35,6 +38,7 @@ public class ARUser : NetworkBehaviour {
 		Debug.Log($"[ARUser] Setting username: {username}");
 			
 		PlayAreaManager.Instance.localUser = this;
+		ARSceneController.Instance.localUser = this;
 		isHost = isServer;
 
 		Debug.Log($"[ARUser] Am I host?: {isHost}");

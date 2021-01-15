@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class PinnableObject : NetworkBehaviour
+public abstract class PinnableObject : NetworkBehaviour
 {
 	[SerializeField] private bool keepScale = true;
 	private Transform cityParentTf;
@@ -30,12 +30,14 @@ public class PinnableObject : NetworkBehaviour
 			return;
 
 		if (cityParentTf.hasChanged) {
-			var parentScale = cityParentTf.localScale;
-			transform.localScale = new Vector3(fixedScale / parentScale.x, fixedScale / parentScale.y, fixedScale / parentScale.z);
+			//var parentScale = cityParentTf.localScale;
+			//transform.localScale = new Vector3(fixedScale / parentScale.x, fixedScale / parentScale.y, fixedScale / parentScale.z);
+			//transform.localScale = transform.localScale;
 			cityParentTf.hasChanged = false;
 		}
-
     }
+
+	public abstract void ShowVisuals(bool val);
 
 	public void PinToCity(Vector3 worldPos) {
 		if (cityParentTf == null)

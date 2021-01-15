@@ -528,7 +528,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: 790d13e4803651d1755506aba4a64aa5
+      Hash: e475d9740207e426cd70cf3cd9147708
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ARUser
@@ -708,7 +708,7 @@ ScriptsOnlyBuild:
     className: HelloARController
   - hash:
       serializedVersion: 2
-      Hash: d61feebf9b1fcba76b0e5b85c5e93618
+      Hash: 4daef460cdebdfc5598689bc28894268
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: InfoPin
@@ -1530,7 +1530,7 @@ ScriptsOnlyBuild:
     className: SignalReceiver
   - hash:
       serializedVersion: 2
-      Hash: 65f629edf7148807eb9f30996cf0fb6d
+      Hash: bf60d6d983a570aface78dee0acabc7f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ToolBehaviour
@@ -1654,12 +1654,6 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: GoogleARCore
     className: ARCoreSessionConfig
-  - hash:
-      serializedVersion: 2
-      Hash: 782862e7350acc8ff3db689c1987a22e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PinnableObject
   - hash:
       serializedVersion: 2
       Hash: 0341bba01c7324e54a27a2c5426b3935
@@ -1848,7 +1842,7 @@ ScriptsOnlyBuild:
     className: NetworkLogSettings
   - hash:
       serializedVersion: 2
-      Hash: 30f38d791ccab903e53fbd2b6a490dc7
+      Hash: 476d53c3254ecae49690d296e88141e0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ARSceneController
@@ -2154,7 +2148,7 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
-      Hash: e69e07dea478c9ae463ae8e6f4a9ab88
+      Hash: 929eed82054b86958ccb83223dc689d3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PingObject
@@ -2210,4 +2204,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/_Main/_Scenes/MainMenu.unity
   - Assets/_Main/_Scenes/ARScene.unity
-  playerPath: D:/Projects/Dissertation_AR-GIS/ARGIS_v1.5.1_PingAndPins_CanvasFix.apk
+  playerPath: D:/Projects/Dissertation_AR-GIS/ARGIS_v1.5.2_PingAndPins_ScaleFix.apk
