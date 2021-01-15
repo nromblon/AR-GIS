@@ -63,7 +63,10 @@ public class ServerList : MonoBehaviour {
 		}
 		detailsPanel.SetDetails(null);
 
-		serverDict.Clear();
-		servers.Clear();
+		if(serverDict != null)
+			serverDict.Clear();
+
+		if (servers != null)
+			servers.Clear();
 	}
 }

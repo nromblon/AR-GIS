@@ -132,7 +132,8 @@ public class PlayAreaManager : Manipulator
 		// Notify Play Area anim controller
 		playArea.OnPlacementConfirm();
 
-		TryHostAnchor();
+		if (((NewNetworkManager)NewNetworkManager.singleton).isOnline)
+			TryHostAnchor();
 	}
 
 	/// <summary>

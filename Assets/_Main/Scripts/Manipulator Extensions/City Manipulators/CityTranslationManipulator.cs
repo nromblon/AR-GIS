@@ -85,6 +85,7 @@ public class CityTranslationManipulator : Manipulator {
 	/// </summary>
 	/// <param name="gesture">The current gesture.</param>
 	protected override void OnContinueManipulation(DragGesture gesture) {
+		Debug.Log($"[CityTranslationManipulator] Translating");
 		Vector2 currentGesturePos = gesture.Position;
 		m_IsActive = true;
 
@@ -128,6 +129,8 @@ public class CityTranslationManipulator : Manipulator {
 		}
 
 		rootObject.transform.localPosition = newLocalPosition;
+
+		Debug.Log($"[CityTranslationManipulator] Updating Position");
 	}
 }
 

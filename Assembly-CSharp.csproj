@@ -62,6 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Main\Scripts\ARScene\ButtonController.cs" />
+    <Compile Include="Assets\_Main\Scripts\ARScene\ControlsAnimatorCallback.cs" />
+    <Compile Include="Assets\_Main\Scripts\ARScene\InfoPin.cs" />
+    <Compile Include="Assets\_Main\Scripts\ARScene\PingObject.cs" />
+    <Compile Include="Assets\_Main\Scripts\ARScene\PinnableObject.cs" />
     <Compile Include="Assets\_Main\Scripts\ConfirmBtnController.cs" />
     <Compile Include="Assets\_Main\Scripts\ControlsManager.cs" />
     <Compile Include="Assets\_Main\Scripts\CoordinateConverter.cs" />
@@ -105,6 +110,7 @@
     <Compile Include="Assets\_Main\Scripts\Networking\NetworkMenu.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\NewNetworkDiscovery.cs" />
     <Compile Include="Assets\_Main\Scripts\Networking\NewNetworkManager.cs" />
+    <Compile Include="Assets\_Main\Scripts\Networking\ToolBehaviour.cs" />
     <Compile Include="Assets\_Main\Scripts\PerformanceTesting.cs" />
     <Compile Include="Assets\_Main\Scripts\SettingsMenu.cs" />
     <Compile Include="Assets\_Main\Scripts\Utilities\ClippingPlane.cs" />
@@ -503,6 +509,9 @@
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mobile.AndroidLogcat.Editor">
+      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.Mobile.AndroidLogcat.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
@@ -529,9 +538,6 @@
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Runtime">
       <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mobile.AndroidLogcat.Editor">
-      <HintPath>D:/Projects/Dissertation_AR-GIS/Library/ScriptAssemblies/Unity.Mobile.AndroidLogcat.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Programs/Unity Other Versions/2019.2.6f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

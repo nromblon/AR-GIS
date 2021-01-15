@@ -423,6 +423,7 @@ GameObject:
   - component: {fileID: 8718894155465186544}
   - component: {fileID: 2962455955095937996}
   - component: {fileID: 5142534949959095369}
+  - component: {fileID: 4728922257920750170}
   - component: {fileID: 5957990008784045940}
   m_Layer: 0
   m_Name: Player
@@ -514,6 +515,24 @@ MonoBehaviour:
   user: {fileID: 2962455955095937996}
   chatUI: {fileID: 8932039029321184758}
   chatText: {fileID: 2473563311403612341}
+--- !u!114 &4728922257920750170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359474792139189824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e1551ab10dc0247b7a25de6dfa4102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  PingPrefab: {fileID: 7510641523075626604, guid: d3531ff1fc67a5d4aad6cbe60d11490c,
+    type: 3}
+  InfoPinPrefab: {fileID: 4018081008143819311, guid: bce6d5651bb64144c96922f43e12e260,
+    type: 3}
 --- !u!114 &5957990008784045940
 MonoBehaviour:
   m_ObjectHideFlags: 0

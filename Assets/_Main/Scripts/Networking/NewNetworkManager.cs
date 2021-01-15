@@ -18,6 +18,7 @@ public class NewNetworkManager : NetworkManager
 	public string roomName;
 	public List<string> loadedFiles;
 	public int numUsers;
+	public bool isOnline = true;
 
 	#region Unity Callbacks
 

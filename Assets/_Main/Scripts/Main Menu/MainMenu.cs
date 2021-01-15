@@ -41,6 +41,7 @@ public class MainMenu : MonoBehaviour
 		if (PerformanceTesting.IsEvaluating) {
 			DebugOverlay.Instance.SetCityLoadedIdleFps();
 		}
+		((NewNetworkManager)NewNetworkManager.singleton).isOnline = false;
 		StartCoroutine(LoadMainScene());
 	}
 
@@ -68,7 +69,8 @@ public class MainMenu : MonoBehaviour
 		}
 
 		GMLSelected.SetText(gmlText);
-		
+
+		LoadGMLBtn.interactable = false;
 		CGML2GO.InstantiateCity();
 		StartCoroutine(WaitForInstantiateFinish());
 

@@ -26,6 +26,7 @@ public class CityManager : MonoBehaviour
 	}
 
 	[Header("Config")]
+	[SerializeField] private BoxCollider PlaneCollider;
 	public float y_offset = -5;
 	public CityGml2GO cityGML2GO;
 	public IssueManager IssueManager;
@@ -115,6 +116,9 @@ public class CityManager : MonoBehaviour
 		// Initialize Alerts
 		InitializeIssues();
 
+		// Rescale City Plane Collider
+		RescaleCityPlaneColliderBounds();
+
 		onLoadPosition = transform.position;
 		onLoadScale = transform.localScale;
 
@@ -130,14 +134,15 @@ public class CityManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Recenters First level Children and adds a BuildingController component on each.
+	/// Applies an offset to 'Buildings' so that the center of 'City' is the same as the worldPos of the CityManager.
+	/// Also adds a BuildingController component for each Building.
 	/// </summary>
 	private void RecenterChildren() {
 		var childCount = transform.childCount;
 		var children = new List<Transform>();
 		// Initialize List
-		foreach (var i in Enumerable.Range(0, childCount)) {
-			children.Add(transform.GetChild(i));
+		foreach (var b in GetComponentsInChildren<BuildingProperties>()) {
+			children.Add(b.transform);
 		}
 		
 		var center = Bounds.center;
@@ -295,6 +300,12 @@ public class CityManager : MonoBehaviour
 			IssueManager.gameObject.transform.SetParent(transform);
 		}));
 	}
+
+	private void RescaleCityPlaneColliderBounds() {
+		var bounds = Utilities.GetBounds(gameObject);
+		PlaneCollider.size = new Vector3(bounds.size.x, 1, bounds.size.z);
+	}
+
 	#endregion
 
 	public void OnCityAttached() {

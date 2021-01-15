@@ -5,6 +5,7 @@ ScriptsOnlyBuild:
     - ARUser
     - Assets.Scripts.CityGML2GO.CityGml2GO
     - Assets.Scripts.CityGML2GO.SemanticSurfaceMaterial
+    - ButtonController
     - ChatBehaviour
     - CityManager
     - CityRotationManipulator
@@ -13,6 +14,7 @@ ScriptsOnlyBuild:
     - CityTranslationManipulator
     - ClippingPlane
     - ConfirmBtnController
+    - ControlsAnimatorCallback
     - ControlsManager
     - DebugOverlay
     - DepthSettings
@@ -36,11 +38,13 @@ ScriptsOnlyBuild:
     - GoogleARCore.Examples.Common.PointcloudVisualizer
     - GoogleARCore.Examples.Common.RawImageVideoPlayer
     - GoogleARCore.Examples.ObjectManipulation.ManipulationSystem
+    - InfoPin
     - IssueManager
     - IssueObject
     - MainMenu
     - NewNetworkManager
     - NoVizTranslationManipulator
+    - PingObject
     - PlayAreaBoundsHandler
     - PlayAreaController
     - PlayAreaManager
@@ -50,6 +54,7 @@ ScriptsOnlyBuild:
     - ServerListItem
     - SettingsMenu
     - ShowBoundsGizmo
+    - ToolBehaviour
     - UnityEngine.UI.Extensions.SegmentedControl
     Mirror.Components.dll:
     - Mirror.NetworkTransform
@@ -74,8 +79,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -98,8 +105,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
-    com.unity.multiplayer-hlapi.Runtime.dll:
-    - UnityEngine.Networking.NetworkCallbacks
   sceneClasses:
     Assets/_Main/_Scenes/ARScene.unity:
     - Class: 1
@@ -141,75 +146,79 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9834}
     - Class: 114
-      Script: {instanceID: 10198}
+      Script: {instanceID: 10208}
     - Class: 114
-      Script: {instanceID: 10264}
+      Script: {instanceID: 10274}
     - Class: 114
-      Script: {instanceID: 10304}
+      Script: {instanceID: 10316}
     - Class: 114
-      Script: {instanceID: 10606}
+      Script: {instanceID: 10622}
     - Class: 114
-      Script: {instanceID: 10792}
+      Script: {instanceID: 10814}
     - Class: 114
-      Script: {instanceID: 10854}
+      Script: {instanceID: 10878}
     - Class: 114
-      Script: {instanceID: 10894}
+      Script: {instanceID: 10920}
     - Class: 114
-      Script: {instanceID: 11012}
+      Script: {instanceID: 11038}
     - Class: 114
-      Script: {instanceID: 11140}
+      Script: {instanceID: 11170}
     - Class: 114
-      Script: {instanceID: 11300}
+      Script: {instanceID: 11336}
     - Class: 114
-      Script: {instanceID: 11476}
+      Script: {instanceID: 11514}
     - Class: 114
-      Script: {instanceID: 11582}
+      Script: {instanceID: 11624}
     - Class: 114
-      Script: {instanceID: 11586}
+      Script: {instanceID: 11628}
     - Class: 114
-      Script: {instanceID: 11662}
+      Script: {instanceID: 11704}
     - Class: 114
-      Script: {instanceID: 11796}
+      Script: {instanceID: 11842}
     - Class: 114
-      Script: {instanceID: 11828}
+      Script: {instanceID: 11876}
     - Class: 114
-      Script: {instanceID: 11944}
+      Script: {instanceID: 12000}
     - Class: 114
-      Script: {instanceID: 12036}
+      Script: {instanceID: 12094}
     - Class: 114
-      Script: {instanceID: 12096}
+      Script: {instanceID: 12156}
     - Class: 114
-      Script: {instanceID: 12158}
+      Script: {instanceID: 12220}
     - Class: 114
-      Script: {instanceID: 12216}
+      Script: {instanceID: 12278}
     - Class: 114
-      Script: {instanceID: 12342}
+      Script: {instanceID: 12410}
     - Class: 114
-      Script: {instanceID: 12384}
+      Script: {instanceID: 12458}
     - Class: 114
-      Script: {instanceID: 12564}
+      Script: {instanceID: 12642}
     - Class: 114
-      Script: {instanceID: 12608}
+      Script: {instanceID: 12686}
     - Class: 114
-      Script: {instanceID: 12660}
+      Script: {instanceID: 12740}
     - Class: 114
-      Script: {instanceID: 12668}
+      Script: {instanceID: 12748}
     - Class: 114
-      Script: {instanceID: 12792}
+      Script: {instanceID: 12876}
     - Class: 114
-      Script: {instanceID: 12828}
+      Script: {instanceID: 12914}
     - Class: 114
-      Script: {instanceID: 12868}
+      Script: {instanceID: 12956}
     - Class: 114
-      Script: {instanceID: 12908}
+      Script: {instanceID: 12996}
     - Class: 114
-      Script: {instanceID: 13054}
+      Script: {instanceID: 13144}
     - Class: 114
-      Script: {instanceID: 13402}
+      Script: {instanceID: 13508}
     - Class: 114
-      Script: {instanceID: 13406}
+      Script: {instanceID: 13512}
     - Class: 114
-      Script: {instanceID: 13434}
+      Script: {instanceID: 13542}
+    - Class: 114
+      Script: {instanceID: 31428}
+    - Class: 114
+      Script: {instanceID: 34634}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -276,89 +285,95 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9906}
     - Class: 114
-      Script: {instanceID: 10012}
+      Script: {instanceID: 10016}
     - Class: 114
-      Script: {instanceID: 10054}
-    - Class: 114
-      Script: {instanceID: 10198}
+      Script: {instanceID: 10060}
     - Class: 114
       Script: {instanceID: 10208}
     - Class: 114
-      Script: {instanceID: 10264}
+      Script: {instanceID: 10218}
     - Class: 114
-      Script: {instanceID: 10306}
+      Script: {instanceID: 10274}
     - Class: 114
-      Script: {instanceID: 10448}
+      Script: {instanceID: 10318}
     - Class: 114
-      Script: {instanceID: 10564}
+      Script: {instanceID: 10396}
     - Class: 114
-      Script: {instanceID: 10652}
+      Script: {instanceID: 10464}
     - Class: 114
-      Script: {instanceID: 10812}
+      Script: {instanceID: 10580}
     - Class: 114
-      Script: {instanceID: 10940}
+      Script: {instanceID: 10672}
     - Class: 114
-      Script: {instanceID: 11012}
+      Script: {instanceID: 10836}
     - Class: 114
-      Script: {instanceID: 11062}
+      Script: {instanceID: 10966}
     - Class: 114
-      Script: {instanceID: 11326}
+      Script: {instanceID: 11038}
     - Class: 114
-      Script: {instanceID: 11392}
+      Script: {instanceID: 11090}
     - Class: 114
-      Script: {instanceID: 11482}
+      Script: {instanceID: 11362}
     - Class: 114
-      Script: {instanceID: 11530}
+      Script: {instanceID: 11428}
     - Class: 114
-      Script: {instanceID: 11618}
+      Script: {instanceID: 11520}
     - Class: 114
-      Script: {instanceID: 11674}
+      Script: {instanceID: 11570}
     - Class: 114
-      Script: {instanceID: 11776}
+      Script: {instanceID: 11660}
     - Class: 114
-      Script: {instanceID: 11796}
+      Script: {instanceID: 11718}
     - Class: 114
-      Script: {instanceID: 11824}
+      Script: {instanceID: 11822}
     - Class: 114
-      Script: {instanceID: 11828}
+      Script: {instanceID: 11842}
     - Class: 114
-      Script: {instanceID: 11922}
+      Script: {instanceID: 11872}
     - Class: 114
-      Script: {instanceID: 11958}
+      Script: {instanceID: 11876}
     - Class: 114
-      Script: {instanceID: 12170}
+      Script: {instanceID: 11974}
     - Class: 114
-      Script: {instanceID: 12192}
+      Script: {instanceID: 12014}
     - Class: 114
-      Script: {instanceID: 12196}
+      Script: {instanceID: 12190}
     - Class: 114
-      Script: {instanceID: 12362}
+      Script: {instanceID: 12232}
     - Class: 114
-      Script: {instanceID: 12392}
+      Script: {instanceID: 12254}
     - Class: 114
-      Script: {instanceID: 12542}
+      Script: {instanceID: 12258}
     - Class: 114
-      Script: {instanceID: 12572}
+      Script: {instanceID: 12436}
     - Class: 114
-      Script: {instanceID: 12660}
+      Script: {instanceID: 12466}
     - Class: 114
-      Script: {instanceID: 12756}
+      Script: {instanceID: 12620}
     - Class: 114
-      Script: {instanceID: 13000}
+      Script: {instanceID: 12650}
     - Class: 114
-      Script: {instanceID: 13052}
+      Script: {instanceID: 12740}
     - Class: 114
-      Script: {instanceID: 13242}
+      Script: {instanceID: 12838}
     - Class: 114
-      Script: {instanceID: 13322}
+      Script: {instanceID: 13088}
     - Class: 114
-      Script: {instanceID: 13344}
+      Script: {instanceID: 13140}
     - Class: 114
-      Script: {instanceID: 13346}
+      Script: {instanceID: 13340}
     - Class: 114
-      Script: {instanceID: 13406}
+      Script: {instanceID: 13424}
     - Class: 114
-      Script: {instanceID: 13538}
+      Script: {instanceID: 13446}
+    - Class: 114
+      Script: {instanceID: 13448}
+    - Class: 114
+      Script: {instanceID: 13512}
+    - Class: 114
+      Script: {instanceID: 13650}
+    - Class: 114
+      Script: {instanceID: 43542}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -678,6 +693,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: GoogleARCore.Examples.HelloAR
     className: HelloARController
+  - hash:
+      serializedVersion: 2
+      Hash: d61feebf9b1fcba76b0e5b85c5e93618
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: InfoPin
   - hash:
       serializedVersion: 2
       Hash: 5da7b9e4b43d0ba75d617a81259ec141
@@ -1322,7 +1343,7 @@ ScriptsOnlyBuild:
     className: ElevationManipulator
   - hash:
       serializedVersion: 2
-      Hash: 984a8c8b6757b01f211472585cbdb4a6
+      Hash: 95c73e53680f6d8f2ff2bd254725abec
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CityManager
@@ -1490,6 +1511,12 @@ ScriptsOnlyBuild:
     className: SignalReceiver
   - hash:
       serializedVersion: 2
+      Hash: 65f629edf7148807eb9f30996cf0fb6d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ToolBehaviour
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: GoogleARCore.Examples.CloudAnchors
@@ -1608,6 +1635,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: GoogleARCore
     className: ARCoreSessionConfig
+  - hash:
+      serializedVersion: 2
+      Hash: 782862e7350acc8ff3db689c1987a22e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PinnableObject
   - hash:
       serializedVersion: 2
       Hash: 0341bba01c7324e54a27a2c5426b3935
@@ -1814,7 +1847,7 @@ ScriptsOnlyBuild:
     className: PhysicsSimulator
   - hash:
       serializedVersion: 2
-      Hash: 6cf07fbfdd5e69f3e6f61113e6d82f54
+      Hash: 21ab61130ad6a2f7df11f08ddf89acdb
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ControlsManager
@@ -2148,8 +2181,26 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.dll
     namespaceName: kcp2k
     className: KcpTransport
+  - hash:
+      serializedVersion: 2
+      Hash: 1ccc356d2b5fedd1880092d75d8fcec7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ButtonController
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ControlsAnimatorCallback
+  - hash:
+      serializedVersion: 2
+      Hash: e69e07dea478c9ae463ae8e6f4a9ab88
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PingObject
   platform: 13
   scenePathNames:
   - Assets/_Main/_Scenes/MainMenu.unity
   - Assets/_Main/_Scenes/ARScene.unity
-  playerPath: D:/Projects/Dissertation_AR-GIS/ARGIS_v1.4_CloudAnchorandTfSync.apk
+  playerPath: D:/Projects/Dissertation_AR-GIS/ARGIS_v1.5_PingAndPins.apk

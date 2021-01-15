@@ -9,6 +9,8 @@ TagManager:
   - CityGML
   - ManipulationSystem
   - Issue
+  - InfoPin
+  - Ping
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - PlayArea
   - CityGML
   - Issue
-  - 
+  - CityPlane
   - 
   - 
   - 

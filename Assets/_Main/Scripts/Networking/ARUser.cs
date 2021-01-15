@@ -52,7 +52,6 @@ public class ARUser : NetworkBehaviour {
 	private void OnApplicationQuit() {
 		if (hasAuthority)
 			NetworkClient.Disconnect();
-
 	}
 
 	#region Broadcasting New Cloud Id (Already Joined)
