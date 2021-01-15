@@ -79,10 +79,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -105,6 +103,8 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
+    com.unity.multiplayer-hlapi.Runtime.dll:
+    - UnityEngine.Networking.NetworkCallbacks
   sceneClasses:
     Assets/_Main/_Scenes/ARScene.unity:
     - Class: 1
@@ -152,73 +152,73 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10316}
     - Class: 114
-      Script: {instanceID: 10622}
+      Script: {instanceID: 10370}
     - Class: 114
-      Script: {instanceID: 10814}
+      Script: {instanceID: 10624}
     - Class: 114
-      Script: {instanceID: 10878}
+      Script: {instanceID: 10816}
     - Class: 114
-      Script: {instanceID: 10920}
+      Script: {instanceID: 10880}
     - Class: 114
-      Script: {instanceID: 11038}
+      Script: {instanceID: 10922}
     - Class: 114
-      Script: {instanceID: 11170}
+      Script: {instanceID: 10928}
     - Class: 114
-      Script: {instanceID: 11336}
+      Script: {instanceID: 11042}
     - Class: 114
-      Script: {instanceID: 11514}
+      Script: {instanceID: 11174}
     - Class: 114
-      Script: {instanceID: 11624}
+      Script: {instanceID: 11340}
+    - Class: 114
+      Script: {instanceID: 11518}
     - Class: 114
       Script: {instanceID: 11628}
     - Class: 114
-      Script: {instanceID: 11704}
+      Script: {instanceID: 11632}
     - Class: 114
-      Script: {instanceID: 11842}
+      Script: {instanceID: 11708}
     - Class: 114
-      Script: {instanceID: 11876}
+      Script: {instanceID: 11846}
     - Class: 114
-      Script: {instanceID: 12000}
+      Script: {instanceID: 11880}
     - Class: 114
-      Script: {instanceID: 12094}
+      Script: {instanceID: 12004}
     - Class: 114
-      Script: {instanceID: 12156}
+      Script: {instanceID: 12098}
     - Class: 114
-      Script: {instanceID: 12220}
+      Script: {instanceID: 12160}
     - Class: 114
-      Script: {instanceID: 12278}
+      Script: {instanceID: 12224}
     - Class: 114
-      Script: {instanceID: 12410}
+      Script: {instanceID: 12282}
     - Class: 114
-      Script: {instanceID: 12458}
+      Script: {instanceID: 12414}
     - Class: 114
-      Script: {instanceID: 12642}
+      Script: {instanceID: 12462}
     - Class: 114
-      Script: {instanceID: 12686}
+      Script: {instanceID: 12646}
     - Class: 114
-      Script: {instanceID: 12740}
+      Script: {instanceID: 12690}
     - Class: 114
-      Script: {instanceID: 12748}
+      Script: {instanceID: 12744}
     - Class: 114
-      Script: {instanceID: 12876}
+      Script: {instanceID: 12752}
     - Class: 114
-      Script: {instanceID: 12914}
+      Script: {instanceID: 12880}
     - Class: 114
-      Script: {instanceID: 12956}
+      Script: {instanceID: 12918}
     - Class: 114
-      Script: {instanceID: 12996}
+      Script: {instanceID: 12960}
     - Class: 114
-      Script: {instanceID: 13144}
+      Script: {instanceID: 13000}
     - Class: 114
-      Script: {instanceID: 13508}
+      Script: {instanceID: 13148}
     - Class: 114
       Script: {instanceID: 13512}
     - Class: 114
-      Script: {instanceID: 13542}
+      Script: {instanceID: 13516}
     - Class: 114
-      Script: {instanceID: 31428}
-    - Class: 114
-      Script: {instanceID: 34634}
+      Script: {instanceID: 13546}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -297,83 +297,83 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10318}
     - Class: 114
-      Script: {instanceID: 10396}
+      Script: {instanceID: 10398}
     - Class: 114
-      Script: {instanceID: 10464}
+      Script: {instanceID: 10466}
     - Class: 114
-      Script: {instanceID: 10580}
+      Script: {instanceID: 10582}
     - Class: 114
-      Script: {instanceID: 10672}
+      Script: {instanceID: 10674}
     - Class: 114
-      Script: {instanceID: 10836}
+      Script: {instanceID: 10838}
     - Class: 114
-      Script: {instanceID: 10966}
+      Script: {instanceID: 10970}
     - Class: 114
-      Script: {instanceID: 11038}
+      Script: {instanceID: 11042}
     - Class: 114
-      Script: {instanceID: 11090}
+      Script: {instanceID: 11094}
     - Class: 114
-      Script: {instanceID: 11362}
+      Script: {instanceID: 11366}
     - Class: 114
-      Script: {instanceID: 11428}
+      Script: {instanceID: 11432}
     - Class: 114
-      Script: {instanceID: 11520}
+      Script: {instanceID: 11524}
     - Class: 114
-      Script: {instanceID: 11570}
+      Script: {instanceID: 11574}
     - Class: 114
-      Script: {instanceID: 11660}
+      Script: {instanceID: 11664}
     - Class: 114
-      Script: {instanceID: 11718}
+      Script: {instanceID: 11722}
     - Class: 114
-      Script: {instanceID: 11822}
+      Script: {instanceID: 11826}
     - Class: 114
-      Script: {instanceID: 11842}
-    - Class: 114
-      Script: {instanceID: 11872}
+      Script: {instanceID: 11846}
     - Class: 114
       Script: {instanceID: 11876}
     - Class: 114
-      Script: {instanceID: 11974}
+      Script: {instanceID: 11880}
     - Class: 114
-      Script: {instanceID: 12014}
+      Script: {instanceID: 11978}
     - Class: 114
-      Script: {instanceID: 12190}
+      Script: {instanceID: 12018}
     - Class: 114
-      Script: {instanceID: 12232}
+      Script: {instanceID: 12194}
     - Class: 114
-      Script: {instanceID: 12254}
+      Script: {instanceID: 12236}
     - Class: 114
       Script: {instanceID: 12258}
     - Class: 114
-      Script: {instanceID: 12436}
+      Script: {instanceID: 12262}
     - Class: 114
-      Script: {instanceID: 12466}
+      Script: {instanceID: 12440}
     - Class: 114
-      Script: {instanceID: 12620}
+      Script: {instanceID: 12470}
     - Class: 114
-      Script: {instanceID: 12650}
+      Script: {instanceID: 12624}
     - Class: 114
-      Script: {instanceID: 12740}
+      Script: {instanceID: 12654}
     - Class: 114
-      Script: {instanceID: 12838}
+      Script: {instanceID: 12744}
     - Class: 114
-      Script: {instanceID: 13088}
+      Script: {instanceID: 12842}
     - Class: 114
-      Script: {instanceID: 13140}
+      Script: {instanceID: 13092}
     - Class: 114
-      Script: {instanceID: 13340}
+      Script: {instanceID: 13144}
     - Class: 114
-      Script: {instanceID: 13424}
+      Script: {instanceID: 13344}
     - Class: 114
-      Script: {instanceID: 13446}
+      Script: {instanceID: 13428}
     - Class: 114
-      Script: {instanceID: 13448}
+      Script: {instanceID: 13450}
     - Class: 114
-      Script: {instanceID: 13512}
+      Script: {instanceID: 13452}
     - Class: 114
-      Script: {instanceID: 13650}
+      Script: {instanceID: 13516}
     - Class: 114
-      Script: {instanceID: 43542}
+      Script: {instanceID: 13576}
+    - Class: 114
+      Script: {instanceID: 13656}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -395,7 +395,7 @@ ScriptsOnlyBuild:
   scriptHashData:
   - hash:
       serializedVersion: 2
-      Hash: 1afef15c4b65b668e50380fa9b763987
+      Hash: f92c849a1b9275b271145edcdd3a145e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NewNetworkManager
@@ -663,6 +663,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: GoogleARCore.Examples.CloudAnchors
     className: NetworkManagerUIController
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ControlsAnimatorCallback
   - hash:
       serializedVersion: 2
       Hash: 4cb443ffb7b54a755d9852ae91684f7d
@@ -933,6 +939,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: GoogleARCore.Examples.Common
     className: PlaneDiscoveryGuide
+  - hash:
+      serializedVersion: 2
+      Hash: 1ccc356d2b5fedd1880092d75d8fcec7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ButtonController
   - hash:
       serializedVersion: 2
       Hash: f0092310a54d59e5ca9c145c6e7cde38
@@ -2135,6 +2147,12 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
+      Hash: e69e07dea478c9ae463ae8e6f4a9ab88
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PingObject
+  - hash:
+      serializedVersion: 2
       Hash: 7072231382eb3c4871b3dd75ad0227e1
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -2181,24 +2199,6 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.dll
     namespaceName: kcp2k
     className: KcpTransport
-  - hash:
-      serializedVersion: 2
-      Hash: 1ccc356d2b5fedd1880092d75d8fcec7
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ButtonController
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ControlsAnimatorCallback
-  - hash:
-      serializedVersion: 2
-      Hash: e69e07dea478c9ae463ae8e6f4a9ab88
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PingObject
   platform: 13
   scenePathNames:
   - Assets/_Main/_Scenes/MainMenu.unity

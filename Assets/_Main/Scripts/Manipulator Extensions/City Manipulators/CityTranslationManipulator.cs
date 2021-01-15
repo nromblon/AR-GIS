@@ -29,13 +29,15 @@ public class CityTranslationManipulator : Manipulator {
 
 	private bool m_IsActive = false;
 	private Vector3 m_PreviousWorldPoint;
-	private Vector3 m_DesiredLocalPosition;
+	//private Vector3 m_DesiredLocalPosition;
+	private Vector3 m_DesiredPosition;
 
 	/// <summary>
 	/// The Unity's Start method.
 	/// </summary>
 	protected void Start() {
-		m_DesiredLocalPosition = new Vector3(0, 0, 0);
+		//m_DesiredLocalPosition = new Vector3(0, 0, 0);
+		m_DesiredPosition = new Vector3(0, 0, 0);
 		if (rootObject == null)
 			rootObject = this.gameObject;
 
@@ -96,10 +98,12 @@ public class CityTranslationManipulator : Manipulator {
 		if (hPlane.Raycast(r_new, out distance)) {
 			Vector3 worldPoint = r_new.GetPoint(distance);
 			Vector3 direction = worldPoint - m_PreviousWorldPoint;
-			Vector3 localDirection = rootObject.transform.parent.InverseTransformDirection(direction);
+			//Vector3 localDirection = rootObject.transform.parent.InverseTransformDirection(direction);
 			// Remove y direction
-			localDirection = new Vector3(localDirection.x, 0, localDirection.z);
-			m_DesiredLocalPosition = rootObject.transform.localPosition + localDirection;
+			//localDirection = new Vector3(localDirection.x, 0, localDirection.z);
+			direction = new Vector3(direction.x, 0, direction.z);
+			//m_DesiredLocalPosition = rootObject.transform.localPosition + localDirection;
+			m_DesiredPosition = rootObject.transform.position + direction;
 
 			m_PreviousWorldPoint = worldPoint;
 		}
@@ -116,19 +120,27 @@ public class CityTranslationManipulator : Manipulator {
 		}
 
 		// Lerp position.
-		Vector3 oldLocalPosition = rootObject.transform.localPosition;
-		Vector3 newLocalPosition = Vector3.Lerp(
-			oldLocalPosition, m_DesiredLocalPosition, Time.deltaTime * k_PositionSpeed);
+		//Vector3 oldLocalPosition = rootObject.transform.localPosition;
+		//Vector3 newLocalPosition = Vector3.Lerp(
+		//	oldLocalPosition, m_DesiredLocalPosition, Time.deltaTime * k_PositionSpeed);
+		Vector3 oldPosition = rootObject.transform.position;
+		Vector3 newPosition = Vector3.Lerp(
+			oldPosition, m_DesiredPosition, Time.deltaTime * k_PositionSpeed);
 
 		//Vector3 newLocalPosition = m_DesiredLocalPosition;
 
-		float diffLenght = (m_DesiredLocalPosition - newLocalPosition).magnitude;
+		//float diffLenght = (m_DesiredLocalPosition - newLocalPosition).magnitude;
+		//if (diffLenght < k_DiffThreshold) {
+		//	newLocalPosition = m_DesiredLocalPosition;
+		//	m_IsActive = false;
+		//}
+		float diffLenght = (m_DesiredPosition - newPosition).magnitude;
 		if (diffLenght < k_DiffThreshold) {
-			newLocalPosition = m_DesiredLocalPosition;
+			newPosition = m_DesiredPosition;
 			m_IsActive = false;
 		}
 
-		rootObject.transform.localPosition = newLocalPosition;
+		rootObject.transform.position = newPosition;
 
 		Debug.Log($"[CityTranslationManipulator] Updating Position");
 	}
