@@ -16,20 +16,8 @@ public class InfoPin : PinnableObject
 
 	private bool canvasPrevState = false;
 
-    // Start is called before the first frame update
-    protected new void Start()
-    {
-		base.Start();
-		inputField.interactable = false;
-		deleteBtn.gameObject.SetActive(false);
-		ShowCanvas(false);
-	}
-
-    // Update is called once per frame
-    protected new void Update()
-    {
-		base.Update();
-    }
+	[SyncVar (hook=nameof(UsernameHook))] private string username;
+	[SyncVar (hook=nameof(InfoHook))] private string pinText;
 
 	public override void OnStartAuthority() {
 		base.OnStartAuthority();
@@ -38,6 +26,21 @@ public class InfoPin : PinnableObject
 		deleteBtn.gameObject.SetActive(true);
 
 		inputField.Select();
+	}
+
+	public override void OnStartClient() {
+		base.OnStartClient();
+		usernameTM.text = username;
+		if (hasAuthority) {
+			ShowCanvas(true);
+			deleteBtn.gameObject.SetActive(true);
+		}
+		else {
+			ShowCanvas(false);
+			deleteBtn.gameObject.SetActive(false);
+			inputField.interactable = false;
+			inputField.text = pinText;
+		}
 	}
 
 	public void ToggleShowCanvas() {
@@ -50,19 +53,29 @@ public class InfoPin : PinnableObject
 	}
 
 	public void SetUsername(string username) {
-		usernameTM.text = $"by {username}";
+		this.username = $"by {username}";
+		//usernameTM.text = $"by {username}";
 	}
 
 	public void OnPinInfoSet() {
-		CmdUpdatePinInfo(usernameTM.text, inputField.text);
+		this.pinText = inputField.text;
+		CmdUpdatePinInfo(this.username, this.pinText);
 	}
 	
+	void UsernameHook(string oldUsername, string newUsername) {
+		usernameTM.text = newUsername;
+	}
+
+	void InfoHook(string oldInfo, string newInfo) {
+		inputField.text = newInfo;
+	}
+
 	[Command]
 	private void CmdUpdatePinInfo(string username, string infoTxt) {
 		RpcUpdatePinInfo(username, infoTxt);
 	}
 
-	[ClientRpc(excludeOwner = true)]
+	[ClientRpc]
 	private void RpcUpdatePinInfo(string username, string infoTxt) {
 		inputField.text = infoTxt;
 		usernameTM.text = username;
@@ -75,5 +88,10 @@ public class InfoPin : PinnableObject
 			canvas.gameObject.SetActive(false);
 		else
 			canvas.gameObject.SetActive(canvasPrevState);
+	}
+
+	public override void PinToCity(Vector3 localPos) {
+		base.PinToCity(localPos);
+		transform.localScale = new Vector3(.5f, .5f, .5f);
 	}
 }

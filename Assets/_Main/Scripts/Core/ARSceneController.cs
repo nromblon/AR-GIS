@@ -90,6 +90,8 @@ public class ARSceneController : MonoBehaviour {
 		if (applicationMode == ApplicationMode.Host) {
 			// Start Hosting Process
 			PAManager.Select();
+			InstructionPanel.Instance.ShowInstruction(InstructionConstants.SET_TR);
+			//StartCoroutine(ExecuteAfterTime(3f, ()=>InstructionPanel.Instance.ShowInstruction(InstructionConstants.SET_TR)));
 		}
 		// Client begins in ARUser.Start() -> "RequestCloudId"
 	}
@@ -338,5 +340,6 @@ public class ARSceneController : MonoBehaviour {
 		yield return new WaitForSecondsRealtime(time);
 		function();
 	}
+
 	#endregion
 }

@@ -207,6 +207,7 @@ public class PlayAreaManager : Manipulator
 		Debug.Log($"[{this.GetType().Name}] Attempting to host anchor");
 
 		ARSceneCtrl._ShowAndroidToastMessage("Attempting to Host...");
+		InstructionPanel.Instance.ShowInstruction(InstructionConstants.HOST_TR);
 		anchorTask = XPSession.CreateCloudAnchor(anchor).ThenAction(OnHostComplete);
 	}
 
@@ -222,6 +223,8 @@ public class PlayAreaManager : Manipulator
 
 			Debug.Log($"[{this.GetType().Name}] AnchorHost Success! CloudId: {result.Anchor.CloudId}");
 			ARSceneCtrl._ShowAndroidToastMessage("Anchor Host Success!");
+			InstructionPanel.Instance.ShowInstruction(InstructionConstants.HOST_SUCCESS_TR, true);
+
 			this.cloudAnchor = result.Anchor;
 			ARSceneCtrl.SetCloudAnchorId(cloudAnchor.CloudId);
 			
@@ -249,6 +252,7 @@ public class PlayAreaManager : Manipulator
 			else {
 				Debug.LogError($"[PlayAreaManager] Hosting Anchor Failed! Cloud Service Response: " +
 				$"{result.Response.ToString()}");
+				InstructionPanel.Instance.ShowInstruction(InstructionConstants.ERROR_TR);
 			}
 		}
 	}
@@ -261,6 +265,7 @@ public class PlayAreaManager : Manipulator
 	public void StartResolving(string CloudId) {
 		Debug.Log($"[{this.GetType().Name}] Starting Anchor Resolution Attempt...");
 		ARSceneCtrl._ShowAndroidToastMessage("Attempting to resolve Anchor...");
+		InstructionPanel.Instance.ShowInstruction(InstructionConstants.SCAN_TR);
 		XPSession.ResolveCloudAnchor(CloudId).ThenAction(OnResolveComplete);
 	}
 

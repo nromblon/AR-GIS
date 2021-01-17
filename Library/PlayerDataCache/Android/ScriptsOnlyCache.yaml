@@ -40,6 +40,7 @@ ScriptsOnlyBuild:
     - GoogleARCore.Examples.Common.RawImageVideoPlayer
     - GoogleARCore.Examples.ObjectManipulation.ManipulationSystem
     - InfoPin
+    - InstructionPanel
     - IssueManager
     - IssueObject
     - MainMenu
@@ -80,8 +81,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -104,6 +107,8 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
+    com.unity.multiplayer-hlapi.Runtime.dll:
+    - UnityEngine.Networking.NetworkCallbacks
   sceneClasses:
     Assets/_Main/_Scenes/ARScene.unity:
     - Class: 1
@@ -189,35 +194,41 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12226}
     - Class: 114
+      Script: {instanceID: 12238}
+    - Class: 114
       Script: {instanceID: 12284}
     - Class: 114
       Script: {instanceID: 12416}
     - Class: 114
       Script: {instanceID: 12464}
     - Class: 114
-      Script: {instanceID: 12648}
+      Script: {instanceID: 12510}
     - Class: 114
-      Script: {instanceID: 12692}
+      Script: {instanceID: 12628}
     - Class: 114
-      Script: {instanceID: 12746}
+      Script: {instanceID: 12650}
     - Class: 114
-      Script: {instanceID: 12754}
+      Script: {instanceID: 12694}
     - Class: 114
-      Script: {instanceID: 12882}
+      Script: {instanceID: 12748}
     - Class: 114
-      Script: {instanceID: 12920}
+      Script: {instanceID: 12756}
     - Class: 114
-      Script: {instanceID: 12962}
+      Script: {instanceID: 12884}
     - Class: 114
-      Script: {instanceID: 13002}
+      Script: {instanceID: 12922}
     - Class: 114
-      Script: {instanceID: 13150}
+      Script: {instanceID: 12964}
     - Class: 114
-      Script: {instanceID: 13514}
+      Script: {instanceID: 13004}
     - Class: 114
-      Script: {instanceID: 13518}
+      Script: {instanceID: 13152}
     - Class: 114
-      Script: {instanceID: 13548}
+      Script: {instanceID: 13516}
+    - Class: 114
+      Script: {instanceID: 13520}
+    - Class: 114
+      Script: {instanceID: 13550}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -225,6 +236,8 @@ ScriptsOnlyBuild:
     - Class: 136
       Script: {instanceID: 0}
     - Class: 157
+      Script: {instanceID: 0}
+    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -350,31 +363,31 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12472}
     - Class: 114
-      Script: {instanceID: 12626}
+      Script: {instanceID: 12628}
     - Class: 114
-      Script: {instanceID: 12656}
+      Script: {instanceID: 12658}
     - Class: 114
-      Script: {instanceID: 12746}
+      Script: {instanceID: 12748}
     - Class: 114
-      Script: {instanceID: 12844}
+      Script: {instanceID: 12846}
     - Class: 114
-      Script: {instanceID: 13094}
+      Script: {instanceID: 13096}
     - Class: 114
-      Script: {instanceID: 13146}
+      Script: {instanceID: 13148}
     - Class: 114
-      Script: {instanceID: 13346}
+      Script: {instanceID: 13348}
     - Class: 114
-      Script: {instanceID: 13430}
-    - Class: 114
-      Script: {instanceID: 13452}
+      Script: {instanceID: 13432}
     - Class: 114
       Script: {instanceID: 13454}
     - Class: 114
-      Script: {instanceID: 13518}
+      Script: {instanceID: 13456}
     - Class: 114
-      Script: {instanceID: 13578}
+      Script: {instanceID: 13520}
     - Class: 114
-      Script: {instanceID: 13658}
+      Script: {instanceID: 13580}
+    - Class: 114
+      Script: {instanceID: 13660}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1692,6 +1705,12 @@ ScriptsOnlyBuild:
     className: TranslationManipulator
   - hash:
       serializedVersion: 2
+      Hash: 6900246b8a58e800b51d4d8a762be79c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: InstructionPanel
+  - hash:
+      serializedVersion: 2
       Hash: 1088b99d0c88ca05dcb48022854c0cd7
     assemblyName: Mirror.Examples.dll
     namespaceName: Mirror.Examples.Pong
@@ -2204,4 +2223,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/_Main/_Scenes/MainMenu.unity
   - Assets/_Main/_Scenes/ARScene.unity
-  playerPath: D:/Projects/Dissertation_AR-GIS/ARGIS_v1.5.2_PingAndPins_ScaleFix.apk
+  playerPath: D:/Projects/Dissertation_AR-GIS/ARGIS_v1.5.3_InstructionsPanel.apk

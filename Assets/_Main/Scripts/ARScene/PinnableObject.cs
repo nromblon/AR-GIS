@@ -11,6 +11,10 @@ public abstract class PinnableObject : NetworkBehaviour
 	private float fixedScale;
 	private bool isPinned = false;
 
+	[SyncVar] private Vector3 initPos;
+	[SyncVar] private Vector3 initScale;
+	[SyncVar] private Quaternion initRotation;
+
     // Start is called before the first frame update
     protected void Start()
     {
@@ -37,19 +41,50 @@ public abstract class PinnableObject : NetworkBehaviour
 		}
     }
 
+	public override void OnStartClient() {
+		base.OnStartClient();
+		transform.SetParent(CityManager.Instance.transform, false);
+		transform.localPosition = initPos;
+		transform.localScale = initScale;
+		transform.localRotation = initRotation;
+		Debug.Log($"[PinnableObject] OnStartClient called");
+	}
+
 	public abstract void ShowVisuals(bool val);
 
-	public void PinToCity(Vector3 worldPos) {
+	//public virtual void PinToCity(Vector3 worldPos) {
+	//	if (cityParentTf == null)
+	//		cityParentTf = CityManager.Instance.transform;
+	//	transform.SetParent(cityParentTf, false);
+	//	//transform.localScale = Vector3.one;
+	//	fixedScale = transform.localScale.x;
+	//	transform.position = worldPos;
+
+	//	// TODO: set proper initial scale
+
+	//	Debug.Log($"[PinnableObject] Pin Parent: {transform.parent.name}");
+	//	initPos = transform.localPosition;
+	//	initScale = transform.localScale;
+	//	initRotation = transform.localRotation;
+
+	//	isPinned = true;
+	//}
+
+	public virtual void PinToCity(Vector3 localPos) {
 		if (cityParentTf == null)
 			cityParentTf = CityManager.Instance.transform;
 		transform.SetParent(cityParentTf, false);
 		//transform.localScale = Vector3.one;
 		fixedScale = transform.localScale.x;
-		transform.position = worldPos;
-		
+		transform.localPosition = localPos;
+
 		// TODO: set proper initial scale
 
 		Debug.Log($"[PinnableObject] Pin Parent: {transform.parent.name}");
+		initPos = transform.localPosition;
+		initScale = transform.localScale;
+		initRotation = transform.localRotation;
+
 		isPinned = true;
 	}
 

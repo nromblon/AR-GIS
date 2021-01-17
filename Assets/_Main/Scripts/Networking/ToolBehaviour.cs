@@ -65,7 +65,8 @@ public class ToolBehaviour : NetworkBehaviour
 						// Pin Object.
 						if (rayHit.collider.tag == "CityGML") {
 							Debug.Log($"[ToolBehaviour] Hit: {rayHit.collider.gameObject.name}");
-							CmdSpawnTool(rayHit.point);
+							var pointInCity = CityManager.Instance.transform.InverseTransformPoint(rayHit.point);
+							CmdSpawnTool(ctrlManager.SelectedTool, pointInCity);
 						}
 					}
 				}
@@ -77,35 +78,32 @@ public class ToolBehaviour : NetworkBehaviour
     }
 
 	[Command]
-	private void CmdSpawnTool(Vector3 point) {
-		switch (ctrlManager.SelectedTool) {
+	private void CmdSpawnTool(ARTool selectedTool, Vector3 point, NetworkConnectionToClient conn=null) {
+		switch (selectedTool) {
 			case ARTool.InfoPin:
-				SpawnInfoPin(point);
+				SpawnInfoPin(point, conn);
 				break;
 			case ARTool.Ping:
-				SpawnPing(point);
+				SpawnPing(point, conn);
 				break;
 		}
 	}
 
-	private void SpawnInfoPin(Vector3 point) {
+	private void SpawnInfoPin(Vector3 point, NetworkConnection conn) {
 		InfoPin infoPin = Instantiate(InfoPinPrefab).GetComponent<InfoPin>();
 		infoPin.PinToCity(point);
 		infoPin.SetUsername(GetComponentInParent<ARUser>().username);
 
-		NetworkServer.Spawn(infoPin.gameObject);
-		infoPin.netIdentity.AssignClientAuthority(netIdentity.connectionToClient);
+		NetworkServer.Spawn(infoPin.gameObject, conn);
 	}
 
-	private void SpawnPing(Vector3 point) {
+	private void SpawnPing(Vector3 point, NetworkConnection conn) {
 		PingObject ping = Instantiate(PingPrefab).GetComponent<PingObject>();
 		ping.PinToCity(point);
-		NetworkServer.Spawn(ping.gameObject);
-
-		ping.netIdentity.AssignClientAuthority(netIdentity.connectionToClient);
 		ping.username = GetComponentInParent<ARUser>().username;
 		// TODO: set color
 
+		NetworkServer.Spawn(ping.gameObject, conn);
 
 		if (pingReference != null) {
 			pingReference.GetComponent<PingObject>().UnPinToCity();

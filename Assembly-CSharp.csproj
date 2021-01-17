@@ -83,6 +83,7 @@
     <Compile Include="Assets\_Main\Scripts\Core\PlayAreaManager.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\PlayAreaScaleManipulator.cs" />
     <Compile Include="Assets\_Main\Scripts\DepthSettings.cs" />
+    <Compile Include="Assets\_Main\Scripts\InstructionPanel.cs" />
     <Compile Include="Assets\_Main\Scripts\Main Menu\MainMenu.cs" />
     <Compile Include="Assets\_Main\Scripts\Main Menu\ServerDetails.cs" />
     <Compile Include="Assets\_Main\Scripts\Main Menu\ServerList.cs" />

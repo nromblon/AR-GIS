@@ -68,13 +68,12 @@ public class ChatBehaviour : NetworkBehaviour
 		}
 		return newText;
 	}
-
-	[Client]
+	
 	public void Send(string message) {
 		CmdSendMessage(message);
 	}
 
-	[Command]
+	[Command(ignoreAuthority = true)]
 	private void CmdSendMessage(string message) {
 		RpcHandleMessage(message);
 	}
