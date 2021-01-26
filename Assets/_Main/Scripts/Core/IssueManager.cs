@@ -84,7 +84,18 @@ public class IssueManager : MonoBehaviour
 	}
 
 	private bool IsInsideCoordBounds(Coordinates toCheck, Coordinates boundMin, Coordinates boundMax) {
+		//Bounds b = new Bounds();
+		//b.SetMinMax(new Vector3((float)boundMin.x, (float)boundMin.y, (float)boundMin.z),
+		//	new Vector3((float)boundMax.x, (float)boundMax.y, (float)boundMax.z));
+
+		//return b.Contains(new Vector3((float)toCheck.x, (float)toCheck.y, (float)toCheck.z));
+		//Vector2 v = new Vector2((float)toCheck.x, (float)toCheck.y);
+		//Vector2 v0 = new Vector2((float)boundMin.x, (float)boundMin.y);
+		//Vector2 v1 = new Vector2((float)boundMax.x, (float)boundMax.y);
+
 		return toCheck.x >= boundMin.x && toCheck.y >= boundMin.y &&
 			toCheck.x <= boundMax.x && toCheck.y <= boundMax.y;
+
+		//return 0 > (v - v0).magnitude; //&& 0 < (v-v1).magnitude;
 	}
 }

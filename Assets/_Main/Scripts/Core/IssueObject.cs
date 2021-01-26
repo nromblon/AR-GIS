@@ -119,8 +119,10 @@ public class IssueObject : MonoBehaviour
 		UnityWebRequest request = UnityWebRequestTexture.GetTexture(mediaURL);
 		yield return request.SendWebRequest();
 		//Canvas.gameObject.SetActive(true);
-		if (request.isNetworkError || request.isHttpError)
+		if (request.isNetworkError || request.isHttpError) {
 			Debug.LogError(request.error);
+			yield break;
+		}
 		else
 			image.texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
 
