@@ -11,6 +11,7 @@ TagManager:
   - Issue
   - InfoPin
   - Ping
+  - PlayArea Plane
   layers:
   - Default
   - TransparentFX

@@ -63,7 +63,7 @@ public class ToolBehaviour : NetworkBehaviour
 					RaycastHit rayHit;
 					if (Physics.Raycast(r, out rayHit, Mathf.Infinity, mask.value)) {
 						// Pin Object.
-						if (rayHit.collider.tag == "CityGML") {
+						if (rayHit.collider.tag == "PlayArea Plane") {
 							Debug.Log($"[ToolBehaviour] Hit: {rayHit.collider.gameObject.name}");
 							var pointInCity = CityManager.Instance.transform.InverseTransformPoint(rayHit.point);
 							CmdSpawnTool(ctrlManager.SelectedTool, pointInCity);

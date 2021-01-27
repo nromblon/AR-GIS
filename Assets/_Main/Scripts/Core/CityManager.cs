@@ -26,7 +26,7 @@ public class CityManager : MonoBehaviour
 	}
 
 	[Header("Config")]
-	[SerializeField] private BoxCollider PlaneCollider;
+	//[SerializeField] private BoxCollider PlaneCollider;
 	public float y_offset = -5;
 	public CityGml2GO cityGML2GO;
 	public IssueManager IssueManager;
@@ -117,7 +117,7 @@ public class CityManager : MonoBehaviour
 		InitializeIssues();
 
 		// Rescale City Plane Collider
-		RescaleCityPlaneColliderBounds();
+		//RescaleCityPlaneColliderBounds();
 
 		onLoadPosition = transform.position;
 		onLoadScale = transform.localScale;
@@ -301,10 +301,10 @@ public class CityManager : MonoBehaviour
 		}));
 	}
 
-	private void RescaleCityPlaneColliderBounds() {
-		var bounds = Utilities.GetBounds(gameObject);
-		PlaneCollider.size = new Vector3(bounds.size.x, 1, bounds.size.z);
-	}
+	//private void RescaleCityPlaneColliderBounds() {
+	//	var bounds = Utilities.GetBounds(gameObject);
+	//	PlaneCollider.size = new Vector3(bounds.size.x, 1, bounds.size.z);
+	//}
 
 	#endregion
 

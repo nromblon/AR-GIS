@@ -10778,5 +10778,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: CityGML
       objectReference: {fileID: 0}
+    - target: {fileID: 4897883291781474348, guid: e74af86e8205bf8409c1a27022448e5d,
+        type: 3}
+      propertyPath: GenerateColliders
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e74af86e8205bf8409c1a27022448e5d, type: 3}
