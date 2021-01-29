@@ -47,7 +47,6 @@ ScriptsOnlyBuild:
     - NewNetworkManager
     - NoVizTranslationManipulator
     - PingObject
-    - PlayAreaBoundsHandler
     - PlayAreaController
     - PlayAreaManager
     - RotateAround
@@ -55,7 +54,6 @@ ScriptsOnlyBuild:
     - ServerList
     - ServerListItem
     - SettingsMenu
-    - ShowBoundsGizmo
     - ToolBehaviour
     - UnityEngine.UI.Extensions.SegmentedControl
     Mirror.Components.dll:
@@ -81,10 +79,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -128,8 +124,6 @@ ScriptsOnlyBuild:
     - Class: 43
       Script: {instanceID: 0}
     - Class: 48
-      Script: {instanceID: 0}
-    - Class: 54
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
@@ -188,8 +182,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12006}
     - Class: 114
-      Script: {instanceID: 12100}
-    - Class: 114
       Script: {instanceID: 12162}
     - Class: 114
       Script: {instanceID: 12226}
@@ -205,8 +197,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12510}
     - Class: 114
       Script: {instanceID: 12628}
-    - Class: 114
-      Script: {instanceID: 12650}
     - Class: 114
       Script: {instanceID: 12694}
     - Class: 114
@@ -1375,7 +1365,7 @@ ScriptsOnlyBuild:
     className: ElevationManipulator
   - hash:
       serializedVersion: 2
-      Hash: 95c73e53680f6d8f2ff2bd254725abec
+      Hash: 984a8c8b6757b01f211472585cbdb4a6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CityManager
@@ -2223,4 +2213,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/_Main/_Scenes/MainMenu.unity
   - Assets/_Main/_Scenes/ARScene.unity
-  playerPath: D:/Projects/Dissertation_AR-GIS/ARGIS_v1.5.3_InstructionsPanel.apk
+  playerPath: D:/Projects/Dissertation_AR-GIS/ARGIS_v1.6_optimization-box-collider.apk

@@ -2630,7 +2630,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_textAlignment: 258
+  m_textAlignment: 1026
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -3409,7 +3409,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 258
+  m_textAlignment: 514
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -10459,6 +10459,11 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 2469320862963543583, guid: d3b8647d496670b4d924b66b76db6567,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 1026
+      objectReference: {fileID: 0}
     - target: {fileID: 2469320862545965091, guid: d3b8647d496670b4d924b66b76db6567,
         type: 3}
       propertyPath: m_IsActive
@@ -10562,7 +10567,7 @@ PrefabInstance:
     - target: {fileID: 2469320862545965093, guid: d3b8647d496670b4d924b66b76db6567,
         type: 3}
       propertyPath: m_textAlignment
-      value: 258
+      value: 514
       objectReference: {fileID: 0}
     - target: {fileID: 2469320862780006582, guid: d3b8647d496670b4d924b66b76db6567,
         type: 3}
