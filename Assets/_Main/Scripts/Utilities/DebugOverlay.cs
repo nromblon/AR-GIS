@@ -25,8 +25,17 @@ public class DebugOverlay : MonoBehaviour
 	public float CityRemovedTime;
 	public int ARSceneFrame;
 
-    // Start is called before the first frame update
-    void Awake()
+	// Vars for writing in CSV (PerformanceTesting.WriteDataToCSV)
+	private string main_menu_baseline;
+	private string city_init;
+	private string city_loaded_idle;
+	private string AR_baseline;
+	private string AR_city_placed;
+	private string lat_meshgen;
+	private string lat_cityInit;
+
+	// Start is called before the first frame update
+	void Awake()
     {
 		Instance = this;
 
@@ -65,6 +74,13 @@ public class DebugOverlay : MonoBehaviour
 			elapsedCounter[swIdx].text = elapsedCounter[swIdx].text + elapsedMs.ToString();
 
 			this.elapsedMs[swIdx] = elapsedMs;
+
+			if (swIdx == 0) {
+				lat_meshgen = elapsedMs.ToString();
+			}
+			else if (swIdx == 1) {
+				lat_cityInit = elapsedMs.ToString();
+			}
 		}
 	}
 
@@ -72,6 +88,8 @@ public class DebugOverlay : MonoBehaviour
 		var frameCountRange = Time.frameCount - frameCountInts[3];
 		var elapsedTime = Time.time - CityInitEndTime;
 		cityLoadedIdleAvgFps.text = cityLoadedIdleAvgFps.text + (frameCountRange / elapsedTime).ToString();
+
+		city_loaded_idle = (frameCountRange / elapsedTime).ToString();
 	}
 
 	public void SetAverageFPS(AvgFPS setFor) {
@@ -81,6 +99,8 @@ public class DebugOverlay : MonoBehaviour
 				UnityEngine.Debug.Log("MainMenu Time: " + MainMenuTime);
 				UnityEngine.Debug.Log("FrameCountInts[0]: " + frameCountInts[0]);
 				text = (frameCountInts[0] / (Time.time - MainMenuTime)).ToString();
+
+				main_menu_baseline = text;
 				break;
 
 			case AvgFPS.CityInit:
@@ -90,12 +110,16 @@ public class DebugOverlay : MonoBehaviour
 				// Calculate number of frames between meshGenStart and cityInitEnd
 				var frameCountRange = frameCountInts[3] - frameCountInts[0];
 				text = (frameCountRange / totalElapsed).ToString();
+
+				city_init = text;
 				break;
 
 			case AvgFPS.ARScene:
 				frameCountRange = frameCountInts[4] - ARSceneFrame;
 				var elapsed = Time.time - ARSceneTime;
 				text = (frameCountRange / elapsed).ToString();
+
+				AR_baseline = text;
 				break;
 
 			case AvgFPS.CityPlaced:
@@ -104,6 +128,11 @@ public class DebugOverlay : MonoBehaviour
 				UnityEngine.Debug.Log("elapsed: " + elapsed);
 				text = (frameCountRange / elapsed).ToString();
 				UnityEngine.Debug.Log("City Placed avg FPS: "+ text);
+
+				AR_city_placed = text;
+				//write results to csv
+				//UnityEngine.Debug.Log("[PerformanceTesting] WriteDataToCSV called ");
+				PerformanceTesting.WriteDataToCSV(main_menu_baseline, city_init, city_loaded_idle, AR_baseline, AR_city_placed, lat_meshgen, lat_cityInit);
 				break;
 		}
 

@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using Unity.Profiling;
+using UnityEngine;
+using System.IO;
 
 public class PerformanceTesting
 {
 	public const bool IsEvaluating = true;
+	public const string csv_filename = "perf_data.csv";
 
 	public static int EvalSet = -1;
 	static Dictionary<string, ProfilerMarker> profilerMarkers;
@@ -103,6 +106,28 @@ public class PerformanceTesting
 		}
 
 		return filenames;
+	}
+
+	public static void WriteDataToCSV(string main_menu_baseline, string city_init, string city_loaded_idle,
+		string AR_baseline, string AR_city_placed, string lat_meshgen, string lat_cityInit) {
+
+		var filePath = Application.persistentDataPath + csv_filename;
+
+		var culture = new System.Globalization.CultureInfo("en-US");
+		var datetime = System.DateTime.Now.ToString(culture);
+
+		var line = $"{datetime},{EvalSet},{main_menu_baseline},{city_init},{city_loaded_idle},{AR_baseline},{AR_city_placed}," +
+			$"{lat_meshgen},{lat_cityInit}";
+
+		//Debug.Log("[PerformanceTesting] Writing file... ");
+		if (!File.Exists(filePath)) {
+			//Debug.Log("File does not exist");
+			var header = "datetime,eval_set,main_menu_baseline,city_init,city_loaded_idle,AR_baseline,AR_city_placed,lat_mesh_gen,lat_city_init" + System.Environment.NewLine;
+			File.WriteAllText(filePath, header);
+		}
+
+		File.AppendAllText(filePath, line + System.Environment.NewLine);
+		//Debug.Log("[PerformanceTesting] File write done!");
 	}
 }
 
