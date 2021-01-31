@@ -40,7 +40,7 @@ namespace Assets.Scripts.CityGML2GO {
 		public float CurveThickness;
 		public GameObject LineRendererPrefab;
 		public bool GenerateColliders;
-
+		public bool ShouldCombineMesh = true;
 		public bool ApplyTextures = false;
 		public List<string> SemanticSurfaces = new List<string> { "GroundSurface", "WallSurface", "RoofSurface", "ClosureSurface", "CeilingSurface", "InteriorWallSurface", "FloorSurface", "OuterCeilingSurface", "OuterFloorSurface", "Door", "Window" };
 		public List<Poly2Mesh.Polygon> oriPoly = new List<Poly2Mesh.Polygon>();
@@ -276,18 +276,76 @@ namespace Assets.Scripts.CityGML2GO {
 					}
 				}
 			}
-			//CombineMeshes();
-			if(ApplyTextures)
+
+			if (ApplyTextures)
 				MaterialHandler.ApplyMaterials(this);
 
 			if (isSingle)
 				HasInstantiatedCity = true;
+
+			if (ShouldCombineMesh)
+				CombineMeshes(true);
 
 			yield return null;
 		}
 
 		public void SetFilePath(string path) {
 			this.Filename = path;
+		}
+
+		private void CombineMeshes(bool shouldOptimize=false) {
+			// TODO:
+			var buildings = GetComponentsInChildren<Scripts.BuildingProperties>();
+			Dictionary<string, List<MeshFilter>> meshBySematicType = new Dictionary<string, List<MeshFilter>>();
+			
+			//mesh filter = instance of mesh itself
+			foreach(var bldg in buildings) {
+				// Step 1. Organize MeshFilters by Semantic Type
+				MeshFilter[] meshFilters = bldg.GetComponentsInChildren<MeshFilter>();
+				foreach (MeshFilter mf in meshFilters) {
+					string mf_semanticType = mf.GetComponent<SemanticType>().Name;
+					if (!meshBySematicType.ContainsKey(mf_semanticType)) {
+						meshBySematicType[mf_semanticType] = new List<MeshFilter>();
+					}
+					meshBySematicType[mf_semanticType].Add(mf);
+				}
+
+				// Step 2. Combine MeshFilters by Semantic Type (use meshFilter.mesh)
+				foreach (var key in meshBySematicType.Keys) {
+					List<MeshFilter> bySemanticType = meshBySematicType[key];
+					CombineInstance[] combine = new CombineInstance[bySemanticType.Count];
+					int i = 0;
+					MeshFilter firstMf = bySemanticType[0];
+					foreach(MeshFilter mf in bySemanticType) {
+						combine[i].mesh = mf.mesh;
+						combine[i].transform = mf.transform.localToWorldMatrix;
+						mf.gameObject.SetActive(false);
+						i++;
+					}
+					firstMf.mesh = new Mesh();
+					firstMf.mesh.CombineMeshes(combine);
+					firstMf.gameObject.SetActive(true);
+
+
+					// Step 3. optimize combined mesh (can use either .mesh or .sharedMesh
+					firstMf.mesh.Optimize();
+
+					// Step 3.1 Destroy old meshes
+					foreach (MeshFilter mf in bySemanticType) {
+						if (!mf.gameObject.activeSelf)
+							Destroy(mf.gameObject);
+					}
+				}
+
+				// Step 4. Clear lists and dictionary
+				foreach (var ls in meshBySematicType.Values)
+					ls.Clear();
+
+				meshBySematicType.Clear();
+			}
+
+			// Use Resources.UnloadUnusedAssets() after mesh combination?
+			Resources.UnloadUnusedAssets();
 		}
 	}
 }

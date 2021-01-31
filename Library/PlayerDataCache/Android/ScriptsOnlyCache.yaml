@@ -1191,7 +1191,7 @@ ScriptsOnlyBuild:
     className: ARCoreWorldOriginHelper
   - hash:
       serializedVersion: 2
-      Hash: 5e980bb7d00207456b3f88501c3ebb67
+      Hash: cefce7e5105bb32b49accbd662fe2360
     assemblyName: Assembly-CSharp.dll
     namespaceName: Assets.Scripts.CityGML2GO
     className: CityGml2GO
@@ -2213,4 +2213,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/_Main/_Scenes/MainMenu.unity
   - Assets/_Main/_Scenes/ARScene.unity
-  playerPath: D:/Projects/Dissertation_AR-GIS/ARGIS_v1.6_optimization-box-collider.apk
+  playerPath: D:/Projects/Dissertation_AR-GIS/ARGIS_v1.6.1_perf-csv.apk
